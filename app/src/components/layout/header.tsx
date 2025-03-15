@@ -21,7 +21,7 @@ export const Header = () => (
           variant={"default"}
           className="bg-teal-500 hover:bg-teal-600 transition-all"
           >
-          利用を開始する
+          今すぐ始める
         </Button>
       </div>
     </div>
