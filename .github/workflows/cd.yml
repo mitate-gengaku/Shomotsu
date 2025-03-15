@@ -9,7 +9,7 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
