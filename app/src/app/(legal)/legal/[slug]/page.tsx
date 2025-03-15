@@ -17,7 +17,7 @@ export const generateMetadata = async (
   const findMatchSlugItem = legalSlug.find((value) => value.slug === slug);
   const title = findMatchSlugItem
     ? `${findMatchSlugItem.ja} | Shomotsu`
-    : (await parent).title || "";
+    : (await parent).title || "Shomotsu";
 
   return {
     title: title,
