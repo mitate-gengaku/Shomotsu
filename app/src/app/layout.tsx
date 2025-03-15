@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${manRope.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}>
         {children}
         <Script
           async
