@@ -1,5 +1,5 @@
-import { Footer } from "@/components/layout/footer"
-import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 
 const LegalLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
@@ -12,7 +12,7 @@ const LegalLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default LegalLayout
+export default LegalLayout;

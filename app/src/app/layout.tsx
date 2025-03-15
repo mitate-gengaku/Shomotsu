@@ -1,7 +1,7 @@
-import { Geist } from "next/font/google";
 import Script from "next/script";
 
 import type { Metadata } from "next";
+
 import "@/app/globals.css";
 import { geistSans, manRope } from "@/config/font";
 
@@ -48,7 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}>
+      <body
+        className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}
+      >
         {children}
         <Script
           async

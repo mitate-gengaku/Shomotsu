@@ -1,18 +1,23 @@
-import { Header } from "@/components/layout/header";
-import { legalSlug } from "@/config/legal-slug";
 import { Metadata, ResolvingMetadata } from "next";
 import { ComponentType } from "react";
+
+import { legalSlug } from "@/config/legal-slug";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const generateMetadata = async ({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> => {
+export const generateMetadata = async (
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> => {
   const { slug } = await params;
 
   // タイトルの生成
-  const findMatchSlugItem = legalSlug.find((value) => value.slug === slug)
-  const title = findMatchSlugItem ? `${findMatchSlugItem.ja} | Shomotsu`: (await parent).title || ""
+  const findMatchSlugItem = legalSlug.find((value) => value.slug === slug);
+  const title = findMatchSlugItem
+    ? `${findMatchSlugItem.ja} | Shomotsu`
+    : (await parent).title || "";
 
   return {
     title: title,
@@ -21,9 +26,9 @@ export const generateMetadata = async ({ params }: Props, parent: ResolvingMetad
     },
     twitter: {
       title: title,
-    }
-  }
-}
+    },
+  };
+};
 
 const LegalPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
@@ -31,9 +36,7 @@ const LegalPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     default: ComponentType;
   };
 
-  return (
-    <Post />
-  );
+  return <Post />;
 };
 
 export const generateStaticParams = () => legalSlug;

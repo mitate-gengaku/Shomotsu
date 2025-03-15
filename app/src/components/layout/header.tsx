@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 
 export const Header = () => (
   <header
@@ -11,19 +12,16 @@ export const Header = () => (
         <Link href={"/"}>Shomotsu</Link>
       </h1>
       <div className="flex items-center gap-4 ml-auto">
-        <Button
-          variant={"outline"}
-          className="transition-all"
-          >
+        <Button variant={"outline"} className="transition-all">
           ログイン
         </Button>
         <Button
           variant={"default"}
           className="bg-teal-500 hover:bg-teal-600 transition-all"
-          >
+        >
           今すぐ始める
         </Button>
       </div>
     </div>
   </header>
-)
+);
