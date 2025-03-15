@@ -55,7 +55,8 @@ export default {
   			}
   		},
   		fontFamily: {
-  			'geist-sans': 'var(--font-geist-sans)'
+  			'geist-sans': 'var(--font-geist-sans)',
+				'manrope': 'var(--font-manrope)'
   		},
   	}
   },

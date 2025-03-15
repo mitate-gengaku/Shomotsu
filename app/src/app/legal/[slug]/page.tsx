@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/header";
-import { legalSlug } from "@/config/legal/slug";
+import { legalSlug } from "@/config/legal-slug";
 import { ComponentType } from "react";
 
 const LegalPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
