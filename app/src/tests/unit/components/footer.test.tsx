@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, test, vitest } from "vitest";
 import { Footer } from "@/components/layout/footer";
 
 // ルーターのモック設定
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 vitest.mock("next/router", () => require("next-router-mock"));
 
 // Linkのモック設定

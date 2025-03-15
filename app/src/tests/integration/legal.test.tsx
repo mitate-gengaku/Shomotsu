@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 
 import { render, screen } from "@testing-library/react";
+import { ResolvingMetadata } from "next";
 import { describe, expect, test, vitest } from "vitest";
 
 import Page, {
@@ -8,7 +9,6 @@ import Page, {
   generateMetadata,
   generateStaticParams,
 } from "@/app/(legal)/legal/[slug]/page";
-import { ResolvingMetadata } from "next";
 
 type Props = {
   params: {
@@ -49,7 +49,10 @@ describe("Legalページのテスト", () => {
 
   test("正しい静的パラメータを生成する", () => {
     const params = generateStaticParams();
-    expect(params).toEqual([{ slug: "terms", ja: "利用規約" }, { slug: "privacy", ja: "プライバシーポリシー" }]);
+    expect(params).toEqual([
+      { slug: "terms", ja: "利用規約" },
+      { slug: "privacy", ja: "プライバシーポリシー" },
+    ]);
   });
 
   test("dynamicParamsがfalseに設定されている", () => {
@@ -57,26 +60,26 @@ describe("Legalページのテスト", () => {
   });
 
   test("動的にSEOタグが設定される", async () => {
-    const props: Props = { params: { slug: 'terms' } };
+    const props: Props = { params: { slug: "terms" } };
     const parent = Promise.resolve({
-      title: 'デフォルトタイトル'
+      title: "デフォルトタイトル",
     }) as unknown as ResolvingMetadata;
 
     const metadata = await generateMetadata(props, parent);
 
-    expect(metadata.title).toBe('利用規約 | Shomotsu');
-    expect(metadata.openGraph?.title).toBe('利用規約 | Shomotsu');
-    expect(metadata.twitter?.title).toBe('利用規約 | Shomotsu');
-  })
+    expect(metadata.title).toBe("利用規約 | Shomotsu");
+    expect(metadata.openGraph?.title).toBe("利用規約 | Shomotsu");
+    expect(metadata.twitter?.title).toBe("利用規約 | Shomotsu");
+  });
 
-  test('親のタイトルが存在しない場合、空文字列が使用されること', async () => {
-    const props: Props = { params: { slug: 'non-existent' } };
+  test("親のタイトルが存在しない場合、空文字列が使用されること", async () => {
+    const props: Props = { params: { slug: "non-existent" } };
     const parent = Promise.resolve({}) as ResolvingMetadata;
 
     const metadata = await generateMetadata(props, parent);
 
-    expect(metadata.title).toBe('Shomotsu');
-    expect(metadata.openGraph?.title).toBe('Shomotsu');
-    expect(metadata.twitter?.title).toBe('Shomotsu');
+    expect(metadata.title).toBe("Shomotsu");
+    expect(metadata.openGraph?.title).toBe("Shomotsu");
+    expect(metadata.twitter?.title).toBe("Shomotsu");
   });
 });
