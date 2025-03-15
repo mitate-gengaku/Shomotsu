@@ -1,8 +1,10 @@
 export const legalSlug = [
   {
-    slug: 'terms'
+    slug: 'terms',
+    ja: "利用規約"
   },
   {
-    slug: 'privacy'
+    slug: 'privacy',
+    ja: "プライバシーポリシー"
   }
 ]
