@@ -14,6 +14,12 @@ export default defineConfig({
     coverage: {
       include: [
         "src"
+      ],
+      exclude: [
+        "src/components/ui",
+        "src/middleware.ts",
+        "src/mdx-components.tsx",
+        "src/config"
       ]
     },
     environment: "happy-dom",

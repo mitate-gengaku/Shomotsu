@@ -55,9 +55,10 @@ export default {
   			}
   		},
   		fontFamily: {
-  			'geist-sans': 'var(--font-geist-sans)'
+  			'geist-sans': 'var(--font-geist-sans)',
+				'manrope': 'var(--font-manrope)'
   		},
   	}
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config

@@ -1,13 +1,9 @@
-import { Geist } from "next/font/google";
 import Script from "next/script";
 
 import type { Metadata } from "next";
-import "@/app/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import "@/app/globals.css";
+import { geistSans, manRope } from "@/config/font";
 
 export const metadata: Metadata = {
   title: "Shomotsu | オンライン読書・執筆プラットフォーム",
@@ -52,7 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}
+      >
         {children}
         <Script
           async
