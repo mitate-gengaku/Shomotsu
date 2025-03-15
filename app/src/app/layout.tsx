@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "@/app/globals.css";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,10 @@ export default function RootLayout({
         className={`${geistSans.variable} antialiased`}
       >
         {children}
+        <Script
+          async 
+          src="https://cloud.umami.is/script.js" 
+          data-website-id={process.env.UMAMI_DABA_WEBSITE_ID} />
       </body>
     </html>
   );
