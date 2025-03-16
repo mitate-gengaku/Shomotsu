@@ -15,6 +15,7 @@ const NotFound = () => {
         alignItems: "center",
         justifyContent: "center",
       }}
+      data-testid="notfound-page"
     >
       <div>
         <style
