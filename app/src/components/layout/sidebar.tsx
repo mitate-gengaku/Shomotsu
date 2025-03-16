@@ -73,7 +73,13 @@ const Sidebar = () => {
 
   return (
     <>
-      <Button size={"icon"} variant={"ghost"} className="z-[9999]" asChild>
+      <Button
+        size={"icon"}
+        variant={"ghost"}
+        className="z-[9999]"
+        data-testid="sidebar-trigger"
+        asChild
+      >
         <motion.button
           onClick={() => setIsOpen((open) => !open)}
           onMouseEnter={() => handleSidebar(true)}
@@ -92,6 +98,7 @@ const Sidebar = () => {
         animate={isOpen ? "open" : "closed"}
         onMouseEnter={() => handleSidebar(true)}
         onMouseLeave={() => handleSidebar(false)}
+        data-testid="sidebar"
       >
         <div className="h-full pl-3 pr-1 py-6 border-r border-t">
           <h2 className="text-sm font-bold mb-3">作品一覧</h2>
@@ -106,13 +113,17 @@ const Sidebar = () => {
                     {item}
                   </Link>
                   <AlertDialog>
-                    <AlertDialogTrigger asChild>
+                    <AlertDialogTrigger
+                      data-testid="alert-dialog-trigger"
+                      asChild
+                    >
                       <button className="z-[999] flex items-center justify-center size-6 absolute right-0 top-0.5 rounded-sm">
                         <EllipsisIcon className="size-3" />
                       </button>
                     </AlertDialogTrigger>
                     <AlertDialogContent
                       onMouseEnter={() => handleSidebar(true)}
+                      data-testid="alert-dialog-content"
                     >
                       <AlertDialogHeader>
                         <AlertDialogTitle>本の削除</AlertDialogTitle>
