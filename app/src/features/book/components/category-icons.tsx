@@ -6,5 +6,5 @@ interface Props extends React.ComponentProps<"svg"> {
 
 export const CategoryIcons = ({ icon, ...props }: Props) => {
   const Icon = icons[icon] as React.ComponentType<React.ComponentProps<"svg">>;
-  return <Icon {...props} />;
+  return <Icon data-testid="category-icons" {...props} />;
 };
