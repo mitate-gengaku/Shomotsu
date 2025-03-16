@@ -25,7 +25,7 @@ vitest.mock("@/contents/terms.mdx", () => ({
 }));
 
 describe("Legalページのテスト", () => {
-  test("プライバシーページを正しく表示する", async () => {
+  test("ページが正常に表示される", async () => {
     const params = Promise.resolve({ slug: "privacy" });
 
     render(await Page({ params }));
