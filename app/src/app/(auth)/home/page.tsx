@@ -6,45 +6,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { userData } from "@/config/user-data";
 import { cn } from "@/utils/cn";
 
-const userData = {
-  name: "田中 太郎",
-  avatar: "https://placehold.co/100x150",
-  books: [
-    {
-      id: 1,
-      title: "私の冒険",
-      progress: 85,
-      lastEdited: "2025-03-05",
-      cover: "https://placehold.co/100x150",
-    },
-    {
-      id: 2,
-      title: "料理の旅",
-      progress: 40,
-      lastEdited: "2025-03-01",
-      cover: "https://placehold.co/100x150",
-    },
-    {
-      id: 3,
-      title: "未来の世界",
-      progress: 10,
-      lastEdited: "2025-02-28",
-      cover: "https://placehold.co/100x150",
-    },
-    {
-      id: 4,
-      title: "未来の世界",
-      progress: 10,
-      lastEdited: "2025-02-28",
-      cover: "https://placehold.co/100x150",
-    },
-  ],
-};
 const HomePage = () => {
   return (
-    <section className="mb-8 lg:mb-0">
+    <section className="h-full mb-8 lg:mb-0" data-testid="home-page">
       <div className="flex flex-col mb-8 gap-8">
         <div className="flex flex-col items-center">
           <h3 className="text-xl sm:text-2xl font-semibold">
@@ -83,7 +50,10 @@ const HomePage = () => {
       </div>
 
       {/* Mobile view (scrollable cards) */}
-      <div className="grid grid-cols-2 gap-3 md:hidden">
+      <div
+        className="grid grid-cols-2 gap-3 md:hidden"
+        data-testid="mobile-bookcard-container"
+      >
         {userData.books.slice(0, 2).map((book) => (
           <div key={book.id} className="group">
             <div className="relative aspect-[2/3] mb-2 rounded-lg overflow-hidden group-hover:shadow-md transition-shadow">
@@ -114,6 +84,7 @@ const HomePage = () => {
           userData.books.length < 4 && "gap-4",
           userData.books.length === 4 && "gap-4 justify-between",
         )}
+        data-testid="desktop-bookcard-container"
       >
         {userData.books.map((book) => (
           <div key={book.id} className="min-w-[160px] group">

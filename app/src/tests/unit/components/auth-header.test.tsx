@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, test, vitest } from "vitest";
 
 import { AuthHeader } from "@/components/layout/auth-header";
-import userEvent from "@testing-library/user-event";
 
 vitest.mock("@/components/layout/sidebar", () => ({
   default: () => <div data-testid="sidebar">Sidebar</div>,
@@ -24,9 +24,9 @@ describe("AuthHeaderコンポーネントのテスト", () => {
 
     render(<AuthHeader />);
 
-    const dropdownMenuTrigger = screen.getByTestId("dropdown-trigger")
+    const dropdownMenuTrigger = screen.getByTestId("dropdown-trigger");
 
-    await user.click(dropdownMenuTrigger)
+    await user.click(dropdownMenuTrigger);
 
     const dropdownMenu = screen.getByRole("menu");
 
@@ -35,7 +35,7 @@ describe("AuthHeaderコンポーネントのテスト", () => {
     const dropdownMenuItems = screen.getAllByRole("menuitem");
 
     dropdownMenuItems.forEach((element) => {
-      expect(element).toBeInTheDocument()
+      expect(element).toBeInTheDocument();
     });
-  })
+  });
 });
