@@ -3,7 +3,7 @@ import React from "react";
 export const FormatDate = ({
   date,
   ...props
-}: { date: Date } & React.ComponentProps<"span">) => {
+}: { date: string } & React.ComponentProps<"span">) => {
   const formattedDate = new Date(date).toLocaleDateString("sv-SE", {
     timeZone: "Asia/Tokyo",
   });
