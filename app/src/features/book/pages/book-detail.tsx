@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BookDetailClient } from "@/features/book/client/book-detail";
+import { BookDetailClient } from "@/features/book/client/book-detail-client";
 import { getBook } from "@/features/book/services/get-book";
 
 export const BookDetail = async ({ bookId }: { bookId: string }) => {
