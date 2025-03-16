@@ -7,14 +7,14 @@ export interface IBook {
   user: {
     name: string;
     avatar: string;
-  }
+  };
   cover: string;
   content: string;
   publish: boolean;
   categories: {
     title: string;
-    icon: IconKeyType
-  }[]
+    icon: IconKeyType;
+  }[];
   created_at: Date;
   updated_at: Date;
 }

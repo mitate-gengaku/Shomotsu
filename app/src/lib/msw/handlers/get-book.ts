@@ -1,15 +1,14 @@
 import { http, HttpResponse } from "msw";
 
-export const getBookHandler = http.get(
-  "http://localhost:3000/api/books/:id",
-  () => {
-    return HttpResponse.json({
+const books = new Map(
+  Object.entries({
+    "238A26BF-C676-4FFA-BF17-73D673D35B6B": {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
       user_id: "387a19fb-b2a4-43cd-a7b4-a3bfb8846f33",
       user: {
         name: "近藤れるひ",
-        avatar: "https://placehold.co/150x150"
+        avatar: "https://placehold.co/150x150",
       },
       cover: "https://placehold.co/100x150",
       content:
@@ -23,6 +22,18 @@ export const getBookHandler = http.get(
       ],
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-    });
+    },
+  }),
+);
+
+export const getBookHandler = http.get(
+  "http://localhost:3000/api/books/:id",
+  ({ params }) => {
+    const { id } = params;
+
+    if (!books.get(String(id))) {
+      return HttpResponse.json(null, { status: 404, statusText: "Not Found" });
+    }
+    return HttpResponse.json(books.get(String(id)));
   },
 );

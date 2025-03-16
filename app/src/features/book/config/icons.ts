@@ -1,7 +1,7 @@
-import { ComputerIcon } from "lucide-react"
+import { ComputerIcon } from "lucide-react";
 
 export const icons = {
   computer: ComputerIcon,
-}
+};
 
-export type IconKeyType = keyof (typeof icons)
+export type IconKeyType = keyof typeof icons;

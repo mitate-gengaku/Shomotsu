@@ -1,6 +1,6 @@
 "use client";
 
-import { ComputerIcon, CpuIcon, UserIcon } from "lucide-react";
+import { UserIcon } from "lucide-react";
 import React from "react";
 
 import { FormatDate } from "@/components/format/date";
@@ -10,8 +10,8 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { userData } from "@/config/user-data";
-import { IBook } from "@/types/book";
 import { CategoryIcons } from "@/features/book/components/category-icons";
+import { IBook } from "@/types/book";
 
 export const BookDetailClient = ({ book }: { book: IBook }) => {
   return (
@@ -76,10 +76,13 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
                     variant={"outline"}
                     className="rounded-full transition-all"
                     key={`${category.title}-${i}`}
-                    >
-                      <CategoryIcons icon={category.icon} />
-                      {category.title}
-                    </Button>
+                  >
+                    <CategoryIcons
+                      icon={category.icon}
+                      className="text-teal-500"
+                    />
+                    {category.title}
+                  </Button>
                 ))}
               </div>
             </div>
@@ -135,10 +138,13 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
                       variant={"outline"}
                       className="rounded-full transition-all"
                       key={`${category.title}-${i}`}
-                      >
-                        <CategoryIcons icon={category.icon} className="text-teal-500" />
-                        {category.title}
-                      </Button>
+                    >
+                      <CategoryIcons
+                        icon={category.icon}
+                        className="text-teal-500"
+                      />
+                      {category.title}
+                    </Button>
                   ))}
                 </div>
               </div>
