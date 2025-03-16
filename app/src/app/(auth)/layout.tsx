@@ -11,7 +11,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     >
       <AuthHeader />
 
-      <main className="flex-1 w-full lg:w-1/2 mx-auto px-4 pt-[calc(4rem+60px)] pb-20 lg:pb-0">
+      <main className="flex flex-col px-4 pt-[calc(4rem+60px)] pb-20 lg:pb-0">
         {children}
       </main>
 

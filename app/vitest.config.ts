@@ -20,7 +20,9 @@ export default defineConfig({
         "src/components/ui",
         "src/middleware.ts",
         "src/mdx-components.tsx",
-        "src/config"
+        "src/config",
+        "src/lib",
+        "src/types",
       ]
     },
     environment: "happy-dom",

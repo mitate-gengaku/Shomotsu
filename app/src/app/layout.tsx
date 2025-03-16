@@ -4,6 +4,11 @@ import type { Metadata } from "next";
 
 import "@/app/globals.css";
 import { geistSans, manRope } from "@/config/font";
+import { initMocks } from "@/lib/msw/setup/init";
+
+if (process.env.NODE_ENV === "development") {
+  initMocks();
+}
 
 export const metadata: Metadata = {
   title: "Shomotsu | オンライン読書・執筆プラットフォーム",
