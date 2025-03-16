@@ -83,7 +83,7 @@ const HomePage = () => {
       </div>
 
       {/* Mobile view (scrollable cards) */}
-      <div className="grid grid-cols-2 gap-3 sm:hidden">
+      <div className="grid grid-cols-2 gap-3 md:hidden">
         {userData.books.slice(0, 2).map((book) => (
           <div key={book.id} className="group">
             <div className="relative aspect-[2/3] mb-2 rounded-lg overflow-hidden group-hover:shadow-md transition-shadow">
@@ -110,9 +110,9 @@ const HomePage = () => {
       {/* Tablet and desktop view */}
       <div
         className={cn(
-          "hidden sm:flex overflow-x-auto pb-2",
+          "hidden md:flex overflow-x-auto pb-2",
           userData.books.length < 4 && "gap-4",
-          userData.books.length === 4 && "justify-between",
+          userData.books.length === 4 && "gap-4 justify-between",
         )}
       >
         {userData.books.map((book) => (

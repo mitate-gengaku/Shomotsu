@@ -23,7 +23,7 @@ export const AuthHeader = () => {
         </h1>
         <div className="flex items-center gap-2 ml-auto">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger data-testid="dropdown-trigger">
               <Avatar className="h-8 w-8 cursor-pointer" data-testid="avatar">
                 <AvatarImage src={"https://placehold.co/150x150"} />
                 <AvatarFallback>
