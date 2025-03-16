@@ -29,6 +29,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.5.0",
     "lucide-react": "^0.477.0",
+    "msw": "^2.7.3",
     "next": "15.2.1",
     "next-router-mock": "^0.9.13",
     "react": "^19.0.0",
@@ -63,5 +64,10 @@
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.7"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
