@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vitest } from "vitest";
 
-import AuthLayout from "@/app/(auth)/layout";
+import AuthLayout from "@/app/(main)/layout";
 
 vitest.mock("@/components/layout/auth-header", () => ({
   AuthHeader: () => <header data-testid="header">Header</header>,

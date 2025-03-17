@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, test, vi, vitest } from "vitest";
 
-import HomePage from "@/app/(auth)/home/page";
+import HomePage from "@/app/(main)/home/page";
 import { userData } from "@/config/user-data";
 
 vitest.mock("@/config/user-data", () => ({
