@@ -1,7 +1,8 @@
-import { http, HttpResponse } from "msw";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
 
+import { ExploreClientPage } from "@/features/book/client/explore-page";
 import { IconKeyType } from "@/features/book/config/icons";
-
 const books = [
   {
     id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
@@ -215,11 +216,30 @@ const books = [
   },
 ];
 
-export const getExploreBooksHandler = http.get(
-  "http://localhost:3000/api/explore",
-  () => {
-    return HttpResponse.json({
-      books: books,
+describe("ExploreClientPage", () => {
+  test("コンポーネントが正常に表示される", () => {
+    render(<ExploreClientPage books={books} />);
+
+    const exploreClientPage = screen.getByTestId("explore-book-page");
+
+    expect(exploreClientPage).toBeInTheDocument();
+  });
+
+  test("BookCardが表示されている", async () => {
+    render(<ExploreClientPage books={books} />);
+
+    const bookCards = screen.getAllByTestId("book-card");
+
+    bookCards.forEach((bookCard) => {
+      expect(bookCard).toBeInTheDocument();
     });
-  },
-);
+  });
+
+  test("次のページへというラベルがついたボタンが表示されている", async () => {
+    render(<ExploreClientPage books={books} />);
+
+    const nextPageButton = screen.getByRole("button", { name: "次のページ" });
+
+    expect(nextPageButton).toBeInTheDocument();
+  });
+});

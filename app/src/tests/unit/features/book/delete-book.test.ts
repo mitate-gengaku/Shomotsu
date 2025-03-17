@@ -1,6 +1,5 @@
 import { afterEach } from "node:test";
 
-import { redirect } from "next/navigation";
 import mockRouter from "next-router-mock";
 import { beforeEach } from "vitest";
 import { afterAll, beforeAll, describe, expect, test, vitest } from "vitest";
@@ -22,42 +21,42 @@ describe("deleteBookのテスト", () => {
   });
   afterAll(() => server.close());
   afterEach(() => {
-    server.resetHandlers()
+    server.resetHandlers();
     vitest.clearAllMocks();
   });
 
   test("本のIDが一致する場合、正常に削除できる", async () => {
     const mockResponse = {
       ok: true,
-      json: vitest.fn().mockResolvedValue({ message: "本を削除しました" })
+      json: vitest.fn().mockResolvedValue({ message: "本を削除しました" }),
     };
     (global.fetch as any).mockResolvedValue(mockResponse);
 
     const bookId = "238A26BF-C676-4FFA-BF17-73D673D35B6B";
-    const result = await deleteBook(bookId)
+    const result = await deleteBook(bookId);
 
     expect(global.fetch).toHaveBeenCalledWith(
       `http://localhost:3000/api/books/${bookId}`,
-      { method: 'DELETE' }
+      { method: "DELETE" },
     );
-    expect(result).toEqual({ message: "本を削除しました"})
-    expect(mockResponse.json).toHaveBeenCalled()
-  })
+    expect(result).toEqual({ message: "本を削除しました" });
+    expect(mockResponse.json).toHaveBeenCalled();
+  });
 
   test("本のIDが一致しない場合、Not Foundエラーが返る", async () => {
     const mockResponse = {
       ok: false,
-      statusText: 'Not Found',
-      json: vitest.fn().mockResolvedValue({ message: 'Not Found' }),
+      statusText: "Not Found",
+      json: vitest.fn().mockResolvedValue({ message: "Not Found" }),
     };
     (global.fetch as any).mockResolvedValue(mockResponse);
 
-    const bookId = '456';
-    await expect(deleteBook(bookId)).rejects.toThrow('Not Found');
+    const bookId = "456";
+    await expect(deleteBook(bookId)).rejects.toThrow("Not Found");
 
     expect(global.fetch).toHaveBeenCalledWith(
       `http://localhost:3000/api/books/${bookId}`,
-      { method: 'DELETE' }
+      { method: "DELETE" },
     );
     expect(mockResponse.json).toHaveBeenCalled();
   });
