@@ -29,7 +29,7 @@ const books = new Map(
   }),
 );
 
-export const getBookHandler = http.get(
+export const deleteBookHandler = http.delete(
   "http://localhost:3000/api/books/:id",
   ({ params }) => {
     const { id } = params;
@@ -41,6 +41,13 @@ export const getBookHandler = http.get(
     if (!book) {
       return HttpResponse.json(null, { status: 404, statusText: "Not Found" });
     }
-    return HttpResponse.json(book);
+    return HttpResponse.json(
+      {
+        message: "本を削除しました",
+      },
+      {
+        status: 200,
+      },
+    );
   },
 );
