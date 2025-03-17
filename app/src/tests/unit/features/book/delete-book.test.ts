@@ -30,6 +30,7 @@ describe("deleteBookのテスト", () => {
       ok: true,
       json: vitest.fn().mockResolvedValue({ message: "本を削除しました" }),
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global.fetch as any).mockResolvedValue(mockResponse);
 
     const bookId = "238A26BF-C676-4FFA-BF17-73D673D35B6B";
@@ -49,6 +50,7 @@ describe("deleteBookのテスト", () => {
       statusText: "Not Found",
       json: vitest.fn().mockResolvedValue({ message: "Not Found" }),
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global.fetch as any).mockResolvedValue(mockResponse);
 
     const bookId = "456";

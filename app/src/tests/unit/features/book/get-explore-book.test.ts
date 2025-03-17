@@ -1,6 +1,5 @@
 import { afterEach } from "node:test";
 
-import { redirect } from "next/navigation";
 import mockRouter from "next-router-mock";
 import { beforeEach } from "vitest";
 import { afterAll, beforeAll, describe, expect, test, vitest } from "vitest";
@@ -25,6 +24,6 @@ describe("getExploreBooksのテスト", () => {
   test("本のIDが一致する場合、本のデータが返る", async () => {
     const book = await getExploreBooks();
 
-    expect(book.length).toBe(10)
+    expect(book.length).toBe(10);
   });
 });

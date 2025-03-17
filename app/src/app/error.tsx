@@ -7,7 +7,10 @@ export default function Error() {
       {/* <head> */}
       <title>500: Internal Server Error</title>
       {/* </head> */}
-      <div className="h-screen text-center flex flex-col items-center justify-center font-sans">
+      <div
+        className="h-screen text-center flex flex-col items-center justify-center font-sans"
+        data-testid="error-page"
+      >
         <div>
           <style
             dangerouslySetInnerHTML={{
