@@ -10,6 +10,7 @@ export const Spinner = ({
   <LoaderCircleIcon
     className={cn("size-4 animate-spin", className)}
     aria-label="読み込み中"
+    data-testid="spinner"
     {...props}
   />
 );

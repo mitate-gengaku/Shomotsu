@@ -1,0 +1,14 @@
+import { Spinner } from "@/components/loading/spinner";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
+
+describe("Spinnerコンポーネントのテスト", () => {
+  test("コンポーネントが正常に表示される", () => {
+    render(<Spinner />)
+
+    const spinner = screen.getByTestId("spinner")
+
+    expect(spinner).toBeInTheDocument();
+    expect(spinner.tagName).toBe("svg")
+  })
+})

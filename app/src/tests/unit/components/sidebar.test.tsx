@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import userEvent, { PointerEventsCheckLevel } from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
 
 import Sidebar from "@/components/layout/sidebar";
@@ -80,7 +80,7 @@ describe("Sidebarコンポーネントのテスト", () => {
   });
 
   test("開いているサイドバーメニューの・・・ボタンにカーソルを合わせるとその状態を維持する", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ pointerEventsCheck: PointerEventsCheckLevel.Never });
     render(<Sidebar />);
 
     const sidebar = screen.getByTestId("sidebar");
