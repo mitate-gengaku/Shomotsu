@@ -53,7 +53,7 @@ const HomePage = () => {
 
       {/* Mobile view (scrollable cards) */}
       <div
-        className="grid grid-cols-2 gap-3 md:hidden"
+        className="grid grid-cols-2 gap-8 md:hidden"
         data-testid="mobile-bookcard-container"
       >
         {userData.books.slice(0, 2).map((book) => (

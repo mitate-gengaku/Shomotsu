@@ -3,6 +3,7 @@ import Script from "next/script";
 import type { Metadata } from "next";
 
 import "@/app/globals.css";
+import { Toaster } from "@/components/ui/sonner";
 import { geistSans, manRope } from "@/config/font";
 import { initMocks } from "@/lib/msw/setup/init";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}
       >
+        <Toaster richColors position="top-right" theme="light" />
         {children}
         <Script
           async

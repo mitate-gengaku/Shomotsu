@@ -3,25 +3,30 @@
 import { motion } from "framer-motion";
 import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { useDebouncedCallback } from "use-debounce";
 
+import { Spinner } from "@/components/loading/spinner";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
-  AlertDialogCancel,
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { deleteBook } from "@/features/book/services/delete-book";
+import { cn } from "@/utils/cn";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
 
   const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
 
@@ -51,7 +56,7 @@ const Sidebar = () => {
     },
   };
 
-  const buttonVariants = {
+  const sidebarButtonVariants = {
     open: {
       x: 0,
       rotate: 0,
@@ -71,6 +76,24 @@ const Sidebar = () => {
     },
   };
 
+  const onDelete = (bookId: string) => {
+    startTransition(async () => {
+      try {
+        const response = await deleteBook(bookId);
+        toast.success(response.message);
+        setDialogOpen((open) => !open);
+        handleSidebar((open) => !open);
+      } catch (e) {
+        if (e instanceof Error) {
+          toast.error(e.message);
+          return;
+        }
+        toast.error("Something went wrong");
+        return;
+      }
+    });
+  };
+
   return (
     <>
       <Button
@@ -84,7 +107,7 @@ const Sidebar = () => {
           onClick={() => setIsOpen((open) => !open)}
           onMouseEnter={() => handleSidebar(true)}
           onMouseLeave={() => handleSidebar(false)}
-          variants={buttonVariants}
+          variants={sidebarButtonVariants}
           animate={isOpen ? "open" : "closed"}
           aria-label="Toggle sidebar"
         >
@@ -112,35 +135,48 @@ const Sidebar = () => {
                   >
                     {item}
                   </Link>
-                  <AlertDialog>
-                    <AlertDialogTrigger
-                      data-testid="alert-dialog-trigger"
-                      asChild
-                    >
+                  <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                    <DialogTrigger data-testid="alert-dialog-trigger" asChild>
                       <button className="z-[999] flex items-center justify-center size-6 absolute right-0 top-0.5 rounded-sm">
                         <EllipsisIcon className="size-3" />
                       </button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent
+                    </DialogTrigger>
+                    <DialogContent
                       onMouseEnter={() => handleSidebar(true)}
                       data-testid="alert-dialog-content"
                     >
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>本の削除</AlertDialogTitle>
-                        <AlertDialogDescription>
+                      <DialogHeader>
+                        <DialogTitle>本の削除</DialogTitle>
+                        <DialogDescription>
                           この操作は取り消せません。本当に「
                           <span className="font-semibold">{item}</span>
                           」を削除しますか？
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>キャンセル</AlertDialogCancel>
-                        <AlertDialogAction className="bg-red-500 hover:bg-red-600 transition-all">
-                          削除
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <DialogClose
+                          disabled={isPending}
+                          className={cn(buttonVariants({ variant: "outline" }))}
+                          type="button"
+                        >
+                          キャンセル
+                        </DialogClose>
+                        <Button
+                          onClick={() =>
+                            onDelete("238A26BF-C676-4FFA-BF17-73D673D35B6B5")
+                          }
+                          disabled={isPending}
+                          className="bg-red-500 hover:bg-red-600 transition-all"
+                        >
+                          {isPending ? (
+                            <Spinner className="text-white" />
+                          ) : (
+                            "削除"
+                          )}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </li>
               ))}
             </ul>
