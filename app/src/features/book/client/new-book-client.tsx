@@ -20,6 +20,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -35,19 +37,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { userData } from "@/config/user-data";
 import { cn } from "@/utils/cn";
-
-const categories = [
-  { value: "novel", label: "小説" },
-  { value: "non-fiction", label: "ノンフィクション" },
-  { value: "self-help", label: "自己啓発" },
-  { value: "business", label: "ビジネス" },
-  { value: "science", label: "科学" },
-  { value: "history", label: "歴史" },
-  { value: "biography", label: "伝記" },
-  { value: "travel", label: "旅行" },
-  { value: "cookbook", label: "料理" },
-  { value: "children", label: "児童書" },
-];
+import { categories } from "@/config/categories";
 
 export const NewBookClient = () => {
   return (
@@ -103,14 +93,62 @@ export const NewBookClient = () => {
                 <Label htmlFor="content" className="text-sm">
                   コンテンツ
                 </Label>
-                <Button
-                  variant={"outline"}
-                  size={"icon"}
-                  type="button"
-                  className="size-7 [&_svg]:size-3"
-                  >
-                  <SparklesIcon />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"icon"}
+                      type="button"
+                      className="size-7 [&_svg]:size-3"
+                      >
+                      <SparklesIcon />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56 p-2 relative" align="end" >
+                    <div 
+                      className="flex w-56 h-full absolute left-0 top-0 z-[999] inset-0 items-center justify-center bg-background/60 backdrop-blur-sm"
+                      >
+                      <p className="text-sm">AIサポート機能開発中…🚀</p>
+                    </div>
+                    <DropdownMenuLabel>AIによる執筆サポート</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <form className="px-1 space-y-2">
+                      <div>
+                        <Label className="text-xs text-muted-foreground font-medium">章タイトル数</Label> 
+                        <Select>
+                          <SelectTrigger 
+                            className="bg-slate-50 rounded-sm h-8 px-2 text-xs w-full focus:ring-transparent focus-visible:ring-transparent"
+                            disabled
+                            >
+                            <SelectValue placeholder="Theme" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {[... new Array(15)].map((_: undefined, index) => (
+                              <SelectItem key={(index + 1).toString()} value={(index + 1).toString()} className="text-xs">
+                                {index + 1}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs text-muted-foreground font-medium">本について情報</Label>
+                        <Textarea 
+                          className={cn("bg-slate-50 p-2 rounded-sm text-xs md:text-xs focus-visible:ring-teal-500 resize-none")}
+                          placeholder={`JavaScriptの技術本`}
+                          disabled
+                          />
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <Button 
+                          size={"sm"} 
+                          className="bg-teal-500 hover:bg-teal-600"
+                          disabled
+                          >送信</Button>
+                      </div>
+                    </form>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <Textarea
                 id="content"
