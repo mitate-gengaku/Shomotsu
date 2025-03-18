@@ -1,13 +1,8 @@
-import { SendIcon } from "lucide-react";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { userData } from "@/config/user-data";
+import { ContentTitleForm } from "@/features/book/components/content-title-form";
 import { cn } from "@/utils/cn";
-import { ContentTitleForm } from "@/features/book/client/content-title-form";
 
 const HomePage = () => {
   return (
@@ -15,7 +10,14 @@ const HomePage = () => {
       className="w-full lg:w-1/2 mx-auto h-full mb-8 lg:mb-0"
       data-testid="home-page"
     >
-      <ContentTitleForm />
+      <div className="flex flex-col mb-8 gap-8">
+        <div className="flex flex-col items-center">
+          <h3 className="text-xl sm:text-2xl font-semibold">
+            新しい本を作成する
+          </h3>
+        </div>
+        <ContentTitleForm />
+      </div>
       <div className="flex items-center justify-between mb-3 sm:mb-4">
         <h3 className="text-base font-semibold">最近作成した本</h3>
       </div>

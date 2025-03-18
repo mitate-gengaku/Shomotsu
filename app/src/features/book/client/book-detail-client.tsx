@@ -12,10 +12,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { userData } from "@/config/user-data";
 import { CategoryIcons } from "@/features/book/components/category-icons";
 import { IBook } from "@/types/book";
+import { Confetti } from "@/components/notifications/confetti";
 
 export const BookDetailClient = ({ book }: { book: IBook }) => {
   return (
     <div className="w-full lg:w-1/2 mx-auto" data-testid="book-detail-page">
+      <Confetti />
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6">
         <div className="lg:w-1/3">
           <div
@@ -172,39 +174,6 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
             </ScrollArea>
           </TabsContent>
         </Tabs>
-      </Card>
-      <Card className="p-6 rounded-lg shadow-sm mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">あなたへのおすすめ</h2>
-        </div>
-        <div className="flex justify-between gap-4 overflow-x-auto pb-2">
-          {userData.books.map((book) => (
-            <div key={book.id} className="min-w-32 lg:min-w-[9rem] group">
-              <div
-                className="relative aspect-[2/3] mb-3 rounded-lg overflow-hidden"
-                style={{
-                  boxShadow:
-                    "0px 15px 22px -5px rgba(0, 0, 0, 0.2), 0px 0px 2px rgba(0, 0, 0, 0.15)",
-                }}
-              >
-                <img
-                  src={book.cover}
-                  alt={book.title}
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none rounded-lg"
-                  style={{
-                    background:
-                      "linear-gradient(-90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 80%, rgba(255, 255, 255, 0.4) 94%, rgba(255, 255, 255, 0.5) 96%, rgba(255, 255, 255, 0) 100%)",
-                  }}
-                />
-              </div>
-              <h4 className="font-medium leading-tight mb-1">{book.title}</h4>
-              <p className="text-xs text-slate-500">{userData.name}</p>
-            </div>
-          ))}
-        </div>
       </Card>
     </div>
   );

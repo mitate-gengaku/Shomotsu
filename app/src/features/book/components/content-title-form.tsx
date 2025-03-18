@@ -12,15 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { titleSchema } from "@/features/new-content/schema/title";
-import { confettiAtom } from "@/stores/confetti";
-import { titleAtom } from "@/stores/content";
+import { titleSchema } from "@/features/book/schema/title";
+import { titleAtom } from "@/stores/title";
 import { cn } from "@/utils/cn";
 
 export const ContentTitleForm = () => {
   const router = useRouter();
   const setTitle = useSetAtom(titleAtom);
-  const setConfetti = useSetAtom(confettiAtom);
   const [isPending, startTransition] = useTransition();
   const {
     register,
@@ -36,7 +34,6 @@ export const ContentTitleForm = () => {
   const onSubmit = handleSubmit((data) => {
     startTransition(() => {
       setTitle(data.title);
-      setConfetti(true);
       router.push(`/new`);
     });
   });
