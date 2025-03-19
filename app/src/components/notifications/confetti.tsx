@@ -2,7 +2,7 @@
 
 import confetti from "canvas-confetti";
 import { useAtom } from "jotai";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { confettiAtom } from "@/stores/confetti";
 
@@ -47,7 +47,7 @@ export const Confetti = () => {
     });
   };
 
-  const startConfetti = () => {
+  const startConfetti = useCallback(() => {
     setIsPlaying(true);
 
     fireLeftConfetti();
@@ -64,7 +64,7 @@ export const Confetti = () => {
       clearInterval(rightInterval);
       setIsPlaying(false);
     }, 1000);
-  };
+  }, [setIsPlaying]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -72,5 +72,5 @@ export const Confetti = () => {
     }
   }, [isPlaying, startConfetti]);
 
-  return <div className="sr-only" />;
+  return <div className="sr-only" data-testid="confetti" />;
 };

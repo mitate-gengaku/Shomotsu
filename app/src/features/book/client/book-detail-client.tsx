@@ -1,17 +1,15 @@
 "use client";
 
-import { EyeIcon, LockIcon, UserIcon } from "lucide-react";
+import { UserIcon } from "lucide-react";
 import React from "react";
 
 import { FormatDate } from "@/components/format/date";
 import { Confetti } from "@/components/notifications/confetti";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { CategoryIcons } from "@/features/book/components/category-icons";
 import { IBook } from "@/types/book";
 
