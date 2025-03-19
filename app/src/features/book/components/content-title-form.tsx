@@ -64,7 +64,7 @@ export const ContentTitleForm = () => {
             <Button
               size="icon"
               className={cn(
-                "bg-teal-500 hover:bg-teal-600 transition-all absolute z-[9999] top-1 right-2",
+                "bg-teal-500 hover:bg-teal-600 transition-all absolute z-[1] top-1 right-2",
                 errors.title && "bg-red-500 hover:bg-red-600",
               )}
               disabled={isPending}

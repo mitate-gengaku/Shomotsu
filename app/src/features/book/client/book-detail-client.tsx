@@ -1,22 +1,26 @@
 "use client";
 
-import { UserIcon } from "lucide-react";
+import { EyeIcon, LockIcon, UserIcon } from "lucide-react";
 import React from "react";
 
 import { FormatDate } from "@/components/format/date";
+import { Confetti } from "@/components/notifications/confetti";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { userData } from "@/config/user-data";
+
 import { CategoryIcons } from "@/features/book/components/category-icons";
 import { IBook } from "@/types/book";
-import { Confetti } from "@/components/notifications/confetti";
 
 export const BookDetailClient = ({ book }: { book: IBook }) => {
   return (
-    <div className="w-full lg:w-1/2 mx-auto" data-testid="book-detail-page">
+    <div
+      className="w-full lg:w-1/2 mx-auto relative"
+      data-testid="book-detail-page"
+    >
       <Confetti />
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6">
         <div className="lg:w-1/3">
@@ -42,14 +46,14 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
             />
           </div>
         </div>
-        <div className="lg:w-2/3 flex flex-1 flex-col items-center lg:items-start">
+        <div className="lg:w-2/3 flex flex-1 gap-4 flex-col items-center lg:items-start">
           <h2
-            className="text-3xl mb-4 font-semibold text-center lg:text-left"
+            className="text-3xl font-semibold text-center lg:text-left"
             data-testid="title"
           >
             {book.title}
           </h2>
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-4">
             <Avatar className="size-10" data-testid="author-avatar">
               <AvatarImage
                 src={book.user.avatar}
@@ -66,7 +70,7 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
               <p className="text-sm text-gray-600">著者</p>
             </div>
           </div>
-          <div className="w-full mb-6 space-y-4">
+          <div className="w-full space-y-4">
             <div className="hidden md:block">
               <h3 className="text-sm font-medium text-gray-700 mb-1 text-center lg:text-left">
                 カテゴリ

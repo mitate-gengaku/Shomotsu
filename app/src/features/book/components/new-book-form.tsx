@@ -44,9 +44,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { categories } from "@/config/categories";
 import { create } from "@/features/book/actions/create";
 import { contentSchema } from "@/features/book/schema/content";
+import { confettiAtom } from "@/stores/confetti";
 import { titleAtom } from "@/stores/title";
 import { cn } from "@/utils/cn";
-import { confettiAtom } from "@/stores/confetti";
 
 export type ContentType = z.infer<typeof contentSchema>;
 
@@ -71,8 +71,8 @@ export const NewBookForm = () => {
       publish: false,
     },
     onSubmit: () => {
-      setConfetti(true)
-    }
+      setConfetti(true);
+    },
   });
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -154,7 +154,7 @@ export const NewBookForm = () => {
                   fields.category.errors &&
                     "border-red-500 bg-red-50 focus-visible:ring-red-500",
                   !fields.category.errors &&
-                    "data-[state=open]:ring-1 data-[state=open]:ring-teal-500",
+                    "data-[state=open]:ring-1 focus:ring-teal-500 data-[state=open]:ring-teal-500",
                 )}
                 disabled={isPending}
               >
@@ -212,80 +212,77 @@ export const NewBookForm = () => {
               <Label htmlFor="content" className="text-sm">
                 コンテンツ<span className="text-red-500">*</span>
               </Label>
-              {title ||
-                (fields.title.value && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        size={"icon"}
-                        type="button"
-                        className="size-7 [&_svg]:size-3"
-                      >
-                        <SparklesIcon />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-56 p-2 relative"
-                      align="end"
+              {(title || fields.title.value) && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      size={"icon"}
+                      type="button"
+                      className="size-7 [&_svg]:size-3"
                     >
-                      <div className="flex w-56 h-full absolute left-0 top-0 z-[999] inset-0 items-center justify-center bg-background/60 backdrop-blur-sm">
-                        <p className="text-sm">AIサポート機能開発中…🚀</p>
-                      </div>
-                      <DropdownMenuLabel>
-                        AIによる執筆サポート
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <form className="px-1 space-y-2">
-                        <div>
-                          <Label className="text-xs text-muted-foreground font-medium">
-                            章タイトル数
-                          </Label>
-                          <Select>
-                            <SelectTrigger
-                              className="bg-slate-50 rounded-sm h-8 px-2 text-xs w-full focus:ring-transparent focus-visible:ring-transparent"
-                              disabled
-                            >
-                              <SelectValue placeholder="Theme" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {[...new Array(15)].map((_: undefined, index) => (
-                                <SelectItem
-                                  key={(index + 1).toString()}
-                                  value={(index + 1).toString()}
-                                  className="text-xs"
-                                >
-                                  {index + 1}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label className="text-xs text-muted-foreground font-medium">
-                            本について情報
-                          </Label>
-                          <Textarea
-                            className={cn(
-                              "bg-slate-50 p-2 rounded-sm text-xs md:text-xs focus-visible:ring-teal-500 resize-none",
-                            )}
-                            placeholder={`JavaScriptの技術本`}
-                            disabled
-                          />
-                        </div>
-                        <div className="flex items-center justify-end">
-                          <Button
-                            size={"sm"}
-                            className="bg-teal-500 hover:bg-teal-600"
+                      <SparklesIcon />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-56 p-2 relative"
+                    align="end"
+                  >
+                    <div className="flex w-56 h-full absolute left-0 top-0 z-[999] inset-0 items-center justify-center bg-background/60 backdrop-blur-sm">
+                      <p className="text-sm">AIサポート機能開発中…🚀</p>
+                    </div>
+                    <DropdownMenuLabel>AIによる執筆サポート</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <form className="px-1 space-y-2">
+                      <div>
+                        <Label className="text-xs text-muted-foreground font-medium">
+                          章タイトル数
+                        </Label>
+                        <Select>
+                          <SelectTrigger
+                            className="bg-slate-50 rounded-sm h-8 px-2 text-xs w-full focus:ring-transparent focus-visible:ring-transparent"
                             disabled
                           >
-                            送信
-                          </Button>
-                        </div>
-                      </form>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ))}
+                            <SelectValue placeholder="Theme" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {[...new Array(15)].map((_: undefined, index) => (
+                              <SelectItem
+                                key={(index + 1).toString()}
+                                value={(index + 1).toString()}
+                                className="text-xs"
+                              >
+                                {index + 1}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs text-muted-foreground font-medium">
+                          本について情報
+                        </Label>
+                        <Textarea
+                          className={cn(
+                            "bg-slate-50 p-2 rounded-sm text-xs md:text-xs focus-visible:ring-teal-500 resize-none",
+                          )}
+                          placeholder={`JavaScriptの技術本`}
+                          disabled
+                        />
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <Button
+                          size={"sm"}
+                          className="bg-teal-500 hover:bg-teal-600"
+                          disabled
+                        >
+                          送信
+                        </Button>
+                      </div>
+                    </form>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             <Textarea
               {...getTextareaProps(fields.content)}

@@ -1,10 +1,9 @@
 import { render, screen } from "@testing-library/react";
+import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, test, vi, vitest } from "vitest";
 
 import HomePage from "@/app/(main)/home/page";
 import { userData } from "@/config/user-data";
-import mockRouter from 'next-router-mock';
-
 
 vitest.mock("@/config/user-data", () => ({
   userData: {
@@ -44,8 +43,8 @@ vitest.mock("@/config/user-data", () => ({
 }));
 
 vitest.mock("@/features/book/components/content-title-form", () => ({
-  ContentTitleForm: vitest.fn(() => <div data-testid="content-title-form" />)
-}))
+  ContentTitleForm: vitest.fn(() => <div data-testid="content-title-form" />),
+}));
 
 describe("Homeページのテスト", () => {
   beforeEach(() => {
@@ -62,7 +61,7 @@ describe("Homeページのテスト", () => {
         dispatchEvent: vi.fn(),
       })),
     });
-    mockRouter.push('/')
+    mockRouter.push("/");
 
     vitest.clearAllMocks();
   });
