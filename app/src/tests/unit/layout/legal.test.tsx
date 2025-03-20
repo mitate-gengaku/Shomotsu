@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vitest } from "vitest";
 
-import LegalLayout from "@/app/(legal)/layout";
+import LegalLayout from "@/app/_disabled/(legal)/layout";
 
 vitest.mock("@/components/layout/header", () => ({
   Header: () => <header data-testid="header">Header</header>,

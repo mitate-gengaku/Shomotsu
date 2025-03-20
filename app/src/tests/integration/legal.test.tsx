@@ -8,7 +8,7 @@ import Page, {
   dynamicParams,
   generateMetadata,
   generateStaticParams,
-} from "@/app/(legal)/legal/[slug]/page";
+} from "@/app/_disabled/(legal)/legal/[slug]/page";
 
 type Props = {
   params: {

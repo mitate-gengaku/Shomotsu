@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, test, vi, vitest } from "vitest";
 
-import HomePage from "@/app/(main)/home/page";
+import HomePage from "@/app/_disabled/(main)/home/page";
 import { userData } from "@/config/user-data";
 
 vitest.mock("@/config/user-data", () => ({
