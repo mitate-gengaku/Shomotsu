@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
 import type { Metadata } from "next";
@@ -64,6 +65,7 @@ export default function RootLayout({
           src="https://cloud.umami.is/script.js"
           data-website-id={process.env.UMAMI_DABA_WEBSITE_ID}
         />
+        <SpeedInsights />
       </body>
     </html>
   );

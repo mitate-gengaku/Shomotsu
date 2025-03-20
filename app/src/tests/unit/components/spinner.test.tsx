@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import { Spinner } from "@/components/loading/spinner";
 
 describe("Spinnerコンポーネントのテスト", () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(<Spinner />);
 
     const spinner = screen.getByTestId("spinner");

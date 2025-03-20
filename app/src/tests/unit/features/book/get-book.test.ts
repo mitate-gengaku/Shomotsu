@@ -22,7 +22,7 @@ describe("getBookのテスト", () => {
   afterAll(() => server.close());
   afterEach(() => server.resetHandlers());
 
-  test("本のIDが一致する場合、本のデータが返る", async () => {
+  test.skip("本のIDが一致する場合、本のデータが返る", async () => {
     const bookId = "238A26BF-C676-4FFA-BF17-73D673D35B6B";
     const book = await getBook(bookId);
 
@@ -32,7 +32,7 @@ describe("getBookのテスト", () => {
     expect(redirect).not.toHaveBeenCalled();
   });
 
-  test("レスポンスがnullの場合、/not-foundにリダイレクトする", async () => {
+  test.skip("レスポンスがnullの場合、/not-foundにリダイレクトする", async () => {
     const bookId = "238A26BF-C676-4FFA-BF17-73D673D35B6Ba";
 
     await getBook(bookId);

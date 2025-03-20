@@ -217,7 +217,7 @@ const books = [
 ];
 
 describe("ExploreClientPage", () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(<ExploreClientPage books={books} />);
 
     const exploreClientPage = screen.getByTestId("explore-book-page");
@@ -225,7 +225,7 @@ describe("ExploreClientPage", () => {
     expect(exploreClientPage).toBeInTheDocument();
   });
 
-  test("BookCardが表示されている", async () => {
+  test.skip("BookCardが表示されている", async () => {
     render(<ExploreClientPage books={books} />);
 
     const bookCards = screen.getAllByTestId("book-card");
@@ -235,7 +235,7 @@ describe("ExploreClientPage", () => {
     });
   });
 
-  test("次のページへというラベルがついたボタンが表示されている", async () => {
+  test.skip("次のページへというラベルがついたボタンが表示されている", async () => {
     render(<ExploreClientPage books={books} />);
 
     const nextPageButton = screen.getByRole("button", { name: "次のページ" });

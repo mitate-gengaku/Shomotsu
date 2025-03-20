@@ -9,7 +9,8 @@
     "lint": "next lint",
     "add": "npx shadcn@latest add",
     "format": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs ; npx prettier --write './src/**/*.{ts,tsx}'",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "test:report": "vitest run --coverage.enabled true"
   },
   "dependencies": {
     "@conform-to/react": "^1.2.2",
@@ -32,6 +33,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/typography": "^0.5.16",
     "@types/mdx": "^2.0.13",
+    "@vercel/speed-insights": "^1.2.0",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

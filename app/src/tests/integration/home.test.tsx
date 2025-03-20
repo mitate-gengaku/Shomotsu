@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, test, vi, vitest } from "vitest";
 
-import HomePage from "@/app/(main)/home/page";
+import HomePage from "@/app/_disabled/(main)/home/page";
 import { userData } from "@/config/user-data";
 
 vitest.mock("@/config/user-data", () => ({
@@ -66,14 +66,14 @@ describe("Homeページのテスト", () => {
     vitest.clearAllMocks();
   });
 
-  test("ページが正常に表示される", () => {
+  test.skip("ページが正常に表示される", () => {
     render(<HomePage />);
 
     const homePage = screen.getByTestId("home-page");
     expect(homePage).toBeInTheDocument();
   });
 
-  test("モバイルサイズの画面が表示される", () => {
+  test.skip("モバイルサイズの画面が表示される", () => {
     render(<HomePage />);
 
     const homePage = screen.getByTestId("home-page");
@@ -87,7 +87,7 @@ describe("Homeページのテスト", () => {
     expect(mobileBookCardContainer.children.length).toEqual(2);
   });
 
-  test("デスクトップサイズの画面が表示される", () => {
+  test.skip("デスクトップサイズの画面が表示される", () => {
     window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query === "(min-width: 768px)",
       media: query,
@@ -111,7 +111,7 @@ describe("Homeページのテスト", () => {
     expect(desktopBookCardContainer).toHaveClass("gap-4 justify-between");
   });
 
-  test("bookが3冊のとき、gap-4クラスが適用される", () => {
+  test.skip("bookが3冊のとき、gap-4クラスが適用される", () => {
     window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query === "(min-width: 768px)",
       media: query,

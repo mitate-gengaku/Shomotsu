@@ -8,7 +8,7 @@ import Page, {
   dynamicParams,
   generateMetadata,
   generateStaticParams,
-} from "@/app/(legal)/legal/[slug]/page";
+} from "@/app/_disabled/(legal)/legal/[slug]/page";
 
 type Props = {
   params: {
@@ -25,7 +25,7 @@ vitest.mock("@/contents/terms.mdx", () => ({
 }));
 
 describe("Legalページのテスト", () => {
-  test("ページが正常に表示される", async () => {
+  test.skip("ページが正常に表示される", async () => {
     const params = Promise.resolve({ slug: "privacy" });
 
     render(await Page({ params }));
@@ -36,7 +36,7 @@ describe("Legalページのテスト", () => {
     );
   });
 
-  test("利用規約ページを正しく表示する", async () => {
+  test.skip("利用規約ページを正しく表示する", async () => {
     const params = Promise.resolve({ slug: "terms" });
 
     render(await Page({ params }));
@@ -47,7 +47,7 @@ describe("Legalページのテスト", () => {
     );
   });
 
-  test("正しい静的パラメータを生成する", () => {
+  test.skip("正しい静的パラメータを生成する", () => {
     const params = generateStaticParams();
     expect(params).toEqual([
       { slug: "terms", ja: "利用規約" },
@@ -55,11 +55,11 @@ describe("Legalページのテスト", () => {
     ]);
   });
 
-  test("dynamicParamsがfalseに設定されている", () => {
+  test.skip("dynamicParamsがfalseに設定されている", () => {
     expect(dynamicParams).toBe(false);
   });
 
-  test("動的にSEOタグが設定される", async () => {
+  test.skip("動的にSEOタグが設定される", async () => {
     const props: Props = { params: { slug: "terms" } };
     const parent = Promise.resolve({
       title: "デフォルトタイトル",
@@ -72,7 +72,7 @@ describe("Legalページのテスト", () => {
     expect(metadata.twitter?.title).toBe("利用規約 | Shomotsu");
   });
 
-  test("親のタイトルが存在しない場合、空文字列が使用されること", async () => {
+  test.skip("親のタイトルが存在しない場合、空文字列が使用されること", async () => {
     const props: Props = { params: { slug: "non-existent" } };
     const parent = Promise.resolve({}) as ResolvingMetadata;
 

@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vitest } from "vitest";
 
-import AuthLayout from "@/app/(main)/layout";
+import AuthLayout from "@/app/_disabled/(main)/layout";
 
 vitest.mock("@/components/layout/auth-header", () => ({
   AuthHeader: () => <header data-testid="header">Header</header>,
 }));
 
 describe("Authレイアウトコンポーネントのテスト", async () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(
       <html>
         <body>

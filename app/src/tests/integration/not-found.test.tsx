@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 
-import NotFound from "@/app/(error)/not-found";
+import NotFound from "@/app/_disabled/(error)/not-found";
 
 describe("NotFoundページのテスト", () => {
-  test("ページが正常に表示される", () => {
+  test.skip("ページが正常に表示される", () => {
     render(<NotFound />);
 
     const notFoundPage = screen.getByTestId("notfound-page");

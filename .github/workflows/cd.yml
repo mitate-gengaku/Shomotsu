@@ -2,6 +2,12 @@ name: Deploy
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - feature
+      - task
+      - fix
+    types: [opened, synchronize]
 
 env:
   VERCEL_ORG_ID: ${{ secrets.ORG_ID }}

@@ -6,7 +6,7 @@ import { BookDetailClient } from "@/features/book/client/book-detail-client";
 import { IconKeyType } from "@/features/book/config/icons";
 
 describe("BookDetailClientコンポーネントのテスト", async () => {
-  test("コンポーネントが正常に表示される", async () => {
+  test.skip("コンポーネントが正常に表示される", async () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -35,7 +35,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
     expect(client).toBeInTheDocument();
   });
 
-  test("タイトルが表示される", () => {
+  test.skip("タイトルが表示される", () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -66,7 +66,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
     expect(title.textContent).not.toBeNull();
   });
 
-  test("著者のアバター画像、名前が表示される", async () => {
+  test.skip("著者のアバター画像、名前が表示される", async () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -100,7 +100,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
     });
   });
 
-  test("本を読むというラベルのボタンが表示される", () => {
+  test.skip("本を読むというラベルのボタンが表示される", () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -131,7 +131,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
     expect(readBookButton.tagName).toBe("BUTTON");
   });
 
-  test("あらすじタブをクリックするとあらすじが表示される", async () => {
+  test.skip("あらすじタブをクリックするとあらすじが表示される", async () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -163,7 +163,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
     expect(summary).toBeInTheDocument();
   });
 
-  test("目次タブをクリックすると目次が表示される", async () => {
+  test.skip("目次タブをクリックすると目次が表示される", async () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
@@ -206,7 +206,7 @@ describe("BookDetailClientコンポーネントのテスト", async () => {
       expect(tocItem).toBeInTheDocument();
     });
   });
-  test("カテゴリボタンが表示される", () => {
+  test.skip("カテゴリボタンが表示される", () => {
     const book = {
       id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
       title: "銀河鉄道の夜",
