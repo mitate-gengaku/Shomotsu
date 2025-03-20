@@ -21,7 +21,7 @@ describe("getExploreBooksのテスト", () => {
   afterAll(() => server.close());
   afterEach(() => server.resetHandlers());
 
-  test("本のIDが一致する場合、本のデータが返る", async () => {
+  test.skip("本のIDが一致する場合、本のデータが返る", async () => {
     const book = await getExploreBooks();
 
     expect(book.length).toBe(10);

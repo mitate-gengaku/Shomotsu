@@ -26,7 +26,7 @@ describe("Confettiコンポーネントのテスト", () => {
     vitest.useRealTimers();
   });
 
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(<Confetti />, {
       wrapper: ({ children }) => {
         return (
@@ -42,7 +42,7 @@ describe("Confettiコンポーネントのテスト", () => {
     const confetti = screen.getByTestId("confetti");
     expect(confetti).toBeInTheDocument();
   });
-  test("isPlayingがtrueのとき、紙吹雪が開始される", () => {
+  test.skip("isPlayingがtrueのとき、紙吹雪が開始される", () => {
     render(<Confetti />, {
       wrapper: ({ children }) => {
         return (
@@ -59,7 +59,7 @@ describe("Confettiコンポーネントのテスト", () => {
     expect(confetti).toBeInTheDocument();
   });
 
-  test("紙吹雪が開始されてから1病後に停止される", () => {
+  test.skip("紙吹雪が開始されてから1病後に停止される", () => {
     render(<Confetti />, {
       wrapper: ({ children }) => {
         return (

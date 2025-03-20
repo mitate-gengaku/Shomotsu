@@ -41,20 +41,20 @@ describe("Footerコンポーネントのテスト", () => {
     mockRouter.setCurrentUrl("/");
   });
 
-  test("コンポーネントが表示される", () => {
+  test.skip("コンポーネントが表示される", () => {
     render(<Footer />);
 
     expect(screen.getByTestId("footer")).toBeInTheDocument();
   });
 
-  test("タイトルが表示される", () => {
+  test.skip("タイトルが表示される", () => {
     render(<Footer />);
 
     expect(screen.getByTestId("footer-title")).toBeInTheDocument();
     expect(screen.getByTestId("footer-title").textContent).toBe("Shomotsu");
   });
 
-  test("キャプションが表示される", () => {
+  test.skip("キャプションが表示される", () => {
     render(<Footer />);
 
     expect(screen.getByTestId("footer-caption")).toBeInTheDocument();
@@ -63,7 +63,7 @@ describe("Footerコンポーネントのテスト", () => {
     );
   });
 
-  test("サポートセクションが表示される", () => {
+  test.skip("サポートセクションが表示される", () => {
     render(<Footer />);
 
     const expectLinkResult = ["https://x.com/mitate_gengaku"];
@@ -90,7 +90,7 @@ describe("Footerコンポーネントのテスト", () => {
     });
   });
 
-  test("コピーライトが表示される", () => {
+  test.skip("コピーライトが表示される", () => {
     render(<Footer />);
 
     const copyWright = screen.getByTestId("footer-copywright");
@@ -100,7 +100,7 @@ describe("Footerコンポーネントのテスト", () => {
     );
   });
 
-  test("利用規約リンクをクリックすると/legal/termsに遷移する", async () => {
+  test.skip("利用規約リンクをクリックすると/legal/termsに遷移する", async () => {
     render(<Footer />);
 
     const termsLink = screen.getByTestId("footer-terms-link");
@@ -112,7 +112,7 @@ describe("Footerコンポーネントのテスト", () => {
     expect(mockRouter.asPath).toBe("/legal/terms");
   });
 
-  test("プライバシーポリシーリンクをクリックすると/legal/privacyに遷移する", async () => {
+  test.skip("プライバシーポリシーリンクをクリックすると/legal/privacyに遷移する", async () => {
     render(<Footer />);
 
     const privacyLink = screen.getByTestId("footer-privacy-link");

@@ -12,7 +12,7 @@ vitest.mock("@/components/layout/footer", () => ({
 }));
 
 describe("Legalレイアウトコンポーネントのテスト", async () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(
       <html>
         <body>

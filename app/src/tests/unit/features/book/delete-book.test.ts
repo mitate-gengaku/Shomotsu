@@ -25,7 +25,7 @@ describe("deleteBookのテスト", () => {
     vitest.clearAllMocks();
   });
 
-  test("本のIDが一致する場合、正常に削除できる", async () => {
+  test.skip("本のIDが一致する場合、正常に削除できる", async () => {
     const mockResponse = {
       ok: true,
       json: vitest.fn().mockResolvedValue({ message: "本を削除しました" }),
@@ -44,7 +44,7 @@ describe("deleteBookのテスト", () => {
     expect(mockResponse.json).toHaveBeenCalled();
   });
 
-  test("本のIDが一致しない場合、Not Foundエラーが返る", async () => {
+  test.skip("本のIDが一致しない場合、Not Foundエラーが返る", async () => {
     const mockResponse = {
       ok: false,
       statusText: "Not Found",

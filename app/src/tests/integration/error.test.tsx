@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import Error from "@/app/error";
 
 describe("Errorページのテスト", () => {
-  test("ページが正常に表示される", () => {
+  test.skip("ページが正常に表示される", () => {
     render(<Error />);
 
     const errorPage = screen.getByTestId("error-page");

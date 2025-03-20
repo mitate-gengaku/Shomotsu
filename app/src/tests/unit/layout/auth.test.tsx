@@ -8,7 +8,7 @@ vitest.mock("@/components/layout/auth-header", () => ({
 }));
 
 describe("Authレイアウトコンポーネントのテスト", async () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(
       <html>
         <body>

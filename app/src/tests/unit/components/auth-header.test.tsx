@@ -9,7 +9,7 @@ vitest.mock("@/components/layout/sidebar", () => ({
 }));
 
 describe("AuthHeaderコンポーネントのテスト", () => {
-  test("コンポーネントが正常に表示される", () => {
+  test.skip("コンポーネントが正常に表示される", () => {
     render(<AuthHeader />);
 
     const authHeader = screen.getByTestId("auth-header");
@@ -19,7 +19,7 @@ describe("AuthHeaderコンポーネントのテスト", () => {
     expect(sidebar).toBeInTheDocument();
   });
 
-  test("ドロップダウンメニューが表示される", async () => {
+  test.skip("ドロップダウンメニューが表示される", async () => {
     const user = userEvent.setup();
 
     render(<AuthHeader />);

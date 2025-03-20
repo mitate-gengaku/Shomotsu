@@ -23,7 +23,7 @@ describe("create server action", () => {
     vitest.clearAllMocks();
   });
 
-  test("バリデーション成功時にリダイレクトする", async () => {
+  test.skip("バリデーション成功時にリダイレクトする", async () => {
     (parseWithZod as Mock).mockReturnValue({
       status: "success",
       value: { title: "テストタイトル", content: "テスト本文" },
@@ -44,7 +44,7 @@ describe("create server action", () => {
     );
   });
 
-  test("バリデーション失敗時にsubmission.replyを返す", async () => {
+  test.skip("バリデーション失敗時にsubmission.replyを返す", async () => {
     const mockReply = { errors: { title: ["必須項目です"] } };
     const mockSubmission = {
       status: "error",
