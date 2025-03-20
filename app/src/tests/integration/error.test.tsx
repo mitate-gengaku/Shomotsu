@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 
-import Error from "@/app/error";
+import Error from "@/app/_disabled/error";
 
 describe("Errorページのテスト", () => {
   test.skip("ページが正常に表示される", () => {
