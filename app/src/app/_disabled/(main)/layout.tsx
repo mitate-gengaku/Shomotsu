@@ -1,6 +1,6 @@
 import { HomeIcon } from "lucide-react";
 
-import { AuthHeader } from "@/components/layout/auth-header";
+import { AuthHeader } from "@/components/apperance/auth-header";
 import { Button } from "@/components/ui/button";
 
 const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

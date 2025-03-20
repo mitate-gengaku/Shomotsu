@@ -1,5 +1,5 @@
-import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/apperance/footer";
+import { Header } from "@/components/apperance/header";
 
 const LegalLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
