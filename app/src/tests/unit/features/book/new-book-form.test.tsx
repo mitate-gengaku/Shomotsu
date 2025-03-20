@@ -1,5 +1,3 @@
-import { readFileSync } from "fs";
-
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent, {
   PointerEventsCheckLevel,
@@ -43,6 +41,7 @@ vitest.mock("@/features/book/actions/create", () => ({
   create: vitest.fn(),
 }));
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockActionState = (result: any = undefined, isPending = false) => {
   (useActionState as Mock).mockReturnValue([result, create, isPending]);
 };

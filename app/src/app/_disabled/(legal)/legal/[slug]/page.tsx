@@ -14,7 +14,7 @@ const legalSlug = [
     slug: "privacy",
     ja: "プライバシーポリシー",
   },
-]
+];
 
 export const generateMetadata = async (
   { params }: Props,
