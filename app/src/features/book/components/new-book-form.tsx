@@ -127,7 +127,9 @@ export const NewBookForm = () => {
                   placeholder="銀河鉄道の夜"
                   disabled={isPending}
                 />
-                <p className="text-red-500 text-xs">{fields.title.errors}</p>
+                {fields.title.errors && (
+                  <p className="text-red-500 text-xs">{fields.title.errors}</p>
+                )}
               </>
             )}
           </div>
@@ -175,21 +177,23 @@ export const NewBookForm = () => {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-red-500 text-xs">{fields.category.errors}</p>
+            {fields.category.errors && (
+              <p className="text-red-500 text-xs">{fields.category.errors}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="cover" className="text-sm w-fit">
               表紙<span className="text-red-500">*</span>
             </Label>
-            <div>
-              {file && (
+            {file && (
+              <div>
                 <img
                   src={URL.createObjectURL(file)}
                   alt="表紙"
                   className="w-[150px] object-fit"
                 />
-              )}
-            </div>
+              </div>
+            )}
             <Input
               key={fields.cover.key}
               name={fields.cover.name}
@@ -204,8 +208,11 @@ export const NewBookForm = () => {
               multiple={false}
               onChange={onChangeFile}
               disabled={isPending}
+              data-testid="cover-file-input"
             />
-            <p className="text-red-500 text-xs">{fields.cover.errors}</p>
+            {fields.cover.errors && (
+              <p className="text-red-500 text-xs">{fields.cover.errors}</p>
+            )}
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
@@ -297,7 +304,9 @@ export const NewBookForm = () => {
                   "focus-visible:border-teal-500 focus-visible:ring-teal-500",
               )}
             />
-            <p className="text-red-500 text-xs">{fields.content.errors}</p>
+            {fields.content.errors && (
+              <p className="text-red-500 text-xs">{fields.content.errors}</p>
+            )}
           </div>
           <div className="space-y-2">
             <div>
@@ -327,7 +336,9 @@ export const NewBookForm = () => {
                 });
               }}
             />
-            <p className="text-red-500 text-xs">{fields.publish.errors}</p>
+            {fields.publish.errors && (
+              <p className="text-red-500 text-xs">{fields.publish.errors}</p>
+            )}
           </div>
         </CardContent>
         <CardFooter className="px-0">

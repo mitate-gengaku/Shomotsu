@@ -23,6 +23,7 @@ export default defineConfig({
         "src/config",
         "src/lib",
         "src/types",
+        "src/**/schema",
       ]
     },
     environment: "happy-dom",
