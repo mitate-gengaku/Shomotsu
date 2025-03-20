@@ -1,15 +1,20 @@
 name: CI
 
 on:
-  push:
+  pull_request:
+    types: [opened, reopened, synchronize]
 
+env:
+  WORKING_DIRECTORY: ./app
+
+      
 jobs:
   ci:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
-        working-directory: ./app
+        working-directory: ${{ env.WORKING_DIRECTORY }}
     permissions:
       contents: read
     steps:
@@ -19,4 +24,9 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run format
-      # - run: npm run test
+      - name: Run Vitest
+        run: npx vitest --coverage.enabled true
+      - name: Show coverage
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: ${{ env.WORKING_DIRECTORY }}

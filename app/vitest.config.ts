@@ -17,14 +17,15 @@ export default defineConfig({
         "src"
       ],
       exclude: [
-        "src/components/ui",
-        "src/middleware.ts",
-        "src/mdx-components.tsx",
-        "src/config",
-        "src/lib",
-        "src/types",
-        "src/**/schema",
-      ]
+        // "src/components/ui",
+        // "src/middleware.ts",
+        // "src/mdx-components.tsx",
+        // "src/config",
+        // "src/lib",
+        // "src/types",
+        // "src/**/schema",
+      ],
+      reporter: ['text', 'json-summary', 'json'],
     },
     environment: "happy-dom",
     globals: true,

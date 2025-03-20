@@ -1,11 +1,20 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { ComponentType } from "react";
 
-import { legalSlug } from "@/config/legal-slug";
-
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+const legalSlug = [
+  {
+    slug: "terms",
+    ja: "利用規約",
+  },
+  {
+    slug: "privacy",
+    ja: "プライバシーポリシー",
+  },
+]
 
 export const generateMetadata = async (
   { params }: Props,
