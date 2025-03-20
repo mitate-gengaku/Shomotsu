@@ -41,7 +41,7 @@ export const ContentTitleForm = () => {
   return (
     <form
       id="content-title-form"
-      data-id="content-title-form"
+      data-testid="content-title-form"
       onSubmit={onSubmit}
     >
       <Card>
@@ -59,6 +59,7 @@ export const ContentTitleForm = () => {
               )}
               placeholder="銀河鉄道の夜"
               disabled={isPending}
+              data-testid="input"
               {...register("title")}
             />
             <Button
@@ -68,12 +69,15 @@ export const ContentTitleForm = () => {
                 errors.title && "bg-red-500 hover:bg-red-600",
               )}
               disabled={isPending}
+              data-testid="submit-button"
             >
               {isPending ? <Spinner className="text-white" /> : <SendIcon />}
             </Button>
           </div>
           {errors.title && (
-            <p className="text-red-500 text-xs">{errors.title.message}</p>
+            <p data-testid="error-message" className="text-red-500 text-xs">
+              {errors.title.message}
+            </p>
           )}
         </CardContent>
       </Card>

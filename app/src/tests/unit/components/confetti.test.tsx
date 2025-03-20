@@ -13,7 +13,6 @@ vitest.mock("canvas-confetti", () => {
   };
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const HydrateAtoms = ({ initialValues, children }) => {
   useHydrateAtoms(initialValues);
   return children;
@@ -84,42 +83,5 @@ describe("Confettiコンポーネントのテスト", () => {
 
     const confetti = screen.getByTestId("confetti");
     expect(confetti).toBeInTheDocument();
-  });
-  test.skip("紙吹雪が継続的に発射される", () => {
-    render(<Confetti />, {
-      wrapper: ({ children }) => {
-        return (
-          <Provider>
-            <HydrateAtoms initialValues={[[confettiAtom, true]]}>
-              {children}
-            </HydrateAtoms>
-          </Provider>
-        );
-      },
-    });
-
-    vitest.advanceTimersByTime(1200);
-    expect(cconfetti).toHaveBeenCalledWith(
-      expect.objectContaining({
-        origin: {
-          x: 0,
-          y: 0.5,
-        },
-        angle: 60,
-      }),
-    );
-
-    vitest.clearAllMocks();
-    vitest.advanceTimersByTime(1200);
-
-    expect(cconfetti).toHaveBeenCalledWith(
-      expect.objectContaining({
-        origin: {
-          x: 0,
-          y: 0.5,
-        },
-        angle: 60,
-      }),
-    );
   });
 });

@@ -16,6 +16,4 @@ export async function create(prevState: unknown, formData: FormData) {
 
   // データの作成
   redirect("/book/238A26BF-C676-4FFA-BF17-73D673D35B6B");
-
-  return;
 }
