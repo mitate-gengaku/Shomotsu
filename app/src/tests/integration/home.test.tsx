@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, test, vi, vitest } from "vitest";
 
 import HomePage from "@/app/(main)/home/page";
@@ -41,6 +42,10 @@ vitest.mock("@/config/user-data", () => ({
   },
 }));
 
+vitest.mock("@/features/book/components/content-title-form", () => ({
+  ContentTitleForm: vitest.fn(() => <div data-testid="content-title-form" />),
+}));
+
 describe("Homeページのテスト", () => {
   beforeEach(() => {
     Object.defineProperty(window, "matchMedia", {
@@ -56,6 +61,7 @@ describe("Homeページのテスト", () => {
         dispatchEvent: vi.fn(),
       })),
     });
+    mockRouter.push("/");
 
     vitest.clearAllMocks();
   });

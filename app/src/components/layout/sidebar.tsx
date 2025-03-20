@@ -163,7 +163,7 @@ const Sidebar = () => {
                         </DialogClose>
                         <Button
                           onClick={() =>
-                            onDelete("238A26BF-C676-4FFA-BF17-73D673D35B6B5")
+                            onDelete("238A26BF-C676-4FFA-BF17-73D673D35B6B")
                           }
                           disabled={isPending}
                           className="bg-red-500 hover:bg-red-600 transition-all"

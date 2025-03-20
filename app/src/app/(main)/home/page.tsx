@@ -1,11 +1,7 @@
-import { SendIcon } from "lucide-react";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { userData } from "@/config/user-data";
+import { ContentTitleForm } from "@/features/book/components/content-title-form";
 import { cn } from "@/utils/cn";
 
 const HomePage = () => {
@@ -20,32 +16,7 @@ const HomePage = () => {
             新しい本を作成する
           </h3>
         </div>
-        <form>
-          <Card>
-            <CardContent className="flex flex-col">
-              <Label className="mb-1 text-xs text-gray-600" htmlFor="title">
-                本のタイトル
-              </Label>
-              <div className="relative mb-2">
-                <Input
-                  id="title"
-                  className={cn(
-                    "h-11 pr-14 bg-slate-50 focus-visible:ring-teal-500",
-                  )}
-                  placeholder="銀河鉄道の夜"
-                />
-                <Button
-                  size="icon"
-                  className={cn(
-                    "bg-teal-500 hover:bg-teal-600 transition-all absolute z-[10] top-1 right-2",
-                  )}
-                >
-                  <SendIcon />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </form>
+        <ContentTitleForm />
       </div>
       <div className="flex items-center justify-between mb-3 sm:mb-4">
         <h3 className="text-base font-semibold">最近作成した本</h3>
