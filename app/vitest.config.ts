@@ -32,6 +32,9 @@ export default defineConfig({
     include: [
       '**/*.test.?(c|m)[jt]s?(x)'
     ],
-    setupFiles: "./src/tests/setup/setup.ts"
+    setupFiles: [
+      "./src/tests/setup/setup.ts",
+      "./src/tests/setup/mock.tsx"
+    ]
   },
 })

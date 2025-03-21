@@ -7,21 +7,18 @@ export const Footer = () => (
         <div className="col-span-1 md:col-span-1">
           <h3
             className="text-lg lg:text-xl font-bold mb-4 font-manrope"
-            data-testid="footer-title"
           >
             Shomotsu
           </h3>
           <p
-            className="text-xs lg:ttext-sm text-gray-600 mb-4"
-            data-testid="footer-caption"
+            className="text-xs lg:text-sm text-gray-600 mb-4"
           >
             オンライン読書・執筆プラットフォーム
           </p>
         </div>
-        <div className="col-span-1" data-testid="support">
+        <div className="col-span-1">
           <h4
             className="text-xs lg:text-sm font-semibold text-gray-900 uppercase mb-4"
-            data-testid="support-title"
           >
             サポート
           </h4>
@@ -30,7 +27,6 @@ export const Footer = () => (
               <Link
                 href="https://x.com/mitate_gengaku"
                 className="text-xs lg:text-sm text-gray-600 hover:text-gray-900"
-                data-testid="support-link"
               >
                 お問い合わせ
               </Link>
@@ -55,14 +51,12 @@ export const Footer = () => (
             <Link
               href="/legal/terms"
               className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
-              data-testid="footer-terms-link"
             >
               利用規約
             </Link>
             <Link
               href="/legal/privacy"
               className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
-              data-testid="footer-privacy-link"
             >
               プライバシーポリシー
             </Link>

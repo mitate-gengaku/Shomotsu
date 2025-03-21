@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import { Header } from "@/components/apperance/header"
 
 describe("Headerコンポーネントのテスト", () => {
-  test("HC-001: コンポーネントが正常に表示される", () => {
+  test("HC-001: コンポーネントが正常に表示されること", () => {
     render(<Header />);
 
     const header = screen.getByTestId("header");
