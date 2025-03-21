@@ -6,13 +6,13 @@ export const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="col-span-1 md:col-span-1">
           <h3
-            className="text-xl font-bold mb-4 font-manrope"
+            className="text-lg lg:text-xl font-bold mb-4 font-manrope"
             data-testid="footer-title"
           >
             Shomotsu
           </h3>
           <p
-            className="text-sm text-gray-600 mb-4"
+            className="text-xs lg:ttext-sm text-gray-600 mb-4"
             data-testid="footer-caption"
           >
             オンライン読書・執筆プラットフォーム
@@ -20,7 +20,7 @@ export const Footer = () => (
         </div>
         <div className="col-span-1" data-testid="support">
           <h4
-            className="text-sm font-semibold text-gray-900 uppercase mb-4"
+            className="text-xs lg:text-sm font-semibold text-gray-900 uppercase mb-4"
             data-testid="support-title"
           >
             サポート
@@ -29,7 +29,7 @@ export const Footer = () => (
             <li>
               <Link
                 href="https://x.com/mitate_gengaku"
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="text-xs lg:text-sm text-gray-600 hover:text-gray-900"
                 data-testid="support-link"
               >
                 お問い合わせ
@@ -54,14 +54,14 @@ export const Footer = () => (
           <div className="flex space-x-6">
             <Link
               href="/legal/terms"
-              className="text-sm text-gray-500 hover:text-gray-900"
+              className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
               data-testid="footer-terms-link"
             >
               利用規約
             </Link>
             <Link
               href="/legal/privacy"
-              className="text-sm text-gray-500 hover:text-gray-900"
+              className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
               data-testid="footer-privacy-link"
             >
               プライバシーポリシー
