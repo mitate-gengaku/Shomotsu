@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
-import LandingLayout from "@/app/(landing)/layout";
+import LandingLayout from "@/app/(public)/layout";
 import { LandingPage } from "@/features/landing/page/ladning-page";
 
 describe("トップ画面(Landingページ)のテスト", () => {
