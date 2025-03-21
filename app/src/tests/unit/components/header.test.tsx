@@ -1,21 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 
-import { Header } from "@/components/layout/header";
+import { Header } from "@/components/apperance/header"
 
 describe("Headerコンポーネントのテスト", () => {
-  test.skip("コンポーネントが表示される", () => {
+  test("HC-001: コンポーネントが正常に表示される", () => {
     render(<Header />);
 
-    expect(screen.getByTestId("header")).toBeInTheDocument();
-  });
-
-  test.skip("ログイン, 今すぐ始めるというラベルのついたボタンが表示される", () => {
-    render(<Header />);
-
+    const header = screen.getByTestId("header");
+    const logo = header.querySelector("h1")
     const loginButton = screen.getByRole("button", { name: "ログイン" });
     const signUpButton = screen.getByRole("button", { name: "今すぐ始める" });
 
+    expect(header).toBeInTheDocument();
+    expect(logo).toBeInTheDocument();
+    expect(logo?.textContent).toBe("Shomotsu")
     expect(loginButton).toBeInTheDocument();
     expect(signUpButton).toBeInTheDocument();
   });
