@@ -1,6 +1,6 @@
+import mockRouter from "next-router-mock";
 import { ReactNode } from "react";
 import { vitest } from "vitest";
-import mockRouter from "next-router-mock"
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 vitest.mock("next/router", () => require("next-router-mock"));

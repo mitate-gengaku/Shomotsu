@@ -1,10 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
-import { ReactNode } from "react";
-import { beforeEach, describe, expect, test, vitest } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 
-import { Footer } from "@/components/apperance/footer"
+import { Footer } from "@/components/apperance/footer";
 
 describe("Footerコンポーネントのテスト", () => {
   beforeEach(() => {
@@ -16,20 +15,22 @@ describe("Footerコンポーネントのテスト", () => {
 
     const footer = screen.getByTestId("footer");
     const footerTitle = screen.getByRole("heading", { level: 3 });
-    const caption = screen.getByText("オンライン読書・執筆プラットフォーム")
+    const caption = screen.getByText("オンライン読書・執筆プラットフォーム");
     const supportTitle = screen.getByText("サポート");
-    const xAccountLink = screen.getByText("お問い合わせ")
+    const xAccountLink = screen.getByText("お問い合わせ");
     const copyWright = screen.getByTestId("footer-copywright");
-    const termsLink = screen.getByText("利用規約")
-    const privacyPolicyLink = screen.getByText("プライバシーポリシー")
+    const termsLink = screen.getByText("利用規約");
+    const privacyPolicyLink = screen.getByText("プライバシーポリシー");
 
     expect(footer).toBeInTheDocument();
     expect(footerTitle).toBeInTheDocument();
     expect(caption).toBeInTheDocument();
     expect(supportTitle).toBeInTheDocument();
     expect(xAccountLink).toBeInTheDocument();
-    expect(copyWright).toBeInTheDocument();      
-    expect(copyWright.textContent).toBe("© 2025 Shomotsu. All rights reserved.")  
+    expect(copyWright).toBeInTheDocument();
+    expect(copyWright.textContent).toBe(
+      "© 2025 Shomotsu. All rights reserved.",
+    );
     expect(termsLink).toBeInTheDocument();
     expect(privacyPolicyLink).toBeInTheDocument();
   });
@@ -39,7 +40,7 @@ describe("Footerコンポーネントのテスト", () => {
 
     render(<Footer />);
 
-    const termsLink = screen.getByText("利用規約")
+    const termsLink = screen.getByText("利用規約");
     await user.click(termsLink);
 
     expect(mockRouter.asPath).toBe("/legal/terms");
@@ -50,7 +51,7 @@ describe("Footerコンポーネントのテスト", () => {
 
     render(<Footer />);
 
-    const privacyPolicyLink = screen.getByText("プライバシーポリシー")
+    const privacyPolicyLink = screen.getByText("プライバシーポリシー");
     await user.click(privacyPolicyLink);
 
     expect(mockRouter.asPath).toBe("/legal/privacy");
@@ -61,7 +62,7 @@ describe("Footerコンポーネントのテスト", () => {
 
     render(<Footer />);
 
-    const xAccountLink = screen.getByText("お問い合わせ")
+    const xAccountLink = screen.getByText("お問い合わせ");
     await user.click(xAccountLink);
 
     expect(mockRouter.asPath).toBe("/mitate_gengaku");

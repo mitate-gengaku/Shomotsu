@@ -5,21 +5,15 @@ export const Footer = () => (
     <div className="w-full max-w-[1280px] container mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="col-span-1 md:col-span-1">
-          <h3
-            className="text-lg lg:text-xl font-bold mb-4 font-manrope"
-          >
+          <h3 className="text-lg lg:text-xl font-bold mb-4 font-manrope">
             Shomotsu
           </h3>
-          <p
-            className="text-xs lg:text-sm text-gray-600 mb-4"
-          >
+          <p className="text-xs lg:text-sm text-gray-600 mb-4">
             オンライン読書・執筆プラットフォーム
           </p>
         </div>
         <div className="col-span-1">
-          <h4
-            className="text-xs lg:text-sm font-semibold text-gray-900 uppercase mb-4"
-          >
+          <h4 className="text-xs lg:text-sm font-semibold text-gray-900 uppercase mb-4">
             サポート
           </h4>
           <ul className="space-y-3">
