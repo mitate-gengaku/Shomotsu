@@ -25,7 +25,7 @@ export default defineConfig({
         // "src/types",
         // "src/**/schema",
       ],
-      reporter: ['text', 'json-summary', 'json'],
+      reporter: ['html', 'clover', 'text', 'json-summary', 'json'],
     },
     environment: "happy-dom",
     globals: true,

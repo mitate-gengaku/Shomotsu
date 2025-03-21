@@ -39,7 +39,7 @@ export const generateMetadata = async (
   };
 };
 
-const LegalPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const Legal = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const { default: Post } = (await import(`@/contents/${slug}.mdx`)) as {
     default: ComponentType;
@@ -52,4 +52,4 @@ export const generateStaticParams = () => legalSlug;
 
 export const dynamicParams = false;
 
-export default LegalPage;
+export default Legal;

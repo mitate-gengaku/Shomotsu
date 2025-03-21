@@ -1,4 +1,4 @@
-import { LandingPage } from "@/features/landing/page/ladning-page";
+import { LandingPage } from "@/features/public/page/ladning-page";
 
 const Landing = () => {
   return <LandingPage />;

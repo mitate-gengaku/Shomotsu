@@ -3,15 +3,15 @@ import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
-import LandingLayout from "@/app/(public)/layout";
-import { LandingPage } from "@/features/landing/page/ladning-page";
+import PublicLayout from "@/app/(public)/layout";
+import Landing from "@/app/(public)/page";
 
 describe("トップ画面(Landingページ)のテスト", () => {
   test("TP-001: トップ画面のUIが正常に表示されること", () => {
     render(
-      <LandingLayout>
-        <LandingPage />
-      </LandingLayout>,
+      <PublicLayout>
+        <Landing />
+      </PublicLayout>,
     );
 
     // Header
@@ -55,9 +55,9 @@ describe("トップ画面(Landingページ)のテスト", () => {
     const user = userEvent.setup();
 
     render(
-      <LandingLayout>
-        <LandingPage />
-      </LandingLayout>,
+      <PublicLayout>
+        <Landing />
+      </PublicLayout>,
     );
 
     const termsLink = screen.getByText("利用規約");
@@ -65,13 +65,13 @@ describe("トップ画面(Landingページ)のテスト", () => {
 
     expect(mockRouter.asPath).toBe("/legal/terms");
   });
-  test("TP-005: プライバシーポリシー画面に遷移", async () => {
+  test("TP-005: プライバシーポリシー画面に遷移こと", async () => {
     const user = userEvent.setup();
 
     render(
-      <LandingLayout>
-        <LandingPage />
-      </LandingLayout>,
+      <PublicLayout>
+        <Landing />
+      </PublicLayout>,
     );
 
     const privacyPolicyLink = screen.getByText("プライバシーポリシー");
@@ -80,13 +80,13 @@ describe("トップ画面(Landingページ)のテスト", () => {
     expect(mockRouter.asPath).toBe("/legal/privacy");
   });
 
-  test("TP-006: 開発者のXアカウントページに遷移", async () => {
+  test("TP-006: 開発者のXアカウントページに遷移こと", async () => {
     const user = userEvent.setup();
 
     render(
-      <LandingLayout>
-        <LandingPage />
-      </LandingLayout>,
+      <PublicLayout>
+        <Landing />
+      </PublicLayout>,
     );
 
     const xAccountLink = screen.getByText("お問い合わせ");

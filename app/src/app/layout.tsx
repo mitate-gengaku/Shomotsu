@@ -1,3 +1,5 @@
+import { jaJP } from "@clerk/localizations";
+import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
@@ -8,10 +10,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { geistSans, manRope } from "@/config/font";
 import { rootMeta } from "@/config/root-meta";
 import { initMocks } from "@/lib/msw/setup/init";
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
-import { jaJP } from '@clerk/localizations'
 
 if (process.env.NODE_ENV === "development") {
   initMocks();
