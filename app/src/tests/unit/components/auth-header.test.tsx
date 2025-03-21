@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test, vitest } from "vitest";
 
-import { AuthHeader } from "@/components/layout/auth-header";
+import { AuthHeader } from "@/components/apperance/auth-header"
 
 vitest.mock("@/components/layout/sidebar", () => ({
   default: () => <div data-testid="sidebar">Sidebar</div>,

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
-import { BaseLayoutUI } from "@/components/layout/landing-layout";
+import { BaseLayoutUI } from "@/components/layout/base-layout";
 
 const mockPropsComponent = <h1>Hello World</h1>;
 
@@ -57,7 +57,7 @@ describe("BaseLayoutUIコンポーネントのテスト", () => {
 
     render(<BaseLayoutUI>Good Morning</BaseLayoutUI>);
 
-    const textProps = screen.getByText("Good Monring");
+    const textProps = screen.getByText("Good Morning");
     expect(textProps).toBeInTheDocument();
   });
 

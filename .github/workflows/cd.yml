@@ -4,9 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - feature
-      - task
-      - fix
+      - dev
     types: [opened, reopened, synchronize]
 
 env:
@@ -17,6 +15,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: contains(fromJson('["feature", "fix", "task"]'), github.head_ref)
     defaults:
       run:
         shell: bash

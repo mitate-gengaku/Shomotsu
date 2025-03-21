@@ -1,4 +1,4 @@
-import { BaseLayoutUI } from "@/components/layout/landing-layout";
+import { BaseLayoutUI } from "@/components/layout/base-layout";
 
 const LandingLayout = ({
   children,
