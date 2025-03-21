@@ -1,7 +1,9 @@
 import { Footer } from "@/components/apperance/footer";
 import { Header } from "@/components/apperance/header";
 
-const LegalLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+export const BaseLayoutUI = ({
+  children,
+}: Readonly<{ children: React.ReactNode }>) => {
   return (
     <>
       <Header />
@@ -14,5 +16,3 @@ const LegalLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     </>
   );
 };
-
-export default LegalLayout;

@@ -5,32 +5,22 @@ export const Footer = () => (
     <div className="w-full max-w-[1280px] container mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         <div className="col-span-1 md:col-span-1">
-          <h3
-            className="text-xl font-bold mb-4 font-manrope"
-            data-testid="footer-title"
-          >
+          <h3 className="text-lg lg:text-xl font-bold mb-4 font-manrope">
             Shomotsu
           </h3>
-          <p
-            className="text-sm text-gray-600 mb-4"
-            data-testid="footer-caption"
-          >
+          <p className="text-xs lg:text-sm text-gray-600 mb-4">
             オンライン読書・執筆プラットフォーム
           </p>
         </div>
-        <div className="col-span-1" data-testid="support">
-          <h4
-            className="text-sm font-semibold text-gray-900 uppercase mb-4"
-            data-testid="support-title"
-          >
+        <div className="col-span-1">
+          <h4 className="text-xs lg:text-sm font-semibold text-gray-900 uppercase mb-4">
             サポート
           </h4>
           <ul className="space-y-3">
             <li>
               <Link
                 href="https://x.com/mitate_gengaku"
-                className="text-sm text-gray-600 hover:text-gray-900"
-                data-testid="support-link"
+                className="text-xs lg:text-sm text-gray-600 hover:text-gray-900"
               >
                 お問い合わせ
               </Link>
@@ -54,15 +44,13 @@ export const Footer = () => (
           <div className="flex space-x-6">
             <Link
               href="/legal/terms"
-              className="text-sm text-gray-500 hover:text-gray-900"
-              data-testid="footer-terms-link"
+              className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
             >
               利用規約
             </Link>
             <Link
               href="/legal/privacy"
-              className="text-sm text-gray-500 hover:text-gray-900"
-              data-testid="footer-privacy-link"
+              className="text-xs lg:text-sm text-gray-500 hover:text-gray-900"
             >
               プライバシーポリシー
             </Link>

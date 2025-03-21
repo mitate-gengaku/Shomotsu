@@ -1,7 +1,7 @@
 import { BoltIcon, LogOutIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 
-import Sidebar from "@/components/layout/sidebar";
+import Sidebar from "@/components/apperance/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,

@@ -4,7 +4,7 @@ import userEvent, {
 } from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
 
-import Sidebar from "@/components/layout/sidebar";
+import Sidebar from "@/components/apperance/sidebar";
 
 describe("Sidebarコンポーネントのテスト", () => {
   test.skip("コンポーネントが正常に表示される", () => {
