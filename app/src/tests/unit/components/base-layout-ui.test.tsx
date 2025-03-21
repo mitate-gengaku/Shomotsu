@@ -7,7 +7,7 @@ import { BaseLayoutUI } from "@/components/layout/landing-layout";
 
 const mockPropsComponent = <h1>Hello World</h1>;
 
-describe("BaseLayoutUIコンポーネント", () => {
+describe("BaseLayoutUIコンポーネントのテスト", () => {
   test("BLU-001: コンポーネントが正常に表示されること", () => {
     render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
 
