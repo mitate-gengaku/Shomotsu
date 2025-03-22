@@ -2,7 +2,7 @@ import { Footer } from "@/components/apperance/footer";
 import { Header } from "@/components/apperance/header";
 import { AuthMenu } from "@/features/auth/components/auth-menu";
 
-export const BaseLayoutUI = ({
+export const PublicLayoutUI = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   return (

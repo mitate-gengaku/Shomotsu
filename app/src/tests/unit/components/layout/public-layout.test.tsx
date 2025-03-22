@@ -1,15 +1,15 @@
+import PublicLayout from "@/app/(public)/layout";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
-import { BaseLayoutUI } from "@/components/layout/base-layout";
 
 const mockPropsComponent = <h1>Hello World</h1>;
 
-describe("BaseLayoutUIコンポーネントのテスト", () => {
-  test("BLU-001: コンポーネントが正常に表示されること", () => {
-    render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
+describe("PublicLayoutコンポーネントのテスト", () => {
+  test("PL-001: コンポーネントが正常に表示されること", () => {
+    render(<PublicLayout>{mockPropsComponent}</PublicLayout>);
 
     // Header
     const header = screen.getByTestId("header");
@@ -46,8 +46,8 @@ describe("BaseLayoutUIコンポーネントのテスト", () => {
     expect(privacyPolicyLink).toBeInTheDocument();
   });
 
-  test("BLU-002: Propsが正しく画面上にレンダリングされる", () => {
-    render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
+  test("PL-002: Propsが正しく画面上にレンダリングされる", () => {
+    render(<PublicLayout>{mockPropsComponent}</PublicLayout>);
 
     const propsComponent = screen.getByRole("heading", {
       level: 1,
@@ -55,16 +55,16 @@ describe("BaseLayoutUIコンポーネントのテスト", () => {
     });
     expect(propsComponent).toBeInTheDocument();
 
-    render(<BaseLayoutUI>Good Morning</BaseLayoutUI>);
+    render(<PublicLayout>Good Morning</PublicLayout>);
 
     const textProps = screen.getByText("Good Morning");
     expect(textProps).toBeInTheDocument();
   });
 
-  test("BLU-003: 利用規約画面に遷移すること", async () => {
+  test("PL-003: 利用規約画面に遷移すること", async () => {
     const user = userEvent.setup();
 
-    render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
+    render(<PublicLayout>{mockPropsComponent}</PublicLayout>);
 
     const termsLink = screen.getByText("利用規約");
     await user.click(termsLink);
@@ -72,10 +72,10 @@ describe("BaseLayoutUIコンポーネントのテスト", () => {
     expect(mockRouter.asPath).toBe("/legal/terms");
   });
 
-  test("BLU-004: プライバシーポリシー画面に遷移すること", async () => {
+  test("PL-004: プライバシーポリシー画面に遷移すること", async () => {
     const user = userEvent.setup();
 
-    render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
+    render(<PublicLayout>{mockPropsComponent}</PublicLayout>);
 
     const privacyPolicyLink = screen.getByText("プライバシーポリシー");
     await user.click(privacyPolicyLink);
@@ -83,10 +83,10 @@ describe("BaseLayoutUIコンポーネントのテスト", () => {
     expect(mockRouter.asPath).toBe("/legal/privacy");
   });
 
-  test("BLU-005: 開発者のXアカウントページに遷移すること", async () => {
+  test("PL-005: 開発者のXアカウントページに遷移すること", async () => {
     const user = userEvent.setup();
 
-    render(<BaseLayoutUI>{mockPropsComponent}</BaseLayoutUI>);
+    render(<PublicLayout>{mockPropsComponent}</PublicLayout>);
 
     const xAccountLink = screen.getByText("お問い合わせ");
     await user.click(xAccountLink);

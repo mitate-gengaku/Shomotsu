@@ -3,10 +3,10 @@ import { SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-  isMobile: boolean;
+  isMobile?: boolean;
 }
 
-export const SignedOutMenu = ({ isMobile }: Props) => (
+export const SignedOutMenu = ({ isMobile = false }: Props) => (
   <SignedOut>
     <Button
       variant={"outline"}

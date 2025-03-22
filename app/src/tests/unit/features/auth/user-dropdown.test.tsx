@@ -73,7 +73,7 @@ describe("UserDropdownコンポーネント", () => {
     expect(signOutButton).toBeInTheDocument();
   })
   
-  test("SOBC-002: サインアウトボタンをクリックすると、onSignOut関数を呼び出すこと", async () => {
+  test("UDC-005: サインアウトボタンをクリックすると、onSignOut関数を呼び出すこと", async () => {
     const user = userEvent.setup();
 
     const dropdownTrigger = rendered.getByTestId("dropdown-trigger")

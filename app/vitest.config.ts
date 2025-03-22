@@ -17,12 +17,14 @@ export default defineConfig({
         "src"
       ],
       exclude: [
+        // SignUp, SignInページはClerkに依存しているため、e2eでテストする
+        "src/features/auth/pages",
+        "src/app/(auth)",
+        "src/{config,lib,types,features/book}",
+        "**/_disabled",
         // "src/components/ui",
         // "src/middleware.ts",
         // "src/mdx-components.tsx",
-        // "src/config",
-        // "src/lib",
-        // "src/types",
         // "src/**/schema",
       ],
       reporter: ['html', 'clover', 'text', 'json-summary', 'json'],
