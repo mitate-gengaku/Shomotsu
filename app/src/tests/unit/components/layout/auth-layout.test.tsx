@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import AuthLayout from "@/app/(auth)/layout";
 
 describe("AuthLayoutコンポーネントのテスト", () => {
-  test("AL-001: AuthLayoutコンポーネントのUIが正常に表示される", () => {
+  test("AL-001: AuthLayoutコンポーネントのUIが正常に表示されること", () => {
     render(
       <AuthLayout>
         <h2>Good Morning</h2>

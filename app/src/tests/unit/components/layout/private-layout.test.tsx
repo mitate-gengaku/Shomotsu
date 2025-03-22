@@ -41,7 +41,7 @@ describe("PrivateLayoutコンポーネントのテスト", () => {
     window.Image = orignalGlobalImage;
   });
 
-  test("PL-001: PrivateLayoutコンポーネントのUIが正常に表示される", () => {
+  test("PL-001: PrivateLayoutコンポーネントのUIが正常に表示されること", () => {
     // Header
     const header = rendered.getByTestId("auth-header");
     const logo = rendered.getByText("Shomotsu").closest("a");
@@ -51,14 +51,14 @@ describe("PrivateLayoutコンポーネントのテスト", () => {
     const dropdownTrigger = rendered.getByTestId("dropdown-trigger");
 
     // sidebar
-    const sidebar = screen.getByTestId("sidebar");
-    const sidebarTrigger = screen.getByTestId("sidebar-trigger");
+    const sidebar = rendered.getByTestId("sidebar");
+    const sidebarTrigger = rendered.getByTestId("sidebar-trigger");
 
     // main
-    const mainSection = screen.getByTestId("main");
-    const mainChildren = screen.getByText("Good Morning");
+    const mainSection = rendered.getByTestId("main");
+    const mainChildren = rendered.getByText("Good Morning");
 
-    const navMenu = screen.getByRole("navigation");
+    const navMenu = rendered.getByRole("navigation");
     const homeIcon = navMenu.querySelector("svg.lucide.lucide-house");
 
     expect(header).toBeInTheDocument();

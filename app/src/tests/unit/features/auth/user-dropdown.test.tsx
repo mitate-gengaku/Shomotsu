@@ -38,7 +38,7 @@ describe("UserDropdownコンポーネント", () => {
     window.Image = orignalGlobalImage;
   });
 
-  test("UDC-001: UserDropdownコンポーネントのUIが正常に表示される", () => {
+  test("UDC-001: UserDropdownコンポーネントのUIが正常に表示されること", () => {
     const avatar = rendered.getByTestId("avatar");
     const dropdownTrigger = rendered.getByTestId("dropdown-trigger");
 
