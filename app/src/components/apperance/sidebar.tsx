@@ -23,7 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { deleteBook } from "@/features/book/services/delete-book";
 import { cn } from "@/utils/cn";
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
@@ -186,5 +186,3 @@ const Sidebar = () => {
     </>
   );
 };
-
-export default Sidebar;

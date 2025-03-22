@@ -1,7 +1,6 @@
+import React from "react";
 
 import { SignInPage } from "@/features/auth/pages/signin-page";
-import { SignUpPage } from "@/features/auth/pages/signup-page";
-import React from "react";
 
 const SignIn = () => {
   return (
