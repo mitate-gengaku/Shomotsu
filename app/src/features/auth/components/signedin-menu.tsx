@@ -1,8 +1,10 @@
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
+
+import { UserDropdown } from "@/features/auth/components/user-dropdown";
 import {} from "react-device-detect";
 
 export const SignedInMenu = () => (
   <SignedIn>
-    <UserButton />
+    <UserDropdown />
   </SignedIn>
 );
