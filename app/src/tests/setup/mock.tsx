@@ -62,6 +62,7 @@ vitest.mock("@clerk/nextjs", () => ({
   useUser: () => {
     return {
       user: {
+        username: "testuser",
         fullname: "test user",
         imageUrl: "https://placehold.co/100x150",
       },
