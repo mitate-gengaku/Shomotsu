@@ -1,7 +1,8 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { SettingsIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SignOutButton } from "@/features/auth/components/signout-button";
-import Link from "next/link";
 
 export const UserDropdown = () => {
   const { user } = useUser();

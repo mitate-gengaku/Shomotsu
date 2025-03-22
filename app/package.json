@@ -10,6 +10,7 @@
     "add": "npx shadcn@latest add",
     "format": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs ; npx prettier --write './src/**/*.{ts,tsx}'",
     "test": "vitest run --coverage",
+    "test:w": "vitest --coverage.enabled true",
     "test:report": "vitest run --coverage.enabled true"
   },
   "dependencies": {

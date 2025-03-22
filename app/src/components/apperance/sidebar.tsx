@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";
-import { toast } from "sonner";
 import { useDebouncedCallback } from "use-debounce";
 
 import { Spinner } from "@/components/loading/spinner";
@@ -20,7 +19,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { deleteBook } from "@/features/book/services/delete-book";
 import { cn } from "@/utils/cn";
 
 export const Sidebar = () => {
@@ -77,7 +75,7 @@ export const Sidebar = () => {
   };
 
   const onDelete = (bookId: string) => {
-    startTransition(async () => {
+    /*startTransition(async () => {
       try {
         const response = await deleteBook(bookId);
         toast.success(response.message);
@@ -91,7 +89,7 @@ export const Sidebar = () => {
         toast.error("Something went wrong");
         return;
       }
-    });
+    });*/
   };
 
   return (

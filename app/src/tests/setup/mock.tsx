@@ -47,3 +47,33 @@ vitest.mock("@/contents/privacy.mdx", () => ({
 vitest.mock("@/contents/terms.mdx", () => ({
   default: () => <div data-testid="terms-content">Terms Content</div>,
 }));
+
+/**
+ * Clerk関連
+ */
+
+const mockSignOut = vitest.fn();
+
+vitest.mock("@clerk/nextjs", () => ({
+  SignedIn: (props) => <div>{props.children}</div>,
+  SignedOut: (props) => <div>{props.children}</div>,
+  SignInButton: (props) => <button>ログイン</button>,
+  SignUpButton: (props) => <button>今すぐ始める</button>,
+  useUser: () => {
+    return {
+      user: {
+        fullname: "test user",
+        imageUrl: "https://placehold.co/100x150",
+      },
+    };
+  },
+  useClerk: () => {
+    return {
+      signOut: mockSignOut
+    }
+  }
+}));
+
+export {
+  mockSignOut
+}

@@ -25,7 +25,7 @@ export const SignOutButton = forwardRef<HTMLButtonElement, Props>(
         onClick={() => onSignOut()}
         ref={ref}
       >
-        <LogOutIcon />
+        <LogOutIcon data-testid="signout-icon" />
         サインアウト
       </button>
     );

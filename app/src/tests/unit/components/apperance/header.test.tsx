@@ -2,10 +2,15 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 
 import { Header } from "@/components/apperance/header";
+import { AuthMenu } from "@/features/auth/components/auth-menu";
 
 describe("Headerコンポーネントのテスト", () => {
   test("HC-001: コンポーネントが正常に表示されること", () => {
-    render(<Header />);
+    render(
+      <Header>
+        <AuthMenu />
+      </Header>,
+    );
 
     const header = screen.getByTestId("header");
     const logo = header.querySelector("h1");
