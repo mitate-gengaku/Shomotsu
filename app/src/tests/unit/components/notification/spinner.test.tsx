@@ -11,6 +11,6 @@ describe("Spinnerコンポーネントのテスト", () => {
 
     expect(spinner).toBeInTheDocument();
     expect(spinner.tagName).toBe("svg");
-    expect(spinner.classList).toContain("text-teal-500")
+    expect(spinner.classList).toContain("text-teal-500");
   });
 });

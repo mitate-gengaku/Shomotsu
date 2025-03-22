@@ -10,5 +10,10 @@ export const FormatDate = ({
 
   const [year, month, day] = formattedDate.split("-");
 
-  return <span {...props} data-testid="format-date">{`${year}年${month}月${day}日`}</span>;
+  return (
+    <span
+      {...props}
+      data-testid="format-date"
+    >{`${year}年${month}月${day}日`}</span>
+  );
 };

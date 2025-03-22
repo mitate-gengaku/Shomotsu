@@ -1,4 +1,5 @@
-import { render, RenderResult, screen } from "@testing-library/react";
+import { render, RenderResult } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import {
   afterAll,
   beforeAll,
@@ -9,7 +10,6 @@ import {
 } from "vitest";
 
 import PrivateLayout from "@/app/(private)/layout";
-import userEvent from "@testing-library/user-event";
 
 describe("PrivateLayoutコンポーネントのテスト", () => {
   let rendered: RenderResult;
