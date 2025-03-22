@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
-
 const mockPropsComponent = <h1>Hello World</h1>;
 
 describe("PublicLayoutコンポーネントのテスト", () => {

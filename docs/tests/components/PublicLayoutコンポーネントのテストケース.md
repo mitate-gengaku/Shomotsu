@@ -1,8 +1,8 @@
-# BaseLayoutコンポーネント
+# PublicLayoutコンポーネント
 ## 各UIが表示されている
 ### テストケース: PL-001
 **期待結果**:
-BaseLayoutコンポーネントのUIが正常に表示される
+PublicLayoutコンポーネントのUIが正常に表示される
 
 **テスト項目**
 - headerが表示されている
