@@ -1,8 +1,9 @@
-import PublicLayout from "@/app/(public)/layout";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
+
+import PublicLayout from "@/app/(public)/layout";
 
 const mockPropsComponent = <h1>Hello World</h1>;
 

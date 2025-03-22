@@ -57,8 +57,12 @@ const mockSignOut = vitest.fn();
 vitest.mock("@clerk/nextjs", () => ({
   SignedIn: (props) => <div>{props.children}</div>,
   SignedOut: (props) => <div>{props.children}</div>,
-  SignInButton: (props) => <button className={props.className}>ログイン</button>,
-  SignUpButton: (props) => <button className={props.className}>今すぐ始める</button>,
+  SignInButton: (props) => (
+    <button className={props.className}>ログイン</button>
+  ),
+  SignUpButton: (props) => (
+    <button className={props.className}>今すぐ始める</button>
+  ),
   useUser: () => {
     return {
       user: {
@@ -70,11 +74,9 @@ vitest.mock("@clerk/nextjs", () => ({
   },
   useClerk: () => {
     return {
-      signOut: mockSignOut
-    }
-  }
+      signOut: mockSignOut,
+    };
+  },
 }));
 
-export {
-  mockSignOut
-}
+export { mockSignOut };

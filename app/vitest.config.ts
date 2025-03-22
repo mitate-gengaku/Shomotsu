@@ -24,7 +24,7 @@ export default defineConfig({
         "**/_disabled",
         // "src/components/ui",
         // "src/middleware.ts",
-        // "src/mdx-components.tsx",
+        "src/mdx-components.tsx",
         // "src/**/schema",
       ],
       reporter: ['html', 'clover', 'text', 'json-summary', 'json'],

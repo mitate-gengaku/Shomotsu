@@ -16,7 +16,10 @@ export const PrivateLayoutUI = ({
         <UserDropdown />
       </AuthHeader>
 
-      <main className="flex flex-col px-4 pt-[calc(4rem+60px)] pb-20 lg:pb-0">
+      <main
+        className="flex flex-col px-4 pt-[calc(4rem+60px)] pb-20 lg:pb-0"
+        data-testid="main"
+      >
         {children}
       </main>
 

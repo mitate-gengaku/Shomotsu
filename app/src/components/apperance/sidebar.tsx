@@ -74,7 +74,7 @@ export const Sidebar = () => {
     },
   };
 
-  const onDelete = (bookId: string) => {
+  const onDelete = () => {
     /*startTransition(async () => {
       try {
         const response = await deleteBook(bookId);
@@ -160,9 +160,7 @@ export const Sidebar = () => {
                           キャンセル
                         </DialogClose>
                         <Button
-                          onClick={() =>
-                            onDelete("238A26BF-C676-4FFA-BF17-73D673D35B6B")
-                          }
+                          onClick={() => onDelete()}
                           disabled={isPending}
                           className="bg-red-500 hover:bg-red-600 transition-all"
                         >
