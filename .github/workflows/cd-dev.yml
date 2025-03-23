@@ -11,6 +11,7 @@ env:
   WORKING_DIRECTORY: "./app"
   VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
   setup:
@@ -49,20 +50,30 @@ jobs:
       cache-key: ${{ needs.setup.outputs.cache-key }}
 
   test:
-    needs: setup
+    needs: [lint]
     uses: ./.github/workflows/test.yml
     with:
       working-directory: "./app"
       cache-key: ${{ needs.setup.outputs.cache-key }}
 
   deploy:
-    needs: setup
-    uses: ./.github/workflows/deploy-dev.yml
-    with:
-      working-directory: "./app"
-      cache-key: ${{ needs.setup.outputs.cache-key }}
-    secrets:
-      vercel_token: ${{ secrets.VERCEL_TOKEN }}
-      vercel_org_id: ${{ secrets.ORG_ID }}
-      vercel_project_id: ${{ secrets.PROJECT_ID }}
-      clerk_publishable_key: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+    needs: [test]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./app
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run format
+      - run: npm run test
+      - run: npm i --global vercel@latest
+      - run: vercel pull --yes --environment=preview --token=${{ env.VERCEL_TOKEN }}
+      - run: vercel build --token=${{ env.VERCEL_TOKEN }}
+      - run: vercel deploy --token=${{ env.VERCEL_TOKEN }}
