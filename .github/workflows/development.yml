@@ -1,4 +1,4 @@
-name: Deploy
+name: CD(env = dev)
 
 on:
   workflow_dispatch:
