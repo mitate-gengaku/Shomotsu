@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";
-import { toast } from "sonner";
 import { useDebouncedCallback } from "use-debounce";
 
 import { Spinner } from "@/components/loading/spinner";
@@ -20,13 +19,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { deleteBook } from "@/features/book/services/delete-book";
 import { cn } from "@/utils/cn";
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
 
   const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
 
@@ -76,8 +74,8 @@ const Sidebar = () => {
     },
   };
 
-  const onDelete = (bookId: string) => {
-    startTransition(async () => {
+  const onDelete = () => {
+    /*startTransition(async () => {
       try {
         const response = await deleteBook(bookId);
         toast.success(response.message);
@@ -91,7 +89,7 @@ const Sidebar = () => {
         toast.error("Something went wrong");
         return;
       }
-    });
+    });*/
   };
 
   return (
@@ -162,9 +160,7 @@ const Sidebar = () => {
                           キャンセル
                         </DialogClose>
                         <Button
-                          onClick={() =>
-                            onDelete("238A26BF-C676-4FFA-BF17-73D673D35B6B")
-                          }
+                          onClick={() => onDelete()}
                           disabled={isPending}
                           className="bg-red-500 hover:bg-red-600 transition-all"
                         >
@@ -186,5 +182,3 @@ const Sidebar = () => {
     </>
   );
 };
-
-export default Sidebar;

@@ -6,7 +6,6 @@ on:
 
 env:
   WORKING_DIRECTORY: ./app
-
       
 jobs:
   ci:

@@ -15,7 +15,6 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: contains(fromJson('["feature", "fix", "task"]'), github.head_ref)
     defaults:
       run:
         shell: bash
