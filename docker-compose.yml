@@ -10,3 +10,16 @@ services:
     stdin_open: true
     volumes:
       - ./app:/home/node/app
+      
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./container/db/data:/var/lib/postgresql/data
+volumes:
+  pgdata:
