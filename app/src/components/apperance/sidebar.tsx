@@ -24,7 +24,7 @@ import { cn } from "@/utils/cn";
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
 
   const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
 

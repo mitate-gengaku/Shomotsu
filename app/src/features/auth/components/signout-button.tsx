@@ -31,3 +31,5 @@ export const SignOutButton = forwardRef<HTMLButtonElement, Props>(
     );
   },
 );
+
+SignOutButton.displayName = "SignOutButton";

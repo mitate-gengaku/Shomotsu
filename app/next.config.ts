@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  typescript: {
+    tsconfigPath: "tsconfig.build.json"
+  }
 };
 
 const withMDX = createMDX({

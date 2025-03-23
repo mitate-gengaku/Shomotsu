@@ -13,10 +13,10 @@ import PrivateLayout from "@/app/(private)/layout";
 
 describe("PrivateLayoutコンポーネントのテスト", () => {
   let rendered: RenderResult;
-  const image: HTMLElement | null = null;
   const orignalGlobalImage = window.Image;
 
   beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window.Image as any) = class MockImage {
       onload: () => void = () => {};
       src: string = "";
