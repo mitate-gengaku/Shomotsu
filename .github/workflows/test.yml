@@ -1,0 +1,40 @@
+name: Test
+
+on: 
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+      cache-key:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working-directory }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ inputs.working-directory }}/node_modules
+          key: ${{ inputs.cache-key }}
+     
+      
+      - name: Run test
+        run: npm run test:report
+      
+      - name: Show coverage
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: ${{ inputs.working-directory }}

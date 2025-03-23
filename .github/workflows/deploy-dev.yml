@@ -1,0 +1,57 @@
+name: Deploy Development
+
+on: 
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+      cache-key:
+        required: true
+        type: string
+    secrets:
+      vercel_token:
+        required: true
+      vercel_org_id:
+        required: true
+      vercel_project_id:
+        required: true
+      clerk_publishable_key:
+        required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working-directory }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ inputs.working-directory }}/node_modules
+          key: ${{ inputs.cache-key }}
+     
+      - run: npm i --global vercel@latest
+      - run: vercel pull --yes --environment=preview --token=${{ secrets.vercel_token }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.vercel_org_id }}
+          VERCEL_PROJECT_ID: ${{ secrets.vercel_project_id }}
+
+      - run: vercel build --token=${{ secrets.vercel_token }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.vercel_org_id }}
+          VERCEL_PROJECT_ID: ${{ secrets.vercel_project_id }}
+
+      - run: vercel deploy --token=${{ secrets.vercel_token }}
+        env:
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.clerk_publishable_key }}
+          VERCEL_ORG_ID: ${{ secrets.vercel_org_id }}
+          VERCEL_PROJECT_ID: ${{ secrets.vercel_project_id }}
