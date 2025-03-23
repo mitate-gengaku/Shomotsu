@@ -63,3 +63,4 @@ jobs:
       cache-key: ${{ needs.setup.outputs.cache-key }}
     secrets:
       vercel_token: ${{ secrets.VERCEL_TOKEN }}
+      clerk_publishable_key: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
