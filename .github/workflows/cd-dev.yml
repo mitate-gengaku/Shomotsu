@@ -50,14 +50,14 @@ jobs:
       cache-key: ${{ needs.setup.outputs.cache-key }}
 
   test:
-    needs: [lint]
+    needs: [setup, lint]
     uses: ./.github/workflows/test.yml
     with:
       working-directory: "./app"
       cache-key: ${{ needs.setup.outputs.cache-key }}
 
   deploy:
-    needs: [test]
+    needs: [setup, lint, test]
     runs-on: ubuntu-latest
     defaults:
       run:
