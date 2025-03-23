@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+    permissions:
+      contents: read
+    outputs:
+      cache-key: ${{ steps.npm-cache.outputs.cache-key }}
+    if: |
+      !contains(github.event.head_commit.message, 'Merge pull request') && 
+      !contains(github.event.head_commit.message, 'Merge branch')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Get cache key
+        id: npm-cache
+        run: echo "cache-key=npm-${{ hashFiles('**/package-lock.json') }}" >> $GITHUB_OUTPUT
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.WORKING_DIRECTORY }}/node_modules
+          key: ${{ steps.npm-cache.outputs.cache-key }}
+          restore-keys: |
+            npm-
+      - name: Install dependencies
+        run: npm ci
+
+  lint:
+    needs: setup
+    uses: ./.github/workflows/lint.yml
+    with:
+      working-directory: "./app"
+      cache-key: ${{ needs.setup.outputs.cache-key }}
+
+  test:
+    needs: setup
+    uses: ./.github/workflows/test.yml
+    with:
+      working-directory: "./app"
+      cache-key: ${{ needs.setup.outputs.cache-key }}
