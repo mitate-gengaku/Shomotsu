@@ -55,7 +55,7 @@ jobs:
 
   deploy:
     needs: [setup, lint, test]
-    uses: ./.github/workflows/development-deploy.yml
+    uses: ./.github/workflows/deploy-dev.yml
     with:
       working-directory: "./app"
       cache-key: ${{ needs.setup.outputs.cache-key }}
