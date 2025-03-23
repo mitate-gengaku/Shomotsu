@@ -38,6 +38,8 @@ jobs:
       - run: npm i --global vercel@latest
       - run: vercel pull --yes --environment=preview --token=${{ secrets.vercel_token }}
       - run: vercel build --token=${{ secrets.vercel_token }}
+        env:
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.clerk_publishable_key }}
       - run: vercel deploy --token=${{ secrets.vercel_token }}
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.clerk_publishable_key }}
