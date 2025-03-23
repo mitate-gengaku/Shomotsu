@@ -11,6 +11,7 @@ env:
 
 jobs:
   setup:
+    if: github.event_name != 'pull_request' || github.event.action != 'opened'
     runs-on: ubuntu-latest
     defaults:
       run:
