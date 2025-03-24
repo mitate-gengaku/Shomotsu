@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/utils/cn";
+import { toast } from "sonner";
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
