@@ -37,7 +37,7 @@ export const Sidebar = () => {
 
   const sidebarVariants = {
     open: {
-      x: 0,
+      x: -4,
       transition: {
         type: "spring",
         stiffness: 300,
@@ -45,7 +45,7 @@ export const Sidebar = () => {
       },
     },
     closed: {
-      x: "-120%",
+      x: "-110%",
       transition: {
         type: "spring",
         stiffness: 300,
@@ -113,7 +113,7 @@ export const Sidebar = () => {
         </motion.button>
       </Button>
       <motion.div
-        className="fixed h-[calc(100%-60px)] top-[60px] left-1 bottom-1 w-64 bg-white shadow-lg z-40 rounded-sm"
+        className="fixed h-[calc(100%-60px)] top-[60px] left-1 bottom-1 w-64 bg-white dark:bg-slate-950 shadow-lg z-40 rounded-sm"
         variants={sidebarVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
@@ -129,7 +129,7 @@ export const Sidebar = () => {
                 <li key={index} className="relative group">
                   <Link
                     href={`/book/${item}`}
-                    className="flex pl-2 z-10 pr-5 py-1 text-sm group-hover:bg-teal-50 rounded transition-colors duration-200"
+                    className="flex pl-2 z-10 pr-5 py-1 text-sm group-hover:bg-teal-50 dark:group-hover:bg-gray-300/20 rounded transition-colors duration-200"
                   >
                     {item}
                   </Link>

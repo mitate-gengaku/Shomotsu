@@ -14,14 +14,15 @@ export const SettingSidebar = () => {
     <div className="flex h-fit flex-col gap-4 md:h-full md:w-52 lg:w-64">
       <h2 className="text-xl font-semibold">設定</h2>
       <nav>
-        <ul className="flex flex-col gap-2">
+        <ul className="space-y-2">
           <li className="flex items-center justify-start">
             <Link
               href={"/setting/account"}
               className={cn(
                 buttonVariants({ variant: "ghost" }),
                 "w-full justify-start text-muted-foreground hover:text-foreground",
-                pathname === "/setting/account" && "font-semibold text-primary",
+                (pathname === "/setting" || pathname === "/setting/account") &&
+                  "font-semibold text-primary bg-slate-300/20",
               )}
             >
               <UserIcon />
@@ -30,11 +31,12 @@ export const SettingSidebar = () => {
           </li>
           <li className="flex items-center justify-start">
             <Link
-              href={"/setting/account"}
+              href={"/setting/appearance"}
               className={cn(
                 buttonVariants({ variant: "ghost" }),
                 "w-full justify-start text-muted-foreground hover:text-foreground",
-                pathname === "/setting/appearance" && "font-bold text-primary",
+                pathname === "/setting/appearance" &&
+                  "font-bold text-primary bg-slate-300/20",
               )}
             >
               <BrushIcon />
