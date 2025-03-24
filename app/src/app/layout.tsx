@@ -6,11 +6,11 @@ import Script from "next/script";
 import type { Metadata } from "next";
 
 import "@/app/globals.css";
+import { ThemeProvider } from "@/components/provider/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { geistSans, manRope } from "@/config/font";
 import { rootMeta } from "@/config/root-meta";
 import { initMocks } from "@/lib/msw/setup/init";
-import { ThemeProvider } from "@/components/provider/theme-provider";
 
 if (process.env.NODE_ENV === "development") {
   initMocks();
@@ -41,7 +41,7 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-            >
+          >
             {children}
           </ThemeProvider>
         </body>

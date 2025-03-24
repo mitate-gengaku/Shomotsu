@@ -1,3 +1,3 @@
 import { atomWithStorage } from "jotai/utils";
 
-export const isSyncSystem = atomWithStorage("sync-system", false)
+export const darkModeAtom = atomWithStorage<string>("theme", "system");
