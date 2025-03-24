@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { geistSans, manRope } from "@/config/font";
 import { rootMeta } from "@/config/root-meta";
 import { initMocks } from "@/lib/msw/setup/init";
+import { ThemeProvider } from "@/components/provider/theme-provider";
 
 if (process.env.NODE_ENV === "development") {
   initMocks();
@@ -24,18 +25,25 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider localization={jaJP}>
-      <html lang="ja">
+      <html lang="ja" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}
         >
           <Toaster richColors position="top-right" theme="light" />
-          {children}
           <Script
             defer
             src="https://cloud.umami.is/script.js"
             data-website-id={process.env.UMAMI_DABA_WEBSITE_ID}
           />
           <SpeedInsights />
+          <ThemeProvider
+            attribute={"class"}
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
