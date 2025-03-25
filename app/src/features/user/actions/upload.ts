@@ -4,26 +4,26 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
 
-import { userNameSchema } from "@/features/user/schema/username-schema";
+import { avatarSchema } from "@/features/user/schema/avatar-schema";
 
-export async function updateUserName(formData: FormData) {
+export async function uploadAvatar(formData: FormData) {
   const { userId } = await auth();
 
   if (!userId) redirect("/signin");
 
-  const userName = formData.get("username");
+  const file = formData.get("avatar");
 
   try {
-    const parsedUserName = userNameSchema.parse({ username: userName });
-    const params = { username: parsedUserName.username };
+    const parsedFile = avatarSchema.parse({ avatar: file });
+    const params = { file: parsedFile.avatar };
 
     const client = await clerkClient();
 
-    await client.users.updateUser(userId, params);
+    await client.users.updateUserProfileImage(userId, params);
 
     return {
       status: "success",
-      message: "ユーザーネームを更新しました",
+      message: "アバター画像を更新しました",
     };
   } catch (e) {
     if (e instanceof ZodError) {

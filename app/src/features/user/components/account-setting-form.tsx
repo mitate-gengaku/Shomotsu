@@ -36,15 +36,15 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
         <Input
           {...register("username")}
           className={cn(
-            "bg-slate-50",
-            errors.root?.message &&
+            "bg-slate-50 dark:bg-slate-900",
+            errors.username?.message &&
               "border-red-500 bg-red-50 focus-visible:ring-red-500",
-            !errors.root?.message && "focus-visible:ring-teal-500",
+            !errors.username?.message && "focus-visible:ring-teal-500",
           )}
           disabled={isLoading || isSubmitting}
         />
-        {errors.root?.message && (
-          <p className="text-red-500 text-xs">{errors.root?.message}</p>
+        {errors.username?.message && (
+          <p className="text-red-500 text-xs">{errors.username?.message}</p>
         )}
       </div>
       <Button
