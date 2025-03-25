@@ -1,40 +1,29 @@
 "use server";
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
-import { ZodError } from "zod";
 
 import { userNameSchema } from "@/features/user/schema/username-schema";
 
-export async function updateUserName(formData: FormData) {
+export async function updateUserName(prevState: unknown, formData: FormData) {
   const { userId } = await auth();
 
   if (!userId) redirect("/signin");
 
-  const userName = formData.get("username");
+  const submission = parseWithZod(formData, {
+    schema: userNameSchema,
+  });
 
-  try {
-    const parsedUserName = userNameSchema.parse({ username: userName });
-    const params = { username: parsedUserName.username };
-
-    const client = await clerkClient();
-
-    await client.users.updateUser(userId, params);
-
-    return {
-      status: "success",
-      message: "ユーザーネームを更新しました",
-    };
-  } catch (e) {
-    if (e instanceof ZodError) {
-      return {
-        status: "error",
-        message: e.errors[0].message,
-      };
-    }
-    return {
-      status: "error",
-      message: "エラーが発生しました",
-    };
+  if (submission.status !== "success") {
+    return submission.reply();
   }
+
+  const params = { username: submission.value.username };
+
+  const client = await clerkClient();
+
+  await client.users.updateUser(userId, params);
+
+  return;
 }
