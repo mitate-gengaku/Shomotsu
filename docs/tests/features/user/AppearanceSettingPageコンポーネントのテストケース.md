@@ -1,6 +1,6 @@
 # AppearanceSettingPageコンポーネント
 ## コンポーネントが正常に表示される
-### テストケース: ASPC-001
+### テストケース: ARSPC-001
 **期待結果**:
 AppearanceSettingPageコンポーネントのUIが正常に表示される
 

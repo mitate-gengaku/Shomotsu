@@ -90,12 +90,19 @@ interface ThemeProviderOptiosn {
 interface CustomThemeOptions extends RenderOptions, ThemeProviderOptiosn {}
 
 const createTestProviders =
-  ({ theme = "dark" }: CustomThemeOptions): React.FC =>
-  ({ children }) => (
-    <ThemeProvider defaultTheme={theme} enableSystem={false} attribute="class">
-      {children}
-    </ThemeProvider>
-  );
+  ({ theme = "dark" }: CustomThemeOptions) =>
+  // eslint-disable-next-line react/display-name
+  ({ children }) => {
+    return (
+      <ThemeProvider
+        defaultTheme={theme}
+        enableSystem={false}
+        attribute="class"
+      >
+        {children}
+      </ThemeProvider>
+    );
+  };
 
 const themeRender = (
   ui: ReactElement,
