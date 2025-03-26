@@ -1,10 +1,11 @@
-import { ThemeProvider } from "@/components/provider/theme-provider";
-import { themeRender } from "@/tests/setup/mock";
-import { render, RenderResult, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { useTheme } from "next-themes";
 import { beforeEach, describe, expect, test, vitest } from "vitest";
 
-let localStorageMock: { [key: string]: string } = {}
+import { ThemeProvider } from "@/components/provider/theme-provider";
+import { themeRender } from "@/tests/setup/mock";
+
+let localStorageMock: { [key: string]: string } = {};
 
 const ThemeSpy: React.FC = () => {
   const { theme } = useTheme();
@@ -13,7 +14,7 @@ const ThemeSpy: React.FC = () => {
 
 describe("ThemeProviderコンポーネントのテスト", () => {
   beforeEach(() => {
-    global.matchMedia = vitest.fn(query => ({
+    global.matchMedia = vitest.fn((query) => ({
       matches: false,
       media: query,
       onchange: null,
@@ -21,43 +22,60 @@ describe("ThemeProviderコンポーネントのテスト", () => {
       removeListener: vitest.fn(),
       addEventListener: vitest.fn(),
       removeEventListener: vitest.fn(),
-      dispatchEvent: vitest.fn()
-    }))
-  
+      dispatchEvent: vitest.fn(),
+    }));
+
     global.Storage.prototype.getItem = vitest.fn(
-      (key: string) => localStorageMock[key]
-    )
-    global.Storage.prototype.setItem = vitest.fn((key: string, value: string) => {
-      localStorageMock[key] = value
-    })
-  
-    localStorageMock = {}
-  })
+      (key: string) => localStorageMock[key],
+    );
+    global.Storage.prototype.setItem = vitest.fn(
+      (key: string, value: string) => {
+        localStorageMock[key] = value;
+      },
+    );
+
+    localStorageMock = {};
+  });
 
   test("TPC-001: コンポーネントが正常に表示されること", () => {
-    themeRender(<ThemeProvider><ThemeSpy /></ThemeProvider>, { theme: "light" })
+    themeRender(
+      <ThemeProvider>
+        <ThemeSpy />
+      </ThemeProvider>,
+      { theme: "light" },
+    );
 
     const testChild = screen.getByTestId("test-child");
 
     expect(testChild).toBeInTheDocument();
-    expect(testChild.textContent).toEqual("light")
-  })
+    expect(testChild.textContent).toEqual("light");
+  });
 
   test("TPC-002: darkモードのとき、ThemeProviderにdarkが正しく渡されること", () => {
-    themeRender(<ThemeProvider><ThemeSpy /></ThemeProvider>, { theme: "dark" })
+    themeRender(
+      <ThemeProvider>
+        <ThemeSpy />
+      </ThemeProvider>,
+      { theme: "dark" },
+    );
 
     const testChild = screen.getByTestId("test-child");
 
     expect(testChild).toBeInTheDocument();
-    expect(testChild.textContent).toEqual("dark")
-  })
+    expect(testChild.textContent).toEqual("dark");
+  });
 
   test("TPC-003: systemモードのとき、ThemeProviderにsystemが正しく渡されること", () => {
-    themeRender(<ThemeProvider><ThemeSpy /></ThemeProvider>, { theme: "system" })
+    themeRender(
+      <ThemeProvider>
+        <ThemeSpy />
+      </ThemeProvider>,
+      { theme: "system" },
+    );
 
     const testChild = screen.getByTestId("test-child");
 
     expect(testChild).toBeInTheDocument();
-    expect(testChild.textContent).toEqual("system")
-  })
-})
+    expect(testChild.textContent).toEqual("system");
+  });
+});

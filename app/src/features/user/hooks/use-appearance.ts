@@ -1,3 +1,5 @@
+"use client";
+
 import { useAtom, useAtomValue } from "jotai";
 
 import { useTheme } from "@/hooks/use-theme";

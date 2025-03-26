@@ -1,4 +1,5 @@
 import { render, RenderOptions, RenderResult } from "@testing-library/react";
+import { useHydrateAtoms } from "jotai/utils";
 import mockRouter from "next-router-mock";
 import { ThemeProvider } from "next-themes";
 import { ReactElement, ReactNode } from "react";
@@ -88,13 +89,13 @@ interface ThemeProviderOptiosn {
 
 interface CustomThemeOptions extends RenderOptions, ThemeProviderOptiosn {}
 
-const createTestProviders = ({
-  theme = 'dark',
-}: CustomThemeOptions): React.FC => ({ children }) => (
-  <ThemeProvider defaultTheme={theme} enableSystem={false} attribute="class">
-    {children}
-  </ThemeProvider>
-);
+const createTestProviders =
+  ({ theme = "dark" }: CustomThemeOptions): React.FC =>
+  ({ children }) => (
+    <ThemeProvider defaultTheme={theme} enableSystem={false} attribute="class">
+      {children}
+    </ThemeProvider>
+  );
 
 const themeRender = (
   ui: ReactElement,
@@ -102,4 +103,9 @@ const themeRender = (
 ): RenderResult =>
   render(ui, { wrapper: createTestProviders({ theme }), ...options });
 
-export { mockSignOut, themeRender };
+const HydrateAtoms = ({ initialValues, children }) => {
+  useHydrateAtoms(initialValues);
+  return children;
+};
+
+export { mockSignOut, themeRender, HydrateAtoms };
