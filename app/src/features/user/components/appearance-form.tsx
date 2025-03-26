@@ -34,6 +34,7 @@ export const AppearanceForm = () => {
                   className={cn(
                     "disabled:pointer-events-none disabled:opacity-50",
                   )}
+                  data-testid="theme-card"
                   disabled={checked}
                 >
                   <Card
@@ -87,10 +88,10 @@ export const AppearanceForm = () => {
                       <div className={`flex items-center justify-between`}>
                         <div className="flex items-center space-x-2">
                           {<option.icon className="h-5 w-5" />}
-                          <span className="font-medium">{option.title}</span>
+                          <span className="font-medium" data-testid="card-title">{option.title}</span>
                         </div>
                       </div>
-                      <p className={`text-xs mt-1 text-left`}>
+                      <p className={`text-xs mt-1 text-left`} data-testid="card-description">
                         {option.description}
                       </p>
                     </div>
