@@ -20,12 +20,15 @@ export default defineConfig({
         // SignUp, SignInページはClerkに依存しているため、e2eでテストする
         "src/features/auth/pages",
         "src/app/(auth)",
+        "src/app/(private)",
+        "src/app/api/webhooks/user",
         "src/{config,lib,types,features/book}",
         "**/_disabled",
         // "src/components/ui",
         // "src/middleware.ts",
         "src/mdx-components.tsx",
         // "src/**/schema",
+        "src/**/types"
       ],
       reporter: ['html', 'clover', 'text', 'json-summary', 'json'],
     },

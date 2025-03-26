@@ -1,5 +1,7 @@
+import { render, RenderOptions, RenderResult } from "@testing-library/react";
 import mockRouter from "next-router-mock";
-import { ReactNode } from "react";
+import { ThemeProvider } from "next-themes";
+import { ReactElement, ReactNode } from "react";
 import { vitest } from "vitest";
 
 /**
@@ -79,4 +81,25 @@ vitest.mock("@clerk/nextjs", () => ({
   },
 }));
 
-export { mockSignOut };
+// next-themes
+interface ThemeProviderOptiosn {
+  theme?: string;
+}
+
+interface CustomThemeOptions extends RenderOptions, ThemeProviderOptiosn {}
+
+const createTestProviders = ({
+  theme = 'dark',
+}: CustomThemeOptions): React.FC => ({ children }) => (
+  <ThemeProvider defaultTheme={theme} enableSystem={false} attribute="class">
+    {children}
+  </ThemeProvider>
+);
+
+const themeRender = (
+  ui: ReactElement,
+  { theme, ...options }: CustomThemeOptions = {},
+): RenderResult =>
+  render(ui, { wrapper: createTestProviders({ theme }), ...options });
+
+export { mockSignOut, themeRender };

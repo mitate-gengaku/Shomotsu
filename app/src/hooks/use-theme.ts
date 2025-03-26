@@ -3,7 +3,7 @@
 import { useTheme as useNextTheme } from "next-themes";
 
 export const useTheme = () => {
-  const { setTheme } = useNextTheme();
+  const { theme, setTheme } = useNextTheme();
 
   const onChangeTheme = (value: string) => {
     setTheme(value);
