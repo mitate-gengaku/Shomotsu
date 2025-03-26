@@ -17,16 +17,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { uploadAvatar } from "@/features/user/actions/upload";
+import { convertDataUrlToFile } from "@/features/user/utils/convert-data-url-to-file";
 import { cropperFileAtom } from "@/stores/cropper-file";
-
-export const convertDataUrlToFile = async (
-  dataURL: string,
-  filename: string,
-  type: "image/png" | "image/jpeg",
-): Promise<File> => {
-  const blob = await (await fetch(dataURL)).blob();
-  return new File([blob], filename, { type: type });
-};
 
 export const CropperDialog = () => {
   const { user } = useUser();
