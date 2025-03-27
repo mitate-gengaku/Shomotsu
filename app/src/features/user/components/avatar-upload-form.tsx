@@ -58,6 +58,7 @@ export const AvatarUploadForm = () => {
           className="sr-only"
           accept=".jpg,.png"
           onChange={onChangeFile}
+          data-testid="avatar-file-input"
         />
         <span className="group-hover:text-gray-900 transition-all">
           アップロード
