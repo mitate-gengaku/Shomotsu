@@ -18,17 +18,20 @@ vitest.mock("next/router", () => require("next-router-mock"));
 vitest.mock("next/link", () => {
   interface MockLinkProps {
     children: ReactNode;
+    className?: string;
     href: string;
     "data-testid": string;
   }
   const MockLink = ({
     children,
     href,
+    className,
     "data-testid": dataTestid,
   }: MockLinkProps) => {
     return (
       <a
         href={href}
+        className={className}
         onClick={() => mockRouter.push(href)}
         data-testid={dataTestid}
       >
