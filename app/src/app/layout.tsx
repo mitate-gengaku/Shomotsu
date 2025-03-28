@@ -33,7 +33,7 @@ export default function RootLayout({
           <Script
             async
             src="https://cloud.umami.is/script.js"
-            data-website-id={process.env.NEXT_PUBLIC_UMAMI_DABA_WEBSITE_ID}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_DATA_WEBSITE_ID}
           />
           <SpeedInsights />
           <ThemeProvider
