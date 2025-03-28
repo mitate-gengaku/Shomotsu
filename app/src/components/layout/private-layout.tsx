@@ -9,7 +9,7 @@ export const PrivateLayoutUI = ({
 }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <div
-      className="flex flex-col min-h-screen bg-white dark:bg-slate-950"
+      className="flex flex-col h-screen bg-white dark:bg-slate-950"
       data-testid="auth-layout"
     >
       <AuthHeader>
@@ -17,7 +17,7 @@ export const PrivateLayoutUI = ({
       </AuthHeader>
 
       <main
-        className="flex flex-col px-4 pt-[calc(4rem+60px)] pb-20 lg:pb-0"
+        className="flex flex-col px-4 pt-[calc(4rem+60px)] h-full pb-20 lg:pb-0"
         data-testid="main"
       >
         {children}

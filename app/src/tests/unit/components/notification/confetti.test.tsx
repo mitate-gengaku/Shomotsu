@@ -1,22 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import cconfetti from "canvas-confetti";
 import { Provider } from "jotai";
-import { useHydrateAtoms } from "jotai/utils";
 import { afterEach, beforeEach, describe, expect, test, vitest } from "vitest";
 
 import { Confetti } from "@/components/notifications/confetti";
 import { confettiAtom } from "@/stores/confetti";
+import { HydrateAtoms } from "@/tests/setup/mock";
 
 vitest.mock("canvas-confetti", () => {
   return {
     default: vitest.fn(),
   };
 });
-
-const HydrateAtoms = ({ initialValues, children }) => {
-  useHydrateAtoms(initialValues);
-  return children;
-};
 
 describe("Confettiコンポーネントのテスト", () => {
   beforeEach(() => {

@@ -61,6 +61,14 @@ export async function POST(req: Request) {
         { message: "User saved to DB" },
         { status: 200 },
       );
+    } else if (evt.type === "user.updated") {
+      const { id } = evt.data;
+
+      console.log(`User ${id} added to database.`);
+      return NextResponse.json(
+        { message: "User update to DB" },
+        { status: 200 },
+      );
     }
 
     return NextResponse.json({ message: "Unhandled event" }, { status: 200 });

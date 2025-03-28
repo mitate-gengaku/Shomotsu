@@ -1,5 +1,8 @@
+import { render, RenderOptions, RenderResult } from "@testing-library/react";
+import { useHydrateAtoms } from "jotai/utils";
 import mockRouter from "next-router-mock";
-import { ReactNode } from "react";
+import { ThemeProvider } from "next-themes";
+import { ReactElement, ReactNode } from "react";
 import { vitest } from "vitest";
 
 /**
@@ -15,17 +18,20 @@ vitest.mock("next/router", () => require("next-router-mock"));
 vitest.mock("next/link", () => {
   interface MockLinkProps {
     children: ReactNode;
+    className?: string;
     href: string;
     "data-testid": string;
   }
   const MockLink = ({
     children,
     href,
+    className,
     "data-testid": dataTestid,
   }: MockLinkProps) => {
     return (
       <a
         href={href}
+        className={className}
         onClick={() => mockRouter.push(href)}
         data-testid={dataTestid}
       >
@@ -79,4 +85,37 @@ vitest.mock("@clerk/nextjs", () => ({
   },
 }));
 
-export { mockSignOut };
+// next-themes
+interface ThemeProviderOptiosn {
+  theme?: string;
+}
+
+interface CustomThemeOptions extends RenderOptions, ThemeProviderOptiosn {}
+
+const createTestProviders =
+  ({ theme = "dark" }: CustomThemeOptions) =>
+  // eslint-disable-next-line react/display-name
+  ({ children }) => {
+    return (
+      <ThemeProvider
+        defaultTheme={theme}
+        enableSystem={false}
+        attribute="class"
+      >
+        {children}
+      </ThemeProvider>
+    );
+  };
+
+const themeRender = (
+  ui: ReactElement,
+  { theme, ...options }: CustomThemeOptions = {},
+): RenderResult =>
+  render(ui, { wrapper: createTestProviders({ theme }), ...options });
+
+const HydrateAtoms = ({ initialValues, children }) => {
+  useHydrateAtoms(initialValues);
+  return children;
+};
+
+export { mockSignOut, themeRender, HydrateAtoms };
