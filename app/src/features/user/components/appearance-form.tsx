@@ -32,7 +32,7 @@ export const AppearanceForm = () => {
                   key={option.id}
                   onClick={() => onCheckCard(option.id)}
                   className={cn(
-                    "disabled:pointer-events-none disabled:opacity-50",
+                    "disabled:pointer-events-none disabled:opacity-50 focus:ring-transparent",
                   )}
                   data-testid="theme-card"
                   disabled={checked}
