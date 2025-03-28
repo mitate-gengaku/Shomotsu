@@ -31,9 +31,9 @@ export default function RootLayout({
         >
           <Toaster richColors position="top-right" theme="light" />
           <Script
-            defer
+            async
             src="https://cloud.umami.is/script.js"
-            data-website-id={process.env.UMAMI_DABA_WEBSITE_ID}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_DABA_WEBSITE_ID}
           />
           <SpeedInsights />
           <ThemeProvider
