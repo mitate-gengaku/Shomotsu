@@ -1,25 +1,58 @@
-"use client";
-
-import { UserIcon } from "lucide-react";
+import { BookmarkIcon, CpuIcon, UserIcon } from "lucide-react";
 import React from "react";
 
 import { FormatDate } from "@/components/format/date";
-import { Confetti } from "@/components/notifications/confetti";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CategoryIcons } from "@/features/book/components/category-icons";
-import { IBook } from "@/types/book";
 
-export const BookDetailClient = ({ book }: { book: IBook }) => {
+const bookData = {
+  title: "人工知能と未来社会：2025年の展望",
+  author: "佐藤 智子",
+  publisher: "未来出版社",
+  releaseDate: "2025年2月15日",
+  price: {
+    ebook: "¥2,800",
+    physical: "¥3,500",
+  },
+  rating: 4.5,
+  reviewCount: 128,
+  cover: "https://placehold.co/100x150",
+};
+
+const BookInfo = async () => {
   return (
     <div
       className="w-full lg:w-1/2 mx-auto relative"
       data-testid="book-detail-page"
     >
-      <Confetti />
+      <div className="mb-8">
+        <Breadcrumb>
+          <BreadcrumbList className="justify-center lg:justify-start">
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/explore">Explore</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Computer</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6">
         <div className="lg:w-1/3">
           <div
@@ -30,8 +63,8 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
             }}
           >
             <img
-              src={book.cover}
-              alt={`${book.title}の表紙`}
+              src={bookData.cover}
+              alt={`${bookData.title}の表紙`}
               className="w-full rounded-lg"
               data-testid="book-cover"
             />
@@ -49,13 +82,14 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
             className="text-3xl font-semibold text-center lg:text-left"
             data-testid="title"
           >
-            {book.title}
+            {bookData.title}
           </h2>
           <div className="flex items-center gap-4">
             <Avatar className="size-10" data-testid="author-avatar">
               <AvatarImage
-                src={book.user.avatar}
-                alt={`${book.user.name}の画像`}
+                src={bookData.cover}
+                alt={`${bookData.cover}の画像`}
+                className="w-full rounded-lg object-cover"
               />
               <AvatarFallback>
                 <UserIcon />
@@ -63,41 +97,39 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
             </Avatar>
             <div>
               <p className="text-lg font-medium" data-testid="author">
-                {book.user.name}
+                {bookData.author}
               </p>
               <p className="text-sm text-gray-600">著者</p>
             </div>
           </div>
           <div className="w-full space-y-4">
             <div className="hidden md:block">
-              <h3 className="text-sm font-medium text-gray-700 mb-1 text-center lg:text-left">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1 text-center lg:text-left">
                 カテゴリ
               </h3>
-              <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
-                {book.categories.map((category, i) => (
-                  <Button
-                    size={"sm"}
-                    variant={"outline"}
-                    className="rounded-full transition-all"
-                    key={`${category.title}-${i}`}
-                  >
-                    <CategoryIcons
-                      icon={category.icon}
-                      className="text-teal-500"
-                    />
-                    {category.title}
-                  </Button>
-                ))}
+              <div
+                className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
+                data-testid="categories"
+              >
+                <Button
+                  size={"sm"}
+                  className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                >
+                  <CpuIcon />
+                  テクノロジー
+                </Button>
               </div>
             </div>
             <div className="hidden md:block">
-              <h3 className="text-sm font-medium text-gray-700 mb-1 text-center lg:text-left">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1 text-center lg:text-left">
                 発行年
               </h3>
-              <FormatDate
-                date={book.created_at}
-                className="text-gray-500 text-sm"
-              />
+              <div className="flex items-center gap-2 flex-wrap justify-center lg:justify-start">
+                <FormatDate
+                  date={new Date().toISOString()}
+                  className="text-gray-500 text-sm"
+                />
+              </div>
             </div>
             <div className="w-full flex items-center gap-2">
               <Button
@@ -105,6 +137,9 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
                 data-testid="read-book-button"
               >
                 本を読む
+              </Button>
+              <Button size={"icon"} variant={"outline"}>
+                <BookmarkIcon />
               </Button>
             </div>
           </div>
@@ -122,42 +157,35 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
           </TabsList>
           <TabsContent value="summary">
             <p
-              className="mb-8 text-gray-700 leading-relaxed"
+              className="mb-8 text-gray-700 dark:text-gray-50 leading-relaxed"
               data-testid="summary"
             >
               そしてだんだん十字架は窓の正面に来ました。私は大学へはいっていて言いました。僕はほんとうにカムパネルラといつまでもいっしょに行こうねえジョバンニがこう言いながらふりかえって見ていると考えます。ジョバンニはおじぎをすると扉をあけておいてそこへ播かないとはえないんです。ジョバンニは思わずかけよって博士の前に立っているなど、とてももう腸もちぎれるようでした。
             </p>
             <div className="flex flex-col gap-4 md:hidden">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-1">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
                   カテゴリ
                 </h3>
                 <div
                   className="flex items-center gap-2 flex-wrap"
                   data-testid="categories"
                 >
-                  {book.categories.map((category, i) => (
-                    <Button
-                      size={"sm"}
-                      variant={"outline"}
-                      className="rounded-full transition-all"
-                      key={`${category.title}-${i}`}
-                    >
-                      <CategoryIcons
-                        icon={category.icon}
-                        className="text-teal-500"
-                      />
-                      {category.title}
-                    </Button>
-                  ))}
+                  <Button
+                    size={"sm"}
+                    className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                  >
+                    <CpuIcon />
+                    テクノロジー
+                  </Button>
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-1">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
                   発行年
                 </h3>
                 <FormatDate
-                  date={book.created_at}
+                  date={new Date().toISOString()}
                   className="text-gray-500 text-sm"
                 />
               </div>
@@ -180,3 +208,5 @@ export const BookDetailClient = ({ book }: { book: IBook }) => {
     </div>
   );
 };
+
+export default BookInfo;

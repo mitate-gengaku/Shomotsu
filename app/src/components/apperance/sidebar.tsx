@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { useDebouncedCallback } from "use-debounce";
 
 import { Spinner } from "@/components/loading/spinner";
@@ -19,14 +20,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { deleteBook } from "@/features/book/clients/delete-book";
 import { cn } from "@/utils/cn";
 
-export const Sidebar = () => {
+export const Sidebar = ({
+  books,
+}: {
+  books: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user_id: string;
+    category_id: string;
+    title: string;
+    description: string;
+    content: string;
+    cover: string;
+    publish: boolean;
+  }[];
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [isPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
-  const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
+  // const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
 
   const handleSidebar = useDebouncedCallback(
     (open: React.SetStateAction<boolean>) => {
@@ -74,11 +91,11 @@ export const Sidebar = () => {
     },
   };
 
-  const onDelete = () => {
-    /*startTransition(async () => {
+  const onDelete = (bookId: string) => {
+    startTransition(async () => {
       try {
         const response = await deleteBook(bookId);
-        toast.success(response.message);
+        toast.success(response);
         setDialogOpen((open) => !open);
         handleSidebar((open) => !open);
       } catch (e) {
@@ -89,7 +106,7 @@ export const Sidebar = () => {
         toast.error("Something went wrong");
         return;
       }
-    });*/
+    });
   };
 
   return (
@@ -125,13 +142,13 @@ export const Sidebar = () => {
           <h2 className="text-sm font-bold mb-3">作品一覧</h2>
           <ScrollArea className="h-[calc(100%-30px)] pr-3">
             <ul className="space-y-2">
-              {books.map((item, index) => (
+              {books.map((book, index) => (
                 <li key={index} className="relative group">
                   <Link
-                    href={`/book/${item}`}
+                    href={`/book/${book.id}`}
                     className="flex pl-2 z-10 pr-5 py-1 text-sm group-hover:bg-teal-50 dark:group-hover:bg-gray-300/20 rounded transition-colors duration-200"
                   >
-                    {item}
+                    {book.title}
                   </Link>
                   <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                     <DialogTrigger data-testid="alert-dialog-trigger" asChild>
@@ -147,7 +164,7 @@ export const Sidebar = () => {
                         <DialogTitle>本の削除</DialogTitle>
                         <DialogDescription>
                           この操作は取り消せません。本当に「
-                          <span className="font-semibold">{item}</span>
+                          <span className="font-semibold">{book.title}</span>
                           」を削除しますか？
                         </DialogDescription>
                       </DialogHeader>
@@ -160,7 +177,7 @@ export const Sidebar = () => {
                           キャンセル
                         </DialogClose>
                         <Button
-                          onClick={() => onDelete()}
+                          onClick={() => onDelete(book.id)}
                           disabled={isPending}
                           className="bg-red-500 hover:bg-red-600 transition-all"
                         >

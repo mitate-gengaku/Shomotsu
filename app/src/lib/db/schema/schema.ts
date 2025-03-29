@@ -33,22 +33,27 @@ export const categoriesTable = pgTable("categories_table", {
     .$onUpdate(() => new Date()),
 });
 
-
 export const booksTable = pgTable("books_table", {
   id: text("id")
     .$defaultFn(() => ulid())
     .primaryKey(),
   user_id: text("user_id")
     .notNull()
-    .references(() => usersTable.id, { onDelete: "cascade", onUpdate: "cascade" }),
+    .references(() => usersTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
   category_id: text("category_id")
     .notNull()
-    .references(() => categoriesTable.id, { onDelete: "restrict", onUpdate: "cascade" }),
-  title: varchar({ length: 28 }),
-  description: varchar({ length: 256 }),
-  content: text("content"),
+    .references(() => categoriesTable.id, {
+      onDelete: "restrict",
+      onUpdate: "cascade",
+    }),
+  title: varchar({ length: 28 }).notNull(),
+  description: varchar({ length: 256 }).notNull(),
+  content: text("content").notNull(),
   cover: text("cover").notNull(),
-  publish: boolean("publish").default(false),
+  publish: boolean("publish").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
@@ -60,20 +65,20 @@ export const booksTable = pgTable("books_table", {
  * relation
  */
 export const userRelations = relations(usersTable, ({ many }) => ({
-  books: many(booksTable)
-}))
+  books: many(booksTable),
+}));
 
 export const bookRelations = relations(booksTable, ({ one }) => ({
   user: one(usersTable, {
     fields: [booksTable.user_id],
-    references: [usersTable.id]
+    references: [usersTable.id],
   }),
   category: one(categoriesTable, {
     fields: [booksTable.category_id],
-    references: [categoriesTable.id]
-  })
-}))
+    references: [categoriesTable.id],
+  }),
+}));
 
 export const categoryRelations = relations(categoriesTable, ({ many }) => ({
-  books: many(booksTable)
-}))
+  books: many(booksTable),
+}));
