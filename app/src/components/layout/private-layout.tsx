@@ -1,10 +1,6 @@
-import { HomeIcon, LibraryBigIcon } from "lucide-react";
-
 import { AuthHeader } from "@/components/apperance/auth-header";
-import { Button } from "@/components/ui/button";
-import { UserDropdown } from "@/features/auth/components/user-dropdown";
-import Link from "next/link";
 import { MobileNav } from "@/components/apperance/mobile-navigation";
+import { UserDropdown } from "@/features/auth/components/user-dropdown";
 
 export const PrivateLayoutUI = ({
   children,

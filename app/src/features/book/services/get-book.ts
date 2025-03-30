@@ -5,9 +5,8 @@ import { and, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db/setup/drizzle";
-import { BookWithAllRelations } from "@/types/book";
 
-export const getBook = async (slug: string): Promise<BookWithAllRelations> => {
+export const getBook = async (slug: string) => {
   const { sessionId } = await auth();
   const decodedSlug = decodeURI(slug);
   const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
@@ -16,7 +15,7 @@ export const getBook = async (slug: string): Promise<BookWithAllRelations> => {
     where: (booksTable, { eq }) => {
       return and(
         eq(booksTable.slug, decodedSlug),
-        or(eq(booksTable.publish, true), eq(booksTable.user_id, userId)),
+        or(eq(booksTable.publish, true), eq(booksTable.userId, userId)),
       );
     },
     with: {
@@ -33,5 +32,12 @@ export const getBook = async (slug: string): Promise<BookWithAllRelations> => {
     redirect("/not-found");
   }
 
-  return book;
+  const isExistLibrary = await db.query.librariesTable.findFirst({
+    where: (librariesTable, { eq }) => eq(librariesTable.bookId, book.id),
+  });
+
+  return {
+    book,
+    bookMarked: isExistLibrary ? true : false,
+  };
 };

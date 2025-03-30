@@ -5,6 +5,7 @@ import {
   timestamp,
   boolean,
   varchar,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users_table", {
@@ -32,13 +33,13 @@ export const categoriesTable = pgTable("categories_table", {
 
 export const booksTable = pgTable("books_table", {
   id: text("id").notNull().primaryKey(),
-  user_id: text("user_id")
+  userId: text("userId")
     .notNull()
     .references(() => usersTable.id, {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
-  category_id: text("category_id")
+  categoryId: text("categoryId")
     .notNull()
     .references(() => categoriesTable.id),
   title: varchar({ length: 28 }).notNull(),
@@ -54,6 +55,22 @@ export const booksTable = pgTable("books_table", {
     .$onUpdate(() => new Date()),
 });
 
+export const librariesTable = pgTable(
+  "libraries",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => usersTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+    bookId: text("bookId")
+      .notNull()
+      .references(() => booksTable.id),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.bookId] })],
+);
+
 /**
  * relation
  */
@@ -63,15 +80,26 @@ export const userRelations = relations(usersTable, ({ many }) => ({
 
 export const bookRelations = relations(booksTable, ({ one }) => ({
   user: one(usersTable, {
-    fields: [booksTable.user_id],
+    fields: [booksTable.userId],
     references: [usersTable.id],
   }),
   category: one(categoriesTable, {
-    fields: [booksTable.category_id],
+    fields: [booksTable.categoryId],
     references: [categoriesTable.id],
   }),
 }));
 
 export const categoryRelations = relations(categoriesTable, ({ many }) => ({
   books: many(booksTable),
+}));
+
+export const librariesRelations = relations(librariesTable, ({ one }) => ({
+  book: one(booksTable, {
+    fields: [librariesTable.bookId],
+    references: [booksTable.id],
+  }),
+  user: one(usersTable, {
+    fields: [librariesTable.userId],
+    references: [usersTable.id],
+  }),
 }));

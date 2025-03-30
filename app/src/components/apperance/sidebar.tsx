@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlignLeftIcon } from "lucide-react";
+import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -13,6 +13,10 @@ import { Book } from "@/types/book";
 
 export const Sidebar = ({ books }: { books: Book[] }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [bookData, setBookData] = useState<{ id: string; title: string }>({
+    id: "",
+    title: "",
+  });
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleSidebar = useDebouncedCallback(
@@ -61,6 +65,11 @@ export const Sidebar = ({ books }: { books: Book[] }) => {
     },
   };
 
+  const onSelectBook = (id: string, title: string) => {
+    setBookData((bookData) => ({ ...bookData, id, title }));
+    setDialogOpen((open) => !open);
+  };
+
   return (
     <>
       <Button
@@ -103,13 +112,13 @@ export const Sidebar = ({ books }: { books: Book[] }) => {
                     >
                       {book.title}
                     </Link>
-                    <DeleteBookDialog
-                      book_id={book.id}
-                      book_title={book.title}
-                      isDialogOpen={dialogOpen}
-                      setDialogOpen={setDialogOpen}
-                      handleSidebar={handleSidebar}
-                    />
+                    <button
+                      className="z-[9999] flex items-center justify-center size-6 absolute right-0 top-0.5 rounded-sm"
+                      onClick={() => onSelectBook(book.id, book.title)}
+                      data-testid="alert-dialog-trigger"
+                    >
+                      <EllipsisIcon className="size-3" />
+                    </button>
                   </li>
                 ))
               ) : (
@@ -118,6 +127,13 @@ export const Sidebar = ({ books }: { books: Book[] }) => {
             </ul>
           </ScrollArea>
         </div>
+        <DeleteBookDialog
+          book_id={bookData.id}
+          book_title={bookData.title}
+          isDialogOpen={dialogOpen}
+          setDialogOpen={setDialogOpen}
+          handleSidebar={handleSidebar}
+        />
       </motion.div>
     </>
   );

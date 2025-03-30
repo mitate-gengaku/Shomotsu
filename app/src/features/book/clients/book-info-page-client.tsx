@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
+import { useDebouncedCallback } from "use-debounce";
 
 import { FormatDate } from "@/components/format/date";
 import { XLogoIcon } from "@/components/icon/x";
@@ -34,16 +36,36 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CopyButton } from "@/components/utils/copy-button";
 import { XShare } from "@/components/utils/x-share";
+import { addLibrary } from "@/features/book/services/add-library";
 import { BookWithAllRelations } from "@/types/book";
+import { cn } from "@/utils/cn";
 
-export const BookInfoPageClient = ({
-  book,
-  url,
-}: {
+interface Props {
   book: BookWithAllRelations;
+  bookMarked: boolean;
   url: string;
-}) => {
+}
+
+export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
   const path = usePathname();
+
+  const onAddLibrary = async (
+    bookId: string,
+    bookMarked: boolean,
+    slug: string,
+  ) => {
+    try {
+      await addLibrary(bookId, bookMarked, slug);
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error(e.message);
+        return;
+      }
+      toast.error("Something went wrong");
+      return;
+    }
+  };
+  const handleLibrary = useDebouncedCallback(onAddLibrary, 500);
 
   return (
     <div
@@ -76,7 +98,9 @@ export const BookInfoPageClient = ({
                 "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
             }}
           >
-            <span className="hidden absolute h-24 left-5 border-[14px] border-teal-500 z-10 border-b-transparent" />
+            {bookMarked && (
+              <span className="absolute h-24 left-5 border-[14px] border-teal-500 z-[1] border-b-transparent" />
+            )}
             <img
               src={book.cover}
               alt={`${book.title}の表紙`}
@@ -141,7 +165,7 @@ export const BookInfoPageClient = ({
               </h3>
               <div className="flex items-center gap-2 flex-wrap justify-center lg:justify-start">
                 <FormatDate
-                  date={new Date(book.createdAt).toISOString()}
+                  date={new Date(book.createdAt)}
                   className="text-gray-500 text-sm"
                 />
               </div>
@@ -153,8 +177,14 @@ export const BookInfoPageClient = ({
               >
                 本を読む
               </Button>
-              <Button size={"icon"} variant={"outline"}>
-                <BookmarkIcon />
+              <Button
+                size={"icon"}
+                variant={"outline"}
+                onClick={() => handleLibrary(book.id, bookMarked, path)}
+              >
+                <BookmarkIcon
+                  className={cn(bookMarked && "fill-yellow-500 stroke-none")}
+                />
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -234,7 +264,7 @@ export const BookInfoPageClient = ({
                   発行年
                 </h3>
                 <FormatDate
-                  date={new Date(book.createdAt).toISOString()}
+                  date={new Date(book.createdAt)}
                   className="text-gray-500 text-sm"
                 />
               </div>

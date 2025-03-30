@@ -8,8 +8,10 @@ interface Props {
 }
 
 export const BookInfoPage = async ({ slug }: Props) => {
-  const book = await getBook(slug);
+  const { book, bookMarked } = await getBook(slug);
   const requestUrl = process.env.SHOMOTSU_URL || "http://localhost:3000";
 
-  return <BookInfoPageClient book={book} url={requestUrl} />;
+  return (
+    <BookInfoPageClient book={book} bookMarked={bookMarked} url={requestUrl} />
+  );
 };

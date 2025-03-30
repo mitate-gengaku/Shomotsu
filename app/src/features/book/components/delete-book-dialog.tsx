@@ -1,4 +1,5 @@
-import { EllipsisIcon } from "lucide-react";
+"use client";
+
 import React, { useTransition } from "react";
 import { toast } from "sonner";
 
@@ -12,7 +13,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteBook } from "@/features/book/services/delete-book";
 import { cn } from "@/utils/cn";
@@ -54,11 +54,6 @@ export const DeleteBookDialog = ({
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-      <DialogTrigger data-testid="alert-dialog-trigger" asChild>
-        <button className="z-[999] flex items-center justify-center size-6 absolute right-0 top-0.5 rounded-sm">
-          <EllipsisIcon className="size-3" />
-        </button>
-      </DialogTrigger>
       <DialogContent
         onMouseEnter={() => handleSidebar(true)}
         data-testid="alert-dialog-content"

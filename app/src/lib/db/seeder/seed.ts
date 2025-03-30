@@ -32,8 +32,8 @@ const randomCategoryId = Math.floor(Math.random() * categoryLength);
 
 const books: BookType[] = Array.from({ length: 10 }, () => ({
   id: ulid(),
-  user_id: userId,
-  category_id: categories[randomCategoryId].id,
+  userId: userId,
+  categoryId: categories[randomCategoryId].id,
   title: fakerJa.lorem.word(16),
   description: fakerJa.lorem.paragraph(5),
   slug: fakerEn.lorem.slug(),

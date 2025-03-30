@@ -2,18 +2,14 @@ import { LibraryPage } from "@/features/book/pages/library-page";
 
 interface Props {
   searchParams: Promise<{
-    page: string
-  }>
+    page: string;
+  }>;
 }
 
 const Library = async ({ searchParams }: Props) => {
-  const { page = "1" } = await searchParams
+  const { page = "1" } = await searchParams;
 
-  return (
-    <LibraryPage
-      page={parseInt(page)}
-    />
-  )
-}
+  return <LibraryPage page={parseInt(page)} />;
+};
 
 export default Library;
