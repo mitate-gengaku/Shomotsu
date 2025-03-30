@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 import { Sidebar } from "@/components/apperance/sidebar";
-import { getBooks } from "@/features/book/clients/get-books";
+import { getBooks } from "@/features/book/services/get-books";
 
 export const AuthHeader = async ({
   children,

@@ -12,11 +12,11 @@ export const usersTable = pgTable("users_table", {
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   imageUrl: text("image_url").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
-    .notNull()
     .defaultNow()
-    .$onUpdate(() => new Date()),
+    .$onUpdate(() => new Date())
+    .notNull(),
 });
 
 export const categoriesTable = pgTable("categories_table", {

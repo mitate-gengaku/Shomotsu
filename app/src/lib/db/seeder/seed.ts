@@ -4,16 +4,13 @@ import { ulid } from "ulid";
 
 import * as schema from "@/lib/db/schema/schema";
 import { db } from "@/lib/db/setup/drizzle";
+import { BookType, CategoryType, UserType } from "@/lib/db/types/type";
 
 const fakerJa = fakerJA;
 const fakerEn = fakerEN;
 
 const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 const categoryLength = 3;
-
-type UserType = typeof schema.usersTable.$inferInsert;
-type CategoryType = typeof schema.categoriesTable.$inferInsert;
-type BookType = typeof schema.booksTable.$inferInsert;
 
 const users: UserType[] = Array.from({ length: 1 }, () => ({
   id: userId,

@@ -9,24 +9,9 @@ import { useDebouncedCallback } from "use-debounce";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DeleteBookDialog } from "@/features/book/components/delete-book-dialog";
+import { Book } from "@/types/book";
 
-export const Sidebar = ({
-  books,
-}: {
-  books: {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    user_id: string;
-    category_id: string;
-    title: string;
-    description: string;
-    slug: string;
-    content: string;
-    cover: string;
-    publish: boolean;
-  }[];
-}) => {
+export const Sidebar = ({ books }: { books: Book[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 

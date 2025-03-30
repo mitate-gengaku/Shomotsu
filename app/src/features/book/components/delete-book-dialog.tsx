@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { deleteBook } from "@/features/book/clients/delete-book";
+import { deleteBook } from "@/features/book/services/delete-book";
 import { cn } from "@/utils/cn";
 
 interface Props {
