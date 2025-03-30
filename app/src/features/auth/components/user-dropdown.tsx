@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { SettingsIcon, UserIcon } from "lucide-react";
+import { LibraryBigIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -41,6 +41,15 @@ export const UserDropdown = () => {
           >
             <UserIcon />
             アカウント
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
+            href={"/library"}
+          >
+            <LibraryBigIcon />
+            ライブラリー
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

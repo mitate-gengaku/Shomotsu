@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/utils/cn"
-import { HomeIcon, LibraryBigIcon } from "lucide-react"
+import { HomeIcon, LibraryBigIcon, Settings2Icon, SettingsIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -40,6 +40,20 @@ export const MobileNav = () => {
           )}
           >
           <LibraryBigIcon size={18} />
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="text-slate-400"
+      >
+        <Link 
+          href={"/setting"}
+          className={cn(
+            pathname.includes("setting") && "bg-slate-300/20 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
+          )}
+          >
+          <SettingsIcon size={18} />
         </Link>
       </Button>
     </nav>

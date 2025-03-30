@@ -9,7 +9,7 @@ export const AuthHeader = async ({
 }: {
   children?: Readonly<ReactNode>;
 }) => {
-  const books = await getBooks();
+  const {books} = await getBooks();
 
   return (
     <header
