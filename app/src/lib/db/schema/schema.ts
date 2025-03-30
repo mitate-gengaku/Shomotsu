@@ -6,13 +6,12 @@ import {
   boolean,
   varchar,
 } from "drizzle-orm/pg-core";
-import { ulid } from "ulid";
 
 export const usersTable = pgTable("users_table", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  imageUrl: text("image_url"),
+  imageUrl: text("image_url").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
@@ -21,9 +20,7 @@ export const usersTable = pgTable("users_table", {
 });
 
 export const categoriesTable = pgTable("categories_table", {
-  id: text("id")
-    .$defaultFn(() => ulid())
-    .primaryKey(),
+  id: text("id").notNull().primaryKey(),
   category: text("category").notNull().unique(),
   label: text("label").notNull().unique(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -34,9 +31,7 @@ export const categoriesTable = pgTable("categories_table", {
 });
 
 export const booksTable = pgTable("books_table", {
-  id: text("id")
-    .$defaultFn(() => ulid())
-    .primaryKey(),
+  id: text("id").notNull().primaryKey(),
   user_id: text("user_id")
     .notNull()
     .references(() => usersTable.id, {
@@ -45,12 +40,10 @@ export const booksTable = pgTable("books_table", {
     }),
   category_id: text("category_id")
     .notNull()
-    .references(() => categoriesTable.id, {
-      onDelete: "restrict",
-      onUpdate: "cascade",
-    }),
+    .references(() => categoriesTable.id),
   title: varchar({ length: 28 }).notNull(),
-  description: varchar({ length: 256 }).notNull(),
+  description: varchar({ length: 192 }).notNull(),
+  slug: text("slug").notNull(),
   content: text("content").notNull(),
   cover: text("cover").notNull(),
   publish: boolean("publish").notNull().default(false),

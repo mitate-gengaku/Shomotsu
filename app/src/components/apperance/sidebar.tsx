@@ -1,27 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlignLeftIcon, EllipsisIcon } from "lucide-react";
+import { AlignLeftIcon } from "lucide-react";
 import Link from "next/link";
-import React, { useState, useTransition } from "react";
-import { toast } from "sonner";
+import React, { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-import { Spinner } from "@/components/loading/spinner";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { deleteBook } from "@/features/book/clients/delete-book";
-import { cn } from "@/utils/cn";
+import { DeleteBookDialog } from "@/features/book/components/delete-book-dialog";
 
 export const Sidebar = ({
   books,
@@ -34,6 +21,7 @@ export const Sidebar = ({
     category_id: string;
     title: string;
     description: string;
+    slug: string;
     content: string;
     cover: string;
     publish: boolean;
@@ -41,9 +29,6 @@ export const Sidebar = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
-
-  // const books = ["銀河鉄道の夜", "熊嵐", "高熱街道"];
 
   const handleSidebar = useDebouncedCallback(
     (open: React.SetStateAction<boolean>) => {
@@ -91,24 +76,6 @@ export const Sidebar = ({
     },
   };
 
-  const onDelete = (bookId: string) => {
-    startTransition(async () => {
-      try {
-        const response = await deleteBook(bookId);
-        toast.success(response);
-        setDialogOpen((open) => !open);
-        handleSidebar((open) => !open);
-      } catch (e) {
-        if (e instanceof Error) {
-          toast.error(e.message);
-          return;
-        }
-        toast.error("Something went wrong");
-        return;
-      }
-    });
-  };
-
   return (
     <>
       <Button
@@ -142,56 +109,27 @@ export const Sidebar = ({
           <h2 className="text-sm font-bold mb-3">作品一覧</h2>
           <ScrollArea className="h-[calc(100%-30px)] pr-3">
             <ul className="space-y-2">
-              {books.map((book, index) => (
-                <li key={index} className="relative group">
-                  <Link
-                    href={`/book/${book.id}`}
-                    className="flex pl-2 z-10 pr-5 py-1 text-sm group-hover:bg-teal-50 dark:group-hover:bg-gray-300/20 rounded transition-colors duration-200"
-                  >
-                    {book.title}
-                  </Link>
-                  <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <DialogTrigger data-testid="alert-dialog-trigger" asChild>
-                      <button className="z-[999] flex items-center justify-center size-6 absolute right-0 top-0.5 rounded-sm">
-                        <EllipsisIcon className="size-3" />
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent
-                      onMouseEnter={() => handleSidebar(true)}
-                      data-testid="alert-dialog-content"
+              {books.length ? (
+                books.map((book, index) => (
+                  <li key={index} className="relative group">
+                    <Link
+                      href={`/book/${book.slug}`}
+                      className="flex pl-2 z-10 pr-5 py-1 text-sm group-hover:bg-teal-50 dark:group-hover:bg-gray-300/20 rounded transition-colors duration-200"
                     >
-                      <DialogHeader>
-                        <DialogTitle>本の削除</DialogTitle>
-                        <DialogDescription>
-                          この操作は取り消せません。本当に「
-                          <span className="font-semibold">{book.title}</span>
-                          」を削除しますか？
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <DialogClose
-                          disabled={isPending}
-                          className={cn(buttonVariants({ variant: "outline" }))}
-                          type="button"
-                        >
-                          キャンセル
-                        </DialogClose>
-                        <Button
-                          onClick={() => onDelete(book.id)}
-                          disabled={isPending}
-                          className="bg-red-500 hover:bg-red-600 transition-all"
-                        >
-                          {isPending ? (
-                            <Spinner className="text-white" />
-                          ) : (
-                            "削除"
-                          )}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </li>
-              ))}
+                      {book.title}
+                    </Link>
+                    <DeleteBookDialog
+                      book_id={book.id}
+                      book_title={book.title}
+                      isDialogOpen={dialogOpen}
+                      setDialogOpen={setDialogOpen}
+                      handleSidebar={handleSidebar}
+                    />
+                  </li>
+                ))
+              ) : (
+                <p className="text-sm">まだ本はありません</p>
+              )}
             </ul>
           </ScrollArea>
         </div>

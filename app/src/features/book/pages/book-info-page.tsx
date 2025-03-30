@@ -15,22 +15,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getBook } from "@/features/book/clients/get-book";
 
-const bookData = {
-  title: "人工知能と未来社会：2025年の展望",
-  author: "佐藤 智子",
-  publisher: "未来出版社",
-  releaseDate: "2025年2月15日",
-  price: {
-    ebook: "¥2,800",
-    physical: "¥3,500",
-  },
-  rating: 4.5,
-  reviewCount: 128,
-  cover: "https://placehold.co/100x150",
-};
+interface Props {
+  slug: string;
+}
 
-const BookInfo = async () => {
+export const BookInfoPage = async ({ slug }: Props) => {
+  const book = await getBook(slug);
+
   return (
     <div
       className="w-full lg:w-1/2 mx-auto relative"
@@ -48,7 +41,7 @@ const BookInfo = async () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Computer</BreadcrumbPage>
+              <BreadcrumbPage>{book.category.label}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -62,9 +55,10 @@ const BookInfo = async () => {
                 "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
             }}
           >
+            <span className="hidden absolute h-24 left-5 border-[14px] border-teal-500 z-10 border-b-transparent" />
             <img
-              src={bookData.cover}
-              alt={`${bookData.title}の表紙`}
+              src={book.cover}
+              alt={`${book.title}の表紙`}
               className="w-full rounded-lg"
               data-testid="book-cover"
             />
@@ -82,13 +76,13 @@ const BookInfo = async () => {
             className="text-3xl font-semibold text-center lg:text-left"
             data-testid="title"
           >
-            {bookData.title}
+            {book.title}
           </h2>
           <div className="flex items-center gap-4">
             <Avatar className="size-10" data-testid="author-avatar">
               <AvatarImage
-                src={bookData.cover}
-                alt={`${bookData.cover}の画像`}
+                src={book.user.imageUrl}
+                alt={`${book.user.name}のプロフィール画像`}
                 className="w-full rounded-lg object-cover"
               />
               <AvatarFallback>
@@ -97,7 +91,7 @@ const BookInfo = async () => {
             </Avatar>
             <div>
               <p className="text-lg font-medium" data-testid="author">
-                {bookData.author}
+                {book.user.name}
               </p>
               <p className="text-sm text-gray-600">著者</p>
             </div>
@@ -116,7 +110,7 @@ const BookInfo = async () => {
                   className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
                 >
                   <CpuIcon />
-                  テクノロジー
+                  {book.category.label}
                 </Button>
               </div>
             </div>
@@ -126,7 +120,7 @@ const BookInfo = async () => {
               </h3>
               <div className="flex items-center gap-2 flex-wrap justify-center lg:justify-start">
                 <FormatDate
-                  date={new Date().toISOString()}
+                  date={new Date(book.createdAt).toISOString()}
                   className="text-gray-500 text-sm"
                 />
               </div>
@@ -176,7 +170,7 @@ const BookInfo = async () => {
                     className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
                   >
                     <CpuIcon />
-                    テクノロジー
+                    {book.category.label}
                   </Button>
                 </div>
               </div>
@@ -185,7 +179,7 @@ const BookInfo = async () => {
                   発行年
                 </h3>
                 <FormatDate
-                  date={new Date().toISOString()}
+                  date={new Date(book.createdAt).toISOString()}
                   className="text-gray-500 text-sm"
                 />
               </div>
@@ -208,5 +202,3 @@ const BookInfo = async () => {
     </div>
   );
 };
-
-export default BookInfo;

@@ -1,43 +1,56 @@
-import { fakerJA } from "@faker-js/faker";
-import { reset, seed } from "drizzle-seed";
+import { fakerJA, fakerEN } from "@faker-js/faker";
+import { reset } from "drizzle-seed";
 import { ulid } from "ulid";
 
 import * as schema from "@/lib/db/schema/schema";
 import { db } from "@/lib/db/setup/drizzle";
 
-const faker = fakerJA;
+const fakerJa = fakerJA;
+const fakerEn = fakerEN;
+
+const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
+const categoryLength = 3;
+
+type UserType = typeof schema.usersTable.$inferInsert;
+type CategoryType = typeof schema.categoriesTable.$inferInsert;
+type BookType = typeof schema.booksTable.$inferInsert;
+
+const users: UserType[] = Array.from({ length: 1 }, () => ({
+  id: userId,
+  name: fakerJa.person.fullName(),
+  email: fakerJa.internet.email(),
+  imageUrl: fakerJa.image.avatar(),
+}));
+
+const categories: CategoryType[] = Array.from(
+  { length: categoryLength },
+  () => ({
+    id: ulid(),
+    category: fakerEn.word.noun(),
+    label: fakerJa.lorem.word(),
+  }),
+);
+
+const randomCategoryId = Math.floor(Math.random() * categoryLength);
+
+const books: BookType[] = Array.from({ length: 10 }, () => ({
+  id: ulid(),
+  user_id: userId,
+  category_id: categories[randomCategoryId].id,
+  title: fakerJa.lorem.word(16),
+  description: fakerJa.lorem.paragraph(5),
+  slug: fakerEn.lorem.slug(),
+  content: fakerJa.lorem.paragraph(),
+  cover: fakerJA.image.url({ width: 100, height: 150 }),
+  publish: fakerJa.datatype.boolean(),
+}));
 
 async function main() {
   await reset(db, schema);
-  await seed(db, schema).refine((f) => {
-    const id = ulid();
-    return {
-      usersTable: {
-        count: 1,
-        columns: {
-          id: f.default({ defaultValue: id }),
-          name: f.default({ defaultValue: faker.book.author() }),
-          imageUrl: f.default({
-            defaultValue: "https://placehold.co/100x150",
-          }),
-        },
-      },
-      booksTable: {
-        count: 10,
-        columns: {
-          title: f.default({ defaultValue: faker.book.title() }),
-          description: f.default({
-            defaultValue: faker.lorem.lines({ min: 1, max: 1 }),
-          }),
-          user_id: f.default({ defaultValue: id }),
-          cover: f.default({ defaultValue: "https://placehold.co/100x150" }),
-          content: f.default({
-            defaultValue: faker.lorem.lines({ min: 1, max: 1 }),
-          }),
-        },
-      },
-    };
-  });
+
+  await db.insert(schema.usersTable).values(users);
+  await db.insert(schema.categoriesTable).values(categories);
+  await db.insert(schema.booksTable).values(books);
 }
 
 main();
