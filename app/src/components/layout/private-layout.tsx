@@ -1,8 +1,10 @@
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, LibraryBigIcon } from "lucide-react";
 
 import { AuthHeader } from "@/components/apperance/auth-header";
 import { Button } from "@/components/ui/button";
 import { UserDropdown } from "@/features/auth/components/user-dropdown";
+import Link from "next/link";
+import { MobileNav } from "@/components/apperance/mobile-navigation";
 
 export const PrivateLayoutUI = ({
   children,
@@ -23,15 +25,7 @@ export const PrivateLayoutUI = ({
         {children}
       </main>
 
-      <nav className="fixed bottom-0 inset-x-0 md:hidden flex items-center justify-around py-2 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="flex flex-col items-center gap-1 text-slate-500"
-        >
-          <HomeIcon size={18} />
-        </Button>
-      </nav>
+      <MobileNav />
     </div>
   );
 };
