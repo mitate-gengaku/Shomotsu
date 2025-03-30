@@ -1,7 +1,9 @@
+import { CompassIcon } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 import { Sidebar } from "@/components/apperance/sidebar";
+import { Button } from "@/components/ui/button";
 import { getBooks } from "@/features/book/services/get-books";
 
 export const AuthHeader = async ({
@@ -21,7 +23,19 @@ export const AuthHeader = async ({
         <h1 className="text-sm font-manrope font-semibold">
           <Link href={"/home"}>Shomotsu</Link>
         </h1>
-        <div className="flex items-center gap-2 ml-auto">{children}</div>
+        <Button
+          variant={"outline"}
+          size={"icon"}
+          className="hidden md:flex ml-auto [&_svg]:size-5 text-gray-700"
+          asChild
+        >
+          <Link href={"/explore"}>
+            <CompassIcon />
+          </Link>
+        </Button>
+        <div className={"flex items-center gap-2 ml-auto md:ml-0"}>
+          {children}
+        </div>
       </div>
     </header>
   );

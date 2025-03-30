@@ -2,24 +2,18 @@ import Link from "next/link";
 
 import { FormatDate } from "@/components/format/date";
 import { Button } from "@/components/ui/button";
-import { Book } from "@/types/book";
+import { getExploreBooks } from "@/features/book/services/get-explore-books";
 
 interface Props {
-  books: Book[];
-  nextPage?: number;
-  prevPage?: number;
+  page: number;
 }
 
-export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
+export const NewBooksList = async ({ page }: Props) => {
+  const { books, nextPage, prevPage } = await getExploreBooks(page);
+
   return (
-    <div
-      className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-4"
-      data-testid="library-page"
-    >
-      <h2 className="text-xl lg:text-2xl font-semibold">
-        ブックマークした本一覧
-      </h2>
-      <div className="w-full grid grid-cols-2 gap-4 md:hidden">
+    <>
+      <div className="w-full grid grid-cols-2 gap-4 md:hidden mb-8">
         {books.map((book) => (
           <div key={book.id} className="group" data-testid="book-card">
             <Link href={`/book/${book.slug}`}>
@@ -56,7 +50,7 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
       </div>
 
       {/* Tablet and desktop view */}
-      <div className="w-full hidden md:grid grid-cols-4 gap-6 pb-2">
+      <div className="w-full hidden md:grid grid-cols-4 gap-6 pb-2 mb-8">
         {books.map((book) => (
           <div key={book.id} className="min-w-36 group" data-testid="book-card">
             <Link href={`/book/${book.slug}`}>
@@ -91,11 +85,10 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
           </div>
         ))}
       </div>
-      {!books.length && <p>ブックマークした本はまだありません</p>}
       <div className="flex items-center justify-center gap-4">
         {typeof prevPage === "number" && (
           <Button variant={"outline"} asChild>
-            <Link href={`/library?page=${prevPage}`}>前のページ</Link>
+            <Link href={`/explore?page=${prevPage}`}>前のページ</Link>
           </Button>
         )}
         {typeof nextPage === "number" && (
@@ -103,10 +96,10 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
             className="bg-teal-500 hover:bg-teal-600 transition-all"
             asChild
           >
-            <Link href={`/library?page=${nextPage}`}>次のページ</Link>
+            <Link href={`/explore?page=${nextPage}`}>次のページ</Link>
           </Button>
         )}
       </div>
-    </div>
+    </>
   );
 };

@@ -4,6 +4,8 @@ import {
   BookmarkIcon,
   CpuIcon,
   EllipsisVerticalIcon,
+  EyeIcon,
+  EyeOffIcon,
   UserIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -14,6 +16,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { FormatDate } from "@/components/format/date";
 import { XLogoIcon } from "@/components/icon/x";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -72,7 +75,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
       className="w-full lg:w-1/2 mx-auto relative"
       data-testid="book-detail-page"
     >
-      <div className="mb-8">
+      <div className="mb-8 flex items-center justify-between">
         <Breadcrumb>
           <BreadcrumbList className="justify-center lg:justify-start">
             <BreadcrumbItem>
@@ -88,6 +91,19 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <Badge variant={"outline"} className="gap-2">
+          {book.publish ? (
+            <>
+              <EyeIcon className="size-4 text-teal-500" />
+              公開中
+            </>
+          ) : (
+            <>
+              <EyeOffIcon className="size-4" />
+              非公開
+            </>
+          )}
+        </Badge>
       </div>
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6">
         <div className="lg:w-1/3">
@@ -118,7 +134,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
         </div>
         <div className="lg:w-2/3 flex flex-1 gap-4 flex-col items-center lg:items-start">
           <h2
-            className="text-3xl font-semibold text-center lg:text-left"
+            className="text-3xl font-semibold text-center lg:text-left flex items-center gap-2"
             data-testid="title"
           >
             {book.title}

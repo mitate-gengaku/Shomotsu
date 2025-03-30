@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import { db } from "@/lib/db/setup/drizzle";
 import { LibraryWithOutUser } from "@/types/library";
 
@@ -34,10 +32,6 @@ export const getLibraryBooks = async (
     where: (booksTable, { eq }) => eq(booksTable.userId, userId),
     offset: offset + pageSize,
   });
-
-  if (!books.length) {
-    redirect("/not-found");
-  }
 
   return {
     books,
