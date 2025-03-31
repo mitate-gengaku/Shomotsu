@@ -6,8 +6,10 @@ import {
   EllipsisVerticalIcon,
   EyeIcon,
   EyeOffIcon,
+  PencilIcon,
   UserIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
@@ -37,7 +39,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CopyButton } from "@/components/utils/copy-button";
 import { XShare } from "@/components/utils/x-share";
 import { addLibrary } from "@/features/book/services/add-library";
 import { BookWithAllRelations } from "@/types/book";
@@ -68,6 +69,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
       return;
     }
   };
+
   const handleLibrary = useDebouncedCallback(onAddLibrary, 500);
 
   return (
@@ -105,7 +107,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           )}
         </Badge>
       </div>
-      <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6">
+      <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6 relative">
         <div className="lg:w-1/3">
           <div
             className="w-2/5 mx-auto lg:w-4/5 lg:mx-0 rounded-lg shadow-lg relative"
@@ -213,31 +215,31 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                   className="min-w-56 p-0"
                   sideOffset={16}
                 >
-                  <DropdownMenuLabel className="px-4">共有</DropdownMenuLabel>
+                  <DropdownMenuLabel className="px-4">本</DropdownMenuLabel>
                   <DropdownMenuSeparator className="m-0" />
                   <DropdownMenuItem
                     className="w-full px-4 h-12 cursor-pointer"
                     asChild
                   >
-                    <CopyButton copyText={`${url + path}`} />
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="w-full px-4 h-12 cursor-pointer gap-1"
-                    asChild
-                  >
-                    <XShare
-                      text={book.title}
-                      url={url + path}
-                      hashtags={["Shomotsu"]}
+                    <Link
+                      href={`${url + path}/update`}
+                      className="items-center flex"
                     >
-                      <XLogoIcon />
-                      にポスト
-                    </XShare>
+                      <PencilIcon />
+                      編集
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
+        </div>
+        <div className="hidden md:flex flex-col gap-2 absolute -left-16">
+          <Button variant={"outline"} size={"icon"} asChild>
+            <XShare text={book.title} url={url + path} hashtags={["Shomotsu"]}>
+              <XLogoIcon />
+            </XShare>
+          </Button>
         </div>
       </div>
       <Card className="mb-6 p-6">
@@ -300,6 +302,13 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           </TabsContent>
         </Tabs>
       </Card>
+      <div className="flex md:hidden items-center gap-2">
+        <Button variant={"outline"} size={"icon"} asChild>
+          <XShare text={book.title} url={url + path} hashtags={["Shomotsu"]}>
+            <XLogoIcon />
+          </XShare>
+        </Button>
+      </div>
     </div>
   );
 };

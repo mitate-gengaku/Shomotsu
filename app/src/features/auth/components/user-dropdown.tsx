@@ -36,7 +36,7 @@ export const UserDropdown = () => {
       >
         <DropdownMenuItem asChild>
           <Link
-            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
+            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
             href={"/setting/account"}
           >
             <UserIcon />
@@ -45,7 +45,7 @@ export const UserDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
+            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
             href={"/library"}
           >
             <LibraryBigIcon />
@@ -54,7 +54,7 @@ export const UserDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
+            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
             href={"/setting"}
           >
             <SettingsIcon />

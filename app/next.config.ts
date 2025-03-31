@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   experimental: {
     scrollRestoration: true,
+    authInterrupts: true,
   },
   typescript: {
     tsconfigPath: "tsconfig.build.json"

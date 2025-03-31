@@ -1,12 +1,10 @@
-import React from "react";
-
-export default function NotFound() {
+export default function Forbidden() {
   return (
     <div
       style={{
         color: "#000",
         background: "#fff",
-        height: "100vh",
+        height: "100%",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
@@ -35,7 +33,7 @@ export default function NotFound() {
             verticalAlign: "top",
           }}
         >
-          404
+          403
         </h1>
         <div
           style={{
@@ -53,7 +51,7 @@ export default function NotFound() {
               padding: 0,
             }}
           >
-            ページは見つかりませんでした
+            アクセス権限がありません
           </h2>
         </div>
       </div>

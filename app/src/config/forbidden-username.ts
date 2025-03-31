@@ -48,4 +48,7 @@ export const forbiddenUserName = [
   "blog",
   "library",
   "explore",
+  "forbidden",
+  "unauthorized",
+  "not-found",
 ];

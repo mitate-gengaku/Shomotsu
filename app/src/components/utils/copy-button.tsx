@@ -5,10 +5,11 @@ import React, { forwardRef, useState } from "react";
 
 type Props = React.ComponentProps<"button"> & {
   copyText: string;
+  onlyIcon?: boolean;
 };
 
 export const CopyButton = forwardRef<HTMLButtonElement, Props>(
-  ({ copyText, ...props }, ref) => {
+  ({ copyText, onlyIcon = false, ...props }, ref) => {
     const [isCopied, setCopied] = useState<boolean>(false);
 
     const onCopy = async () => {
@@ -24,12 +25,12 @@ export const CopyButton = forwardRef<HTMLButtonElement, Props>(
         {isCopied ? (
           <>
             <CheckIcon className="text-teal-500 size-4" />
-            コピーしました
+            {!onlyIcon && "コピーしました"}
           </>
         ) : (
           <>
             <ClipboardIcon className="size-4" />
-            リンクをコピー
+            {!onlyIcon && "リンクをコピー"}
           </>
         )}
       </button>
