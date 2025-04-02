@@ -2,7 +2,7 @@
 
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import React, { useActionState } from "react";
+import React, { useActionState, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ interface Props {
 }
 
 export const UpdateBookPageClient = ({ book }: Props) => {
+  const [checked, setChecked] = useState<boolean>(book.publish)
   const [lastResult, action, isPending] = useActionState(
     updateBookAction,
     undefined,
@@ -67,12 +68,13 @@ export const UpdateBookPageClient = ({ book }: Props) => {
                 !fields.publish.valid ? fields.publish.errorId : undefined
               }
               className="data-[state=checked]:bg-teal-500"
-              defaultChecked={book.publish}
+              checked={checked}
               onCheckedChange={(checked) => {
                 form.update({
                   name: fields.publish.name,
-                  value: checked,
+                  value: checked
                 });
+                setChecked(checked)
               }}
               disabled={isPending}
             />

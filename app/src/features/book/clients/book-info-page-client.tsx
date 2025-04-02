@@ -43,6 +43,7 @@ import { XShare } from "@/components/utils/x-share";
 import { addLibrary } from "@/features/book/services/add-library";
 import { BookWithAllRelations } from "@/types/book";
 import { cn } from "@/utils/cn";
+import { useUser } from "@clerk/nextjs";
 
 interface Props {
   book: BookWithAllRelations;
@@ -52,6 +53,7 @@ interface Props {
 
 export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
   const path = usePathname();
+  const { user } = useUser();
 
   const onAddLibrary = async (
     bookId: string,
@@ -93,19 +95,21 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <Badge variant={"outline"} className="gap-2">
-          {book.publish ? (
-            <>
-              <EyeIcon className="size-4 text-teal-500" />
-              公開中
-            </>
-          ) : (
-            <>
-              <EyeOffIcon className="size-4" />
-              非公開
-            </>
-          )}
-        </Badge>
+        {user && (user.id === book.userId) && (
+          <Badge variant={"outline"} className="gap-2">
+            {book.publish ? (
+              <>
+                <EyeIcon className="size-4 text-teal-500" />
+                公開中
+              </>
+            ) : (
+              <>
+                <EyeOffIcon className="size-4" />
+                非公開
+              </>
+            )}
+          </Badge>
+        )}
       </div>
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6 relative">
         <div className="lg:w-1/3">
@@ -192,8 +196,11 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
               <Button
                 className="flex-1 bg-teal-500 hover:bg-teal-600 transition-all"
                 data-testid="read-book-button"
+                asChild
               >
-                本を読む
+                <Link href={`/book/${book.slug}/read`}>
+                  本を読む
+                </Link>
               </Button>
               <Button
                 size={"icon"}

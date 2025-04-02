@@ -34,34 +34,34 @@ export const UserDropdown = () => {
         className="rounded-xl p-0 min-w-[15rem]"
         data-testid="dropdown-content"
       >
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer" asChild>
           <Link
-            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
+            
             href={"/setting/account"}
           >
             <UserIcon />
             アカウント
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer" asChild>
           <Link
-            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
+            
             href={"/library"}
           >
             <LibraryBigIcon />
             ライブラリー
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer" asChild>
           <Link
-            className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer"
+            
             href={"/setting"}
           >
             <SettingsIcon />
             設定
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer" asChild>
           <SignOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>

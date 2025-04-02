@@ -20,7 +20,6 @@ export const SignOutButton = forwardRef<HTMLButtonElement, Props>(
       <button
         className={cn(
           className,
-          "w-full h-12 px-4 flex items-center gap-4 hover:bg-accent cursor-pointer",
         )}
         onClick={() => onSignOut()}
         ref={ref}
