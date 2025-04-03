@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import {
   BookmarkIcon,
   CpuIcon,
@@ -43,7 +44,6 @@ import { XShare } from "@/components/utils/x-share";
 import { addLibrary } from "@/features/book/services/add-library";
 import { BookWithAllRelations } from "@/types/book";
 import { cn } from "@/utils/cn";
-import { useUser } from "@clerk/nextjs";
 
 interface Props {
   book: BookWithAllRelations;
@@ -95,7 +95,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {user && (user.id === book.userId) && (
+        {user && user.id === book.userId && (
           <Badge variant={"outline"} className="gap-2">
             {book.publish ? (
               <>
@@ -198,9 +198,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                 data-testid="read-book-button"
                 asChild
               >
-                <Link href={`/book/${book.slug}/read`}>
-                  本を読む
-                </Link>
+                <Link href={`/book/${book.slug}/read`}>本を読む</Link>
               </Button>
               <Button
                 size={"icon"}
@@ -211,33 +209,35 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                   className={cn(bookMarked && "fill-yellow-500 stroke-none")}
                 />
               </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size={"icon"} variant={"outline"}>
-                    <EllipsisVerticalIcon />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="min-w-56 p-0"
-                  sideOffset={16}
-                >
-                  <DropdownMenuLabel className="px-4">本</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="m-0" />
-                  <DropdownMenuItem
-                    className="w-full px-4 h-12 cursor-pointer"
-                    asChild
+              {user && user.id === book.userId && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size={"icon"} variant={"outline"}>
+                      <EllipsisVerticalIcon />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    className="min-w-56 p-0"
+                    sideOffset={16}
                   >
-                    <Link
-                      href={`${url + path}/update`}
-                      className="items-center flex"
+                    <DropdownMenuLabel className="px-4">本</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="m-0" />
+                    <DropdownMenuItem
+                      className="w-full px-4 h-10 cursor-pointer"
+                      asChild
                     >
-                      <PencilIcon />
-                      編集
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                      <Link
+                        href={`${url + path}/update`}
+                        className="items-center flex"
+                      >
+                        <PencilIcon />
+                        編集
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
           </div>
         </div>

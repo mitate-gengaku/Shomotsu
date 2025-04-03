@@ -4,7 +4,7 @@ export default function Forbidden() {
       style={{
         color: "#000",
         background: "#fff",
-        height: "100%",
+        height: "calc(100vh - 264px)",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",

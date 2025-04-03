@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const UpdateBookPageClient = ({ book }: Props) => {
-  const [checked, setChecked] = useState<boolean>(book.publish)
+  const [checked, setChecked] = useState<boolean>(book.publish);
   const [lastResult, action, isPending] = useActionState(
     updateBookAction,
     undefined,
@@ -72,9 +72,9 @@ export const UpdateBookPageClient = ({ book }: Props) => {
               onCheckedChange={(checked) => {
                 form.update({
                   name: fields.publish.name,
-                  value: checked
+                  value: checked,
                 });
-                setChecked(checked)
+                setChecked(checked);
               }}
               disabled={isPending}
             />
