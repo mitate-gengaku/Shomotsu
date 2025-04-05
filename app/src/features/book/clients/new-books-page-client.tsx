@@ -1,3 +1,4 @@
+import { ChevronLeftIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,12 @@ export const BooksPageClient = async ({
       className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-8"
       data-testid="explore-new-page"
     >
-      <h2 className="text-xl lg:text-2xl font-semibold">{title}</h2>
+      <div className="flex items-center gap-4">
+        <Button variant={"ghost"} size={"icon"}>
+          <ChevronLeftIcon />
+        </Button>
+        <h2 className="text-xl lg:text-2xl font-semibold">{title}</h2>
+      </div>
       <MobileBookList books={books} />
 
       <DesktopBookList books={books} />

@@ -1,5 +1,7 @@
+import { HomePage } from "@/features/book/pages/home-page"
+
 const Home = () => {
-  return <div>Home</div>;
+  return <HomePage />
 };
 
 export default Home;

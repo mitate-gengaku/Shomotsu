@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-import { contentSchema } from "@/features/book/schema/content";
+import { updateContentSchema } from "@/features/book/schema/update-content";
 
-export type ContentType = z.infer<typeof contentSchema>;
+export type UpdateContentType = z.infer<typeof updateContentSchema>;

@@ -23,6 +23,7 @@ export const NewBookSection = async () => {
       <MobileBookList books={books} />
 
       <DesktopBookList books={books} />
+      {!books.length && <p>本はまだありません</p>}
     </div>
   );
 };

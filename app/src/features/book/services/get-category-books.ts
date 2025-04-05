@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import { db } from "@/lib/db/setup/drizzle";
 
 export const getCategoryBooks = async (
@@ -28,8 +30,17 @@ export const getCategoryBooks = async (
     orderBy: (fields, { desc }) => [desc(fields.id)],
   });
 
+  if (!books.length) {
+    redirect("/not-found ");
+  }
+
   const isNextPageExists = await db.query.booksTable.findFirst({
-    where: (fields, { eq }) => eq(fields.publish, true),
+    where: (fields, { eq, and }) => {
+      return and(
+        eq(fields.publish, true),
+        eq(fields.categoryId, category?.id || ""),
+      );
+    },
     offset: offset + pageSize,
   });
 

@@ -18,6 +18,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 import { FormatDate } from "@/components/format/date";
 import { XLogoIcon } from "@/components/icon/x";
+import { Confetti } from "@/components/notifications/confetti";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -111,6 +112,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           </Badge>
         )}
       </div>
+      <Confetti />
       <div className="flex flex-col lg:flex-row items-ceter gap-8 lg:gap-2 mb-6 relative">
         <div className="lg:w-1/3">
           <div
@@ -175,9 +177,12 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                 <Button
                   size={"sm"}
                   className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                  asChild
                 >
-                  <CpuIcon />
-                  {book.category.label}
+                  <Link href={`/explore/${book.category.category}`}>
+                    <CpuIcon />
+                    {book.category.label}
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -278,9 +283,12 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                   <Button
                     size={"sm"}
                     className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                    asChild
                   >
-                    <CpuIcon />
-                    {book.category.label}
+                    <Link href={`/explore/${book.category.category}`}>
+                      <CpuIcon />
+                      {book.category.label}
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -298,12 +306,11 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           <TabsContent value="toc">
             <ScrollArea className="h-[200px]">
               <ul className="space-y-2" data-testid="toc">
-                <li>第1章：AI技術の現状と展望</li>
-                <li>第2章：教育分野におけるAI活用</li>
-                <li>第3章：医療・ヘルスケアの革新</li>
-                <li>第4章：スマートシティと交通システム</li>
-                <li>第5章：環境問題とAIソリューション</li>
-                <li>第6章：倫理的な課題と対応</li>
+                {book.toc.map((tocItem, i) => (
+                  <li key={i}>
+                    第{i}章：{tocItem}
+                  </li>
+                ))}
               </ul>
             </ScrollArea>
           </TabsContent>

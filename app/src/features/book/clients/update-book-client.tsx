@@ -10,8 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { updateBookAction } from "@/features/book/actions/update-book-action";
-import { contentSchema } from "@/features/book/schema/content";
-import { ContentType } from "@/features/book/types/content";
+import { updateContentSchema } from "@/features/book/schema/update-content";
+import { UpdateContentType } from "@/features/book/types/content";
 import { BookWithAllRelations } from "@/types/book";
 
 interface Props {
@@ -25,11 +25,11 @@ export const UpdateBookPageClient = ({ book }: Props) => {
     undefined,
   );
 
-  const [form, fields] = useForm<ContentType>({
+  const [form, fields] = useForm<UpdateContentType>({
     lastResult,
-    constraint: getZodConstraint(contentSchema),
+    constraint: getZodConstraint(updateContentSchema),
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: contentSchema });
+      return parseWithZod(formData, { schema: updateContentSchema });
     },
     defaultValue: {
       bookId: "",

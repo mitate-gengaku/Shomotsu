@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import { db } from "@/lib/db/setup/drizzle";
 
 export const getBooks = async (page: number = 1, pageSize: number = 16) => {
@@ -23,7 +21,9 @@ export const getBooks = async (page: number = 1, pageSize: number = 16) => {
   });
 
   if (!books.length) {
-    redirect("/not-found");
+    return {
+      books: [],
+    };
   }
 
   return {
