@@ -5,12 +5,13 @@ import { ulid } from "ulid";
 import * as schema from "@/lib/db/schema/schema";
 import { db } from "@/lib/db/setup/drizzle";
 import { BookType, CategoryType, UserType } from "@/lib/db/types/type";
+import { categories as baseCategories } from "@/config/categories";
 
 const fakerJa = fakerJA;
 const fakerEn = fakerEN;
 
 const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
-const categoryLength = 3;
+const categoryLength = baseCategories.length;
 
 const users: UserType[] = Array.from({ length: 3 }, (_, i) => ({
   id: i === 0 ? userId : ulid(),
@@ -19,12 +20,9 @@ const users: UserType[] = Array.from({ length: 3 }, (_, i) => ({
   imageUrl: fakerJa.image.avatar(),
 }));
 
-const categories: CategoryType[] = Array.from(
-  { length: categoryLength },
-  () => ({
+const categories: CategoryType[] = baseCategories.map((v) => ({
+    ...v,
     id: ulid(),
-    category: fakerEn.word.noun(),
-    label: fakerJa.lorem.word(),
   }),
 );
 
@@ -59,8 +57,8 @@ const books: BookType[] = users
 async function main() {
   await reset(db, schema);
 
-  // await db.insert(schema.usersTable).values(users);
-  // await db.insert(schema.categoriesTable).values(categories);
+  await db.insert(schema.usersTable).values(users);
+  await db.insert(schema.categoriesTable).values(categories);
   // await db.insert(schema.booksTable).values(books)
 }
 

@@ -260,7 +260,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             <TabsTrigger value="summary" data-testid="summary-trigger">
               あらすじ
             </TabsTrigger>
-            <TabsTrigger value="toc" data-testid="toc-trigger">
+            <TabsTrigger disabled={!book.toc.length && true} value="toc" data-testid="toc-trigger">
               目次
             </TabsTrigger>
           </TabsList>
@@ -269,7 +269,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
               className="mb-8 text-gray-700 dark:text-gray-50 leading-relaxed"
               data-testid="summary"
             >
-              そしてだんだん十字架は窓の正面に来ました。私は大学へはいっていて言いました。僕はほんとうにカムパネルラといつまでもいっしょに行こうねえジョバンニがこう言いながらふりかえって見ていると考えます。ジョバンニはおじぎをすると扉をあけておいてそこへ播かないとはえないんです。ジョバンニは思わずかけよって博士の前に立っているなど、とてももう腸もちぎれるようでした。
+              {book.description}
             </p>
             <div className="flex flex-col gap-4 md:hidden">
               <div>

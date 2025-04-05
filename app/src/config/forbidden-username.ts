@@ -52,5 +52,5 @@ export const forbiddenUserName = [
   "unauthorized",
   "not-found",
   "categories",
-  "new"
+  "new",
 ];

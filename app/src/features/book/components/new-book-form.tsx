@@ -63,13 +63,6 @@ export const NewBookForm = () => {
       return parseWithZod(formData, { schema: contentSchema });
     },
     shouldValidate: "onInput",
-    shouldRevalidate: "onBlur",
-    defaultValue: {
-      title: "",
-      category: undefined,
-      content: "",
-      publish: false,
-    },
     onSubmit: () => {
       setConfetti(true);
     },
@@ -97,6 +90,9 @@ export const NewBookForm = () => {
             コンテンツを作成する
           </CardTitle>
           <CardDescription>アイデアを形にしましょう。</CardDescription>
+          {form.errors && (
+            <p className="text-xs text-red-500">{form.errors}</p>
+          )}
         </CardHeader>
         <CardContent className="px-0 space-y-6">
           <div className="space-y-1">
@@ -164,18 +160,20 @@ export const NewBookForm = () => {
               内容紹介<span className="text-red-500">*</span>
             </Label>
             <Textarea
+              {...getTextareaProps(fields.description)}
+              key={fields.description.key}
               placeholder="内容紹介を入力してください"
               disabled={isPending}
               className={cn(
                 "text-sm bg-slate-50 min-h-28 resize-none",
-                fields.content.errors &&
+                fields.description.errors &&
                   "border-red-500 bg-red-50 focus-visible:ring-red-500 focus-visible:border-red-500 focus-visible:ring-1",
-                !fields.content.errors &&
+                !fields.description.errors &&
                   "focus-visible:border-teal-500 focus-visible:ring-teal-500",
               )}
             />
-            {fields.content.errors && (
-              <p className="text-red-500 text-xs">{fields.content.errors}</p>
+            {fields.description.errors && (
+              <p className="text-red-500 text-xs">{fields.description.errors}</p>
             )}
           </div>
           <div className="space-y-1">
@@ -210,8 +208,8 @@ export const NewBookForm = () => {
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem
-                    key={cat.value}
-                    value={cat.value}
+                    key={cat.category}
+                    value={cat.category}
                     className={cn(
                       "focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500",
                       fields.category.errors && "focus:bg-red-50",
@@ -239,7 +237,12 @@ export const NewBookForm = () => {
                 />
               </div>
             )}
-            <Input
+            <input
+              {...getInputProps(fields.cover, { type: "hidden" })}
+              key={fields.cover.key}
+              defaultValue={"https://placehold.co/100x150"}
+              />
+            {/*<Input
               {...getInputProps(fields.cover, { type: "text" })}
               key={fields.cover.key}
               className={cn(
@@ -254,7 +257,7 @@ export const NewBookForm = () => {
               onChange={onChangeFile}
               disabled={isPending}
               data-testid="cover-file-input"
-            />
+            />*/}
             {fields.cover.errors && (
               <p className="text-red-500 text-xs">{fields.cover.errors}</p>
             )}
@@ -283,7 +286,15 @@ export const NewBookForm = () => {
                     <div className="flex w-56 h-full absolute left-0 top-0 z-[999] inset-0 items-center justify-center bg-background/60 backdrop-blur-sm">
                       <p className="text-sm">AIサポート機能開発中…🚀</p>
                     </div>
-                    <DropdownMenuLabel>AIによる執筆サポート</DropdownMenuLabel>
+                    <DropdownMenuLabel asChild>
+                      <h3>AIによる執筆サポート</h3>
+                    </DropdownMenuLabel>
+                    <DropdownMenuLabel
+                      className="text-xs text-muted-foreground py-0"
+                      asChild
+                    >
+                      <p>章タイトルを生成します</p>
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <form className="px-1 space-y-1">
                       <div>
@@ -302,7 +313,7 @@ export const NewBookForm = () => {
                               <SelectItem
                                 key={(index + 1).toString()}
                                 value={(index + 1).toString()}
-                                className="text-xs"
+                                className="text-xs focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500"
                               >
                                 {index + 1}
                               </SelectItem>
@@ -312,14 +323,14 @@ export const NewBookForm = () => {
                       </div>
                       <div>
                         <Label className="text-xs text-muted-foreground font-medium">
-                          本について情報
+                          要望
                         </Label>
                         <Textarea
                           className={cn(
                             "bg-slate-50 p-2 rounded-sm text-xs md:text-xs focus-visible:ring-teal-500 resize-none",
                           )}
-                          placeholder={`JavaScriptの技術本`}
                           disabled
+                          placeholder={`JavaScriptの技術本`}
                         />
                       </div>
                       <div className="flex items-center justify-end">

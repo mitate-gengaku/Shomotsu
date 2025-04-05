@@ -10,7 +10,7 @@ import {
 
 export const usersTable = pgTable("users_table", {
   id: text("id").primaryKey(),
-  name: text("name").notNull(),
+  name: text("name").notNull().unique(),
   email: text("email").notNull().unique(),
   imageUrl: text("image_url").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -42,10 +42,10 @@ export const booksTable = pgTable("books_table", {
   categoryId: text("categoryId")
     .notNull()
     .references(() => categoriesTable.id),
-  title: varchar({ length: 28 }).notNull(),
+  title: varchar({ length: 28 }).notNull().unique(),
   description: varchar({ length: 192 }).notNull(),
-  slug: varchar({ length: 192 }).notNull(),
-  content: text("content").notNull(),
+  slug: varchar({ length: 192 }).notNull().unique(),
+  content: text("content").notNull().unique(),
   toc: text("toc").array().notNull().default([]),
   cover: text("cover").notNull(),
   publish: boolean("publish").notNull().default(false),

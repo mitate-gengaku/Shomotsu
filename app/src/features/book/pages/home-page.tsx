@@ -1,10 +1,4 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { ContentTitleForm } from "@/features/book/components/content-title-form"
-import { cn } from "@/utils/cn"
-import { FileIcon, FileUpIcon, SendIcon } from "lucide-react"
+import { ContentTitleForm } from "@/features/book/components/content-title-form";
 
 export const HomePage = () => {
   return (
@@ -21,5 +15,5 @@ export const HomePage = () => {
         <ContentTitleForm />
       </div>
     </div>
-  )
-}
+  );
+};
