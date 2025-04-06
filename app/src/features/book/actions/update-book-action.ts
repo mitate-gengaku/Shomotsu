@@ -22,7 +22,6 @@ export async function updateBookAction(prevState: unknown, formData: FormData) {
 
   const params = { publish: submission.value.publish };
 
-  await updateBook(submission.value.bookId, params);
 
   redirect(`/book/${submission.value.slug}`);
 }

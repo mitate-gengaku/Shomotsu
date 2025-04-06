@@ -81,21 +81,23 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
       data-testid="book-detail-page"
     >
       <div className="mb-8 flex items-center justify-between">
-        <Breadcrumb>
-          <BreadcrumbList className="justify-center lg:justify-start">
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/home">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/explore">Explore</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{book.category.label}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        {book.category && (
+          <Breadcrumb>
+            <BreadcrumbList className="justify-center lg:justify-start">
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/explore">Explore</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{book.category.label}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        )}
         {user && user.id === book.userId && (
           <Badge variant={"outline"} className="gap-2">
             {book.publish ? (
@@ -166,26 +168,28 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             </div>
           </div>
           <div className="w-full space-y-4">
-            <div className="hidden md:block">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1 text-center lg:text-left">
-                カテゴリ
-              </h3>
-              <div
-                className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
-                data-testid="categories"
-              >
-                <Button
-                  size={"sm"}
-                  className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
-                  asChild
+            {book.category && (
+              <div className="hidden md:block">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1 text-center lg:text-left">
+                  カテゴリ
+                </h3>
+                <div
+                  className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
+                  data-testid="categories"
                 >
-                  <Link href={`/explore/${book.category.category}`}>
-                    <CpuIcon />
-                    {book.category.label}
-                  </Link>
-                </Button>
+                  <Button
+                    size={"sm"}
+                    className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                    asChild
+                  >
+                    <Link href={`/explore/${book.category.category}`}>
+                      <CpuIcon />
+                      {book.category.label}
+                    </Link>
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
             <div className="hidden md:block">
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1 text-center lg:text-left">
                 発行年
@@ -272,26 +276,28 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
               {book.description}
             </p>
             <div className="flex flex-col gap-4 md:hidden">
-              <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
-                  カテゴリ
-                </h3>
-                <div
-                  className="flex items-center gap-2 flex-wrap"
-                  data-testid="categories"
-                >
-                  <Button
-                    size={"sm"}
-                    className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
-                    asChild
+              {book.category && (
+                <div>
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
+                    カテゴリ
+                  </h3>
+                  <div
+                    className="flex items-center gap-2 flex-wrap"
+                    data-testid="categories"
                   >
-                    <Link href={`/explore/${book.category.category}`}>
-                      <CpuIcon />
-                      {book.category.label}
-                    </Link>
-                  </Button>
+                    <Button
+                      size={"sm"}
+                      className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
+                      asChild
+                    >
+                      <Link href={`/explore/${book.category.category}`}>
+                        <CpuIcon />
+                        {book.category.label}
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
                   発行年

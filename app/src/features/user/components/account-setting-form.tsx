@@ -1,8 +1,8 @@
 "use client";
 
-import { getFormProps, getInputProps, useForm } from "@conform-to/react";
+import { getFormProps, getInputProps, useForm, useInputControl } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { useActionState, useState } from "react";
+import { ChangeEvent, useActionState, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,6 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
     updateUserName,
     undefined,
   );
-
   const [form, fields] = useForm<UserNameType>({
     lastResult,
     constraint: getZodConstraint(userNameSchema),
@@ -30,6 +29,14 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
       username: input,
     },
   });
+  const userNameControl = useInputControl(fields.username)
+
+  const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    userNameControl.change(value)
+    setInput(value);
+  }
 
   return (
     <form {...getFormProps(form)} action={action} className="space-y-4">
@@ -44,13 +51,7 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
               "border-red-500 bg-red-50 focus-visible:ring-red-500",
             !fields.username.errors && "focus-visible:ring-teal-500",
           )}
-          onChange={(e) => {
-            form.update({
-              name: "username",
-              value: e.target.value,
-            });
-            setInput(e.target.value);
-          }}
+          onChange={onChangeUserName}
           defaultValue={input}
           disabled={isPending}
         />

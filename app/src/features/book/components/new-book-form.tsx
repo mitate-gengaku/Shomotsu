@@ -47,8 +47,10 @@ import { contentSchema } from "@/features/book/schema/content";
 import { confettiAtom } from "@/stores/confetti";
 import { titleAtom } from "@/stores/title";
 import { cn } from "@/utils/cn";
+import { titleSchema } from "@/features/book/schema/title";
 
 export type ContentType = z.infer<typeof contentSchema>;
+export type TitleType = z.infer<typeof titleSchema>
 
 export const NewBookForm = () => {
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -99,7 +101,7 @@ export const NewBookForm = () => {
             {title ? (
               <>
                 <p className="text-sm font-semibold">タイトル</p>
-                <h2 className="text-3xl font-semibold">{"銀河鉄道の夜"}</h2>
+                <h2 className="text-3xl font-semibold">{title}</h2>
                 <input
                   {...getInputProps(fields.title, { type: "hidden" })}
                   key={fields.title.key}

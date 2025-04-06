@@ -40,14 +40,12 @@ export const booksTable = pgTable("books_table", {
       onUpdate: "cascade",
     }),
   categoryId: text("categoryId")
-    .notNull()
     .references(() => categoriesTable.id),
   title: varchar({ length: 28 }).notNull().unique(),
-  description: varchar({ length: 192 }).notNull(),
+  description: varchar({ length: 192 }).notNull().default(""),
   slug: varchar({ length: 192 }).notNull().unique(),
-  content: text("content").notNull().unique(),
   toc: text("toc").array().notNull().default([]),
-  cover: text("cover").notNull(),
+  cover: text("cover"),
   publish: boolean("publish").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
@@ -55,6 +53,20 @@ export const booksTable = pgTable("books_table", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const chaptersTable = pgTable("chapters_table", {
+  id: text("id").notNull().primaryKey(),
+  bookId: text("bookId")
+    .references(() => booksTable.id),
+  title: varchar({ length: 28 }).notNull(),
+  content: text("content").notNull(),
+  publish: boolean("publish").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+})
 
 export const librariesTable = pgTable(
   "libraries",
@@ -79,7 +91,7 @@ export const userRelations = relations(usersTable, ({ many }) => ({
   books: many(booksTable),
 }));
 
-export const bookRelations = relations(booksTable, ({ one }) => ({
+export const bookRelations = relations(booksTable, ({ one, many }) => ({
   user: one(usersTable, {
     fields: [booksTable.userId],
     references: [usersTable.id],
@@ -88,6 +100,7 @@ export const bookRelations = relations(booksTable, ({ one }) => ({
     fields: [booksTable.categoryId],
     references: [categoriesTable.id],
   }),
+  chapters: many(chaptersTable)
 }));
 
 export const categoryRelations = relations(categoriesTable, ({ many }) => ({
