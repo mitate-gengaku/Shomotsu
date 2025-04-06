@@ -1,11 +1,11 @@
-import { fakerJA, fakerEN } from "@faker-js/faker";
+import { fakerJA } from "@faker-js/faker";
 import { reset } from "drizzle-seed";
 import { ulid } from "ulid";
 
+import { categories as baseCategories } from "@/config/categories";
 import * as schema from "@/lib/db/schema/schema";
 import { db } from "@/lib/db/setup/drizzle";
-import { BookType, CategoryType, UserType } from "@/lib/db/types/type";
-import { categories as baseCategories } from "@/config/categories";
+import { CategoryType, UserType } from "@/lib/db/types/type";
 
 const fakerJa = fakerJA;
 // const fakerEn = fakerEN;
@@ -21,10 +21,9 @@ const users: UserType[] = Array.from({ length: 3 }, (_, i) => ({
 }));
 
 const categories: CategoryType[] = baseCategories.map((v) => ({
-    ...v,
-    id: ulid(),
-  }),
-);
+  ...v,
+  id: ulid(),
+}));
 
 async function main() {
   await reset(db, schema);

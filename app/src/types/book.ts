@@ -4,7 +4,7 @@ import { User } from "@/types/user";
 
 export type BookWithAllRelations = Required<BookType> & {
   user: User;
-  category: Category;
+  category: Category | null;
 };
 
 export type Book = Required<BookType>;

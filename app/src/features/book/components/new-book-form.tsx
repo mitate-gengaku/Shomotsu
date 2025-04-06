@@ -44,13 +44,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { categories } from "@/config/categories";
 import { create } from "@/features/book/actions/create";
 import { contentSchema } from "@/features/book/schema/content";
+import { titleSchema } from "@/features/book/schema/title";
 import { confettiAtom } from "@/stores/confetti";
 import { titleAtom } from "@/stores/title";
 import { cn } from "@/utils/cn";
-import { titleSchema } from "@/features/book/schema/title";
 
 export type ContentType = z.infer<typeof contentSchema>;
-export type TitleType = z.infer<typeof titleSchema>
+export type TitleType = z.infer<typeof titleSchema>;
 
 export const NewBookForm = () => {
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -92,9 +92,7 @@ export const NewBookForm = () => {
             コンテンツを作成する
           </CardTitle>
           <CardDescription>アイデアを形にしましょう。</CardDescription>
-          {form.errors && (
-            <p className="text-xs text-red-500">{form.errors}</p>
-          )}
+          {form.errors && <p className="text-xs text-red-500">{form.errors}</p>}
         </CardHeader>
         <CardContent className="px-0 space-y-6">
           <div className="space-y-1">
@@ -175,7 +173,9 @@ export const NewBookForm = () => {
               )}
             />
             {fields.description.errors && (
-              <p className="text-red-500 text-xs">{fields.description.errors}</p>
+              <p className="text-red-500 text-xs">
+                {fields.description.errors}
+              </p>
             )}
           </div>
           <div className="space-y-1">
@@ -243,7 +243,7 @@ export const NewBookForm = () => {
               {...getInputProps(fields.cover, { type: "hidden" })}
               key={fields.cover.key}
               defaultValue={"https://placehold.co/100x150"}
-              />
+            />
             {/*<Input
               {...getInputProps(fields.cover, { type: "text" })}
               key={fields.cover.key}

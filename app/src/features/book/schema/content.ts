@@ -69,10 +69,9 @@ export const contentSchema = z.object({
       },
     ),
   ),
-  cover: z
-    .string({
-      required_error: "ファイルをアップロードしてください",
-    }),
+  cover: z.string({
+    required_error: "ファイルをアップロードしてください",
+  }),
   content: z.preprocess(
     (value) => (value === "" ? undefined : value),
     z.string({

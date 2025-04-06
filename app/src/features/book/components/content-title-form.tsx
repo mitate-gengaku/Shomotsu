@@ -1,30 +1,32 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  getFormProps,
+  getInputProps,
+  useForm,
+  useInputControl,
+} from "@conform-to/react";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { useSetAtom } from "jotai";
 import { SendIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useActionState, useState, useTransition } from "react";
+import { ChangeEvent, useActionState, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { titleSchema } from "@/features/book/schema/title";
-import { titleAtom } from "@/stores/title";
-import { cn } from "@/utils/cn";
-import { confettiAtom } from "@/stores/confetti";
-import { ContentType, TitleType } from "@/features/book/components/new-book-form";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { create } from "@/features/book/actions/create";
-import { getFormProps, getInputProps, useForm, useInputControl } from "@conform-to/react";
+import { TitleType } from "@/features/book/components/new-book-form";
+import { titleSchema } from "@/features/book/schema/title";
+import { confettiAtom } from "@/stores/confetti";
+import { cn } from "@/utils/cn";
 
 export const ContentTitleForm = () => {
-  const [data, setData] = useState<{title?: string, slug?: string}>({
+  const [data, setData] = useState<{ title?: string; slug?: string }>({
     title: undefined,
-    slug: undefined
-  })
+    slug: undefined,
+  });
   const setConfetti = useSetAtom(confettiAtom);
   const [lastResult, action, isPending] = useActionState(create, undefined);
   const [form, fields] = useForm<TitleType>({
@@ -39,10 +41,10 @@ export const ContentTitleForm = () => {
     defaultValue: {
       title: data.title,
       slug: data.slug,
-    }
+    },
   });
-  const titleControl = useInputControl(fields.title)
-  const slugControl = useInputControl(fields.slug)
+  const titleControl = useInputControl(fields.title);
+  const slugControl = useInputControl(fields.slug);
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -50,9 +52,9 @@ export const ContentTitleForm = () => {
     setData({
       ...data,
       title: value,
-    })
-    titleControl.change(value)
-  }
+    });
+    titleControl.change(value);
+  };
 
   const onChangeSlug = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -60,16 +62,16 @@ export const ContentTitleForm = () => {
     setData({
       ...data,
       slug: value,
-    })
-    slugControl.change(value)
-  }
+    });
+    slugControl.change(value);
+  };
 
   return (
     <form
       {...getFormProps(form)}
       action={action}
       data-testid="content-title-form"
-      > 
+    >
       <Card>
         <CardContent className="flex flex-col gap-2">
           <div className="space-y-1">
@@ -78,8 +80,8 @@ export const ContentTitleForm = () => {
             </Label>
             <div className="relative">
               <Input
-                {...getInputProps(fields.title, { 
-                  type: "text"
+                {...getInputProps(fields.title, {
+                  type: "text",
                 })}
                 key={fields.title.key}
                 className={cn(
@@ -117,8 +119,8 @@ export const ContentTitleForm = () => {
                 スラグ
               </Label>
               <Input
-                {...getInputProps(fields.slug, { 
-                  type: "text"
+                {...getInputProps(fields.slug, {
+                  type: "text",
                 })}
                 key={fields.slug.key}
                 className={cn(
@@ -139,9 +141,7 @@ export const ContentTitleForm = () => {
               </p>
             )}
           </div>
-          {form.errors && (
-            <p className="text-xs text-red-500">{form.errors}</p>
-          )}
+          {form.errors && <p className="text-xs text-red-500">{form.errors}</p>}
         </CardContent>
       </Card>
     </form>

@@ -12,4 +12,4 @@ export const coverSchema = z.object({
     .refine((file) => ["image/png", "image/jpg"].includes(file.type), {
       message: "添付できる画像ファイルはjpegかpngです",
     }),
-  })
+});

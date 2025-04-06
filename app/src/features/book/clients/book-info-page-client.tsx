@@ -127,12 +127,23 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             {bookMarked && (
               <span className="absolute h-24 left-5 border-[14px] border-teal-500 z-[1] border-b-transparent" />
             )}
-            <img
-              src={book.cover}
-              alt={`${book.title}の表紙`}
-              className="w-full rounded-lg"
-              data-testid="book-cover"
-            />
+            {book.cover ? (
+              <img
+                src={"https://placehold.co/100x150"}
+                alt={`${book.title}の表紙`}
+                className="w-full rounded-lg"
+                data-testid="book-cover"
+              />
+            ) : (
+              <div className="w-full h-[230px] sm:h-96 xl:h-72 bg-gray-300 rounded-lg flex flex-row-reverse justify-between p-3 md:p-4 select-none">
+                <h3 className="font-bold text-2xl sm:text-3xl lg:text-4xl [writing-mode:vertical-rl]">
+                  {book.title}
+                </h3>
+                <p className="font-medium text-xs sm:text-sm lg:text-base text-gray-600 [writing-mode:vertical-rl]">
+                  {book.user.name}
+                </p>
+              </div>
+            )}
             <div
               className="absolute inset-0 pointer-events-none rounded-lg"
               style={{
@@ -264,7 +275,11 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             <TabsTrigger value="summary" data-testid="summary-trigger">
               あらすじ
             </TabsTrigger>
-            <TabsTrigger disabled={!book.toc.length && true} value="toc" data-testid="toc-trigger">
+            <TabsTrigger
+              disabled={!book.toc.length && true}
+              value="toc"
+              data-testid="toc-trigger"
+            >
               目次
             </TabsTrigger>
           </TabsList>
@@ -314,7 +329,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
               <ul className="space-y-2" data-testid="toc">
                 {book.toc.map((tocItem, i) => (
                   <li key={i}>
-                    第{i}章：{tocItem}
+                    第{i + 1}章：{tocItem}
                   </li>
                 ))}
               </ul>

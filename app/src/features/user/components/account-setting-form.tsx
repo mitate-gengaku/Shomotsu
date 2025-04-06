@@ -1,6 +1,11 @@
 "use client";
 
-import { getFormProps, getInputProps, useForm, useInputControl } from "@conform-to/react";
+import {
+  getFormProps,
+  getInputProps,
+  useForm,
+  useInputControl,
+} from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { ChangeEvent, useActionState, useState } from "react";
 
@@ -29,14 +34,14 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
       username: input,
     },
   });
-  const userNameControl = useInputControl(fields.username)
+  const userNameControl = useInputControl(fields.username);
 
   const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    userNameControl.change(value)
+    userNameControl.change(value);
     setInput(value);
-  }
+  };
 
   return (
     <form {...getFormProps(form)} action={action} className="space-y-4">

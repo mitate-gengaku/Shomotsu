@@ -39,13 +39,13 @@ export const booksTable = pgTable("books_table", {
       onDelete: "cascade",
       onUpdate: "cascade",
     }),
-  categoryId: text("categoryId")
-    .references(() => categoriesTable.id),
+  categoryId: text("categoryId").references(() => categoriesTable.id),
   title: varchar({ length: 28 }).notNull().unique(),
   description: varchar({ length: 192 }).notNull().default(""),
   slug: varchar({ length: 192 }).notNull().unique(),
   toc: text("toc").array().notNull().default([]),
   cover: text("cover"),
+  content: text("content"),
   publish: boolean("publish").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
@@ -56,8 +56,7 @@ export const booksTable = pgTable("books_table", {
 
 export const chaptersTable = pgTable("chapters_table", {
   id: text("id").notNull().primaryKey(),
-  bookId: text("bookId")
-    .references(() => booksTable.id),
+  bookId: text("bookId").references(() => booksTable.id),
   title: varchar({ length: 28 }).notNull(),
   content: text("content").notNull(),
   publish: boolean("publish").notNull().default(true),
@@ -66,7 +65,7 @@ export const chaptersTable = pgTable("chapters_table", {
     .notNull()
     .defaultNow()
     .$onUpdate(() => new Date()),
-})
+});
 
 export const librariesTable = pgTable(
   "libraries",
@@ -100,7 +99,6 @@ export const bookRelations = relations(booksTable, ({ one, many }) => ({
     fields: [booksTable.categoryId],
     references: [categoriesTable.id],
   }),
-  chapters: many(chaptersTable)
 }));
 
 export const categoryRelations = relations(categoriesTable, ({ many }) => ({
