@@ -24,10 +24,6 @@ export const getBook = async (slug: string) => {
     },
   });
 
-  if (!book && sessionId) {
-    redirect("/home");
-  }
-
   if (!book) {
     redirect("/not-found");
   }

@@ -8,7 +8,7 @@ import {
   useInputControl,
 } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import React, { ChangeEvent, useActionState, useState } from "react";
+import React, { ChangeEvent, useActionState, useEffect, useRef, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -43,6 +43,8 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     content: book.content,
     publish: book.publish,
   });
+  const [contentHeight, setContentHeight] = useState<number>(500)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [lastResult, action, isPending] = useActionState(update, undefined);
 
   const [form, fields] = useForm<UpdateContentType>({
@@ -61,18 +63,30 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     },
   });
 
-  const contentControl = useInputControl(fields.content);
-
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setData({
       ...data,
       content: e.target.value,
     });
+
+    if (textareaRef.current) {
+      setContentHeight(textareaRef.current.scrollHeight)
+    }
+
+    if (!e.target.value.length) {
+      setContentHeight(60)
+    }
   };
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      setContentHeight(textareaRef.current.scrollHeight)
+    }
+  }, [])
 
   return (
     <div
-      className="w-full lg:w-1/2 mx-auto relative"
+      className="w-full lg:w-1/2 mx-auto relative md:pb-12"
       data-testid="update-book-page"
     >
       <form {...getFormProps(form)} action={action}>
@@ -93,23 +107,24 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
               >
                 コンテンツ
               </Label>
+              {fields.content.errors && (
+                <p className="text-red-500 text-xs">{fields.content.errors}</p>
+              )}
               <Textarea
                 {...getTextareaProps(fields.content)}
                 key={fields.content.key}
                 placeholder="本のコンテンツを入力してください"
                 disabled={isPending}
                 className={cn(
-                  "text-sm bg-slate-50 focus-visible:ring-teal-500 min-h-[250px] resize-y",
-                  fields.content.errors &&
-                    "border-red-500 bg-red-50 focus-visible:ring-red-500 focus-visible:border-red-500 focus-visible:ring-1",
-                  !fields.content.errors &&
-                    "focus-visible:border-teal-500 focus-visible:ring-teal-500",
+                  "text-sm shadow-none border-none focus-visible:ring-transparent focus:border-transparent resize-none overflow-hidden",
                 )}
+                defaultValue={data.content ?? ""}
                 onChange={onChangeContent}
+                ref={textareaRef}
+                style={{
+                  height: contentHeight
+                }}
               />
-              {fields.content.errors && (
-                <p className="text-red-500 text-xs">{fields.content.errors}</p>
-              )}
             </div>
           </TabsContent>
           <TabsContent value="information">

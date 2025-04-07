@@ -77,7 +77,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
 
   return (
     <div
-      className="w-full lg:w-1/2 mx-auto relative"
+      className="w-full lg:w-1/2 mx-auto md:pb-12 relative"
       data-testid="book-detail-page"
     >
       <div className="mb-8 flex items-center justify-between">
