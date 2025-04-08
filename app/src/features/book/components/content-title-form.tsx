@@ -17,10 +17,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { create } from "@/features/book/actions/create";
-import { TitleType } from "@/features/book/components/new-book-form";
 import { titleSchema } from "@/features/book/schema/title";
 import { confettiAtom } from "@/stores/confetti";
 import { cn } from "@/utils/cn";
+import { z } from "zod";
+
+export type TitleType = z.infer<typeof titleSchema>;
 
 export const ContentTitleForm = () => {
   const [data, setData] = useState<{ title?: string; slug?: string }>({

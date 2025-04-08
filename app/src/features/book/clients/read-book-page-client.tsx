@@ -36,6 +36,7 @@ import { cn } from "@/utils/cn";
 
 const font = Hachi_Maru_Pop({
   weight: ["400"],
+  subsets: ["latin"]
 });
 
 const generateContents = (content: string | null) => {

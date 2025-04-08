@@ -22,7 +22,7 @@ export const MobileNav = () => {
           href={"/home"}
           className={cn(
             pathname === "/home" &&
-              "bg-slate-300/20 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
+              "bg-slate-300/20 dark:bg-slate-800 dark:[&>svg]:stroke-teal-500 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
           )}
         >
           <HomeIcon size={18} />
@@ -38,7 +38,7 @@ export const MobileNav = () => {
           href={"/explore"}
           className={cn(
             pathname === "/explore" &&
-              "bg-slate-300/20 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
+              "bg-slate-300/20 dark:bg-slate-800 dark:[&>svg]:stroke-teal-500 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
           )}
         >
           <CompassIcon />
@@ -49,7 +49,7 @@ export const MobileNav = () => {
           href={"/library"}
           className={cn(
             pathname === "/library" &&
-              "bg-slate-300/20 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
+              "bg-slate-300/20 dark:bg-slate-800 dark:[&>svg]:stroke-teal-500 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
           )}
         >
           <LibraryBigIcon size={18} />
@@ -60,7 +60,7 @@ export const MobileNav = () => {
           href={"/setting"}
           className={cn(
             pathname.includes("setting") &&
-              "bg-slate-300/20 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
+              "bg-slate-300/20 dark:bg-slate-800 dark:[&>svg]:stroke-teal-500 [&>svg]:stroke-2 [&>svg]:stroke-gray-800",
           )}
         >
           <SettingsIcon size={18} />
