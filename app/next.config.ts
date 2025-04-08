@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     authInterrupts: true,
   },
   typescript: {
-    tsconfigPath: "tsconfig.build.json"
+    tsconfigPath: "./tsconfig.build.json"
   }
 };
 
