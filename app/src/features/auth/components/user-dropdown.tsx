@@ -62,7 +62,7 @@ export const UserDropdown = () => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer hover:bg-slate-100"
+          className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer hover:bg-slate-100 hover:dark:bg-slate-900"
           asChild
         >
           <SignOutButton />

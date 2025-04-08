@@ -1,6 +1,5 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import { and } from "drizzle-orm";
 import { forbidden } from "next/navigation";
 
@@ -8,7 +7,6 @@ import { db } from "@/lib/db/setup/drizzle";
 import { BookWithAllRelations } from "@/types/book";
 
 export const getUpdateBook = async (slug: string) => {
-  const { sessionId } = await auth();
   const decodedSlug = decodeURI(slug);
   const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 

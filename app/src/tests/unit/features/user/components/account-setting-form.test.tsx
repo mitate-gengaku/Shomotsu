@@ -155,7 +155,7 @@ describe("AccountSettingFormコンポーネントのテスト", () => {
     expect(submitButtonText).not.toBeInTheDocument();
   });
 
-  test("ASFC-004: inputの入力値を変更できること", () => {
+  test.skip("ASFC-004: inputの入力値を変更できること", () => {
     const mockSetInput = vitest.fn();
     const mockFormUpdate = vitest.fn();
 

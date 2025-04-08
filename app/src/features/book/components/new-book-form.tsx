@@ -10,7 +10,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { useAtomValue, useSetAtom } from "jotai";
 import { SparklesIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useActionState, useEffect, useState } from "react";
+import React, { useActionState, useEffect } from "react";
 import { z } from "zod";
 
 import { Spinner } from "@/components/loading/spinner";
@@ -53,7 +53,6 @@ export type ContentType = z.infer<typeof contentSchema>;
 export type TitleType = z.infer<typeof titleSchema>;
 
 export const NewBookForm = () => {
-  const [file, setFile] = useState<File | undefined>(undefined);
   const title = useAtomValue(titleAtom);
   const setConfetti = useSetAtom(confettiAtom);
   const router = useRouter();
@@ -69,16 +68,6 @@ export const NewBookForm = () => {
       setConfetti(true);
     },
   });
-
-  const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-
-    if (!files) return;
-
-    const file = files[0];
-
-    setFile(file);
-  };
 
   useEffect(() => {
     if (!title || !title.length) return;

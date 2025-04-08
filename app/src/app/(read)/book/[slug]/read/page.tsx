@@ -6,12 +6,8 @@ interface Props {
 
 const ReadBook = async ({ params }: Props) => {
   const { slug } = await params;
-  
-  return (
-    <ReadBookPage 
-      slug={slug}
-      />
-  )
-}
+
+  return <ReadBookPage slug={slug} />;
+};
 
 export default ReadBook;

@@ -5,10 +5,15 @@ import {
   getInputProps,
   getTextareaProps,
   useForm,
-  useInputControl,
 } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import React, { ChangeEvent, useActionState, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -43,7 +48,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     content: book.content,
     publish: book.publish,
   });
-  const [contentHeight, setContentHeight] = useState<number>(500)
+  const [contentHeight, setContentHeight] = useState<number>(500);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [lastResult, action, isPending] = useActionState(update, undefined);
 
@@ -70,19 +75,19 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     });
 
     if (textareaRef.current) {
-      setContentHeight(textareaRef.current.scrollHeight)
+      setContentHeight(textareaRef.current.scrollHeight);
     }
 
     if (!e.target.value.length) {
-      setContentHeight(60)
+      setContentHeight(60);
     }
   };
 
   useEffect(() => {
     if (textareaRef.current) {
-      setContentHeight(textareaRef.current.scrollHeight)
+      setContentHeight(textareaRef.current.scrollHeight);
     }
-  }, [])
+  }, []);
 
   return (
     <div
@@ -122,7 +127,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                 onChange={onChangeContent}
                 ref={textareaRef}
                 style={{
-                  height: contentHeight
+                  height: contentHeight,
                 }}
               />
             </div>
@@ -162,7 +167,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                       placeholder="ジョバンニは、いつから乗っていながら、まるであんな女の子とばかり談しているのでした。すると耳に手をあげました。"
                       disabled={isPending}
                       className={cn(
-                        "text-sm bg-slate-50 min-h-28 resize-none",
+                        "text-sm min-h-28 resize-none",
                         fields.description.errors &&
                           "border-red-500 bg-red-50 focus-visible:ring-red-500 focus-visible:border-red-500 focus-visible:ring-1",
                         !fields.description.errors &&
@@ -199,7 +204,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                           key={`${fields.category.key}-trigger`}
                           id={fields.category.id}
                           className={cn(
-                            "text-sm w-full bg-slate-50",
+                            "text-sm w-full",
                             fields.category.errors &&
                               "border-red-500 bg-red-50 focus-visible:ring-red-500",
                             !fields.category.errors &&

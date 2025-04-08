@@ -85,7 +85,7 @@ export const ContentTitleForm = () => {
                 })}
                 key={fields.title.key}
                 className={cn(
-                  "h-11 pr-14 bg-slate-50 focus-visible:ring-teal-500",
+                  "h-11 pr-14 focus-visible:ring-teal-500",
                   fields.title.errors &&
                     "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
                 )}
@@ -124,7 +124,7 @@ export const ContentTitleForm = () => {
                 })}
                 key={fields.slug.key}
                 className={cn(
-                  "text-xs bg-slate-50 focus-visible:ring-teal-500",
+                  "text-xs focus-visible:ring-teal-500",
                   fields.slug.errors &&
                     "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
                 )}
