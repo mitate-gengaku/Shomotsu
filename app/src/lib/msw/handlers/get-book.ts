@@ -1,7 +1,6 @@
 import { http, HttpResponse } from "msw";
 
-import { IconKeyType } from "@/features/book/config/icons";
-import { IBook } from "@/types/book";
+import { Book } from "@/types/book";
 
 const books = new Map(
   Object.entries({
@@ -20,7 +19,7 @@ const books = new Map(
       categories: [
         {
           title: "コンピューター",
-          icon: "computer" as IconKeyType,
+          icon: "computer" ,
         },
       ],
       created_at: new Date().toISOString(),
@@ -36,7 +35,7 @@ export const getBookHandler = http.get(
 
     const bookId = String(id);
 
-    const book: IBook | undefined = books.get(bookId);
+    const book: Book | undefined = books.get(bookId);
 
     if (!book) {
       return HttpResponse.json(null, { status: 404, statusText: "Not Found" });

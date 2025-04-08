@@ -10,6 +10,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { useSetAtom } from "jotai";
 import { SendIcon } from "lucide-react";
 import { ChangeEvent, useActionState, useState } from "react";
+import { z } from "zod";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,6 @@ import { create } from "@/features/book/actions/create";
 import { titleSchema } from "@/features/book/schema/title";
 import { confettiAtom } from "@/stores/confetti";
 import { cn } from "@/utils/cn";
-import { z } from "zod";
 
 export type TitleType = z.infer<typeof titleSchema>;
 

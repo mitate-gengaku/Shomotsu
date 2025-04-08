@@ -1,7 +1,5 @@
 import { http, HttpResponse } from "msw";
 
-import { IconKeyType } from "@/features/book/config/icons";
-
 const books = [
   {
     id: "238A26BF-C676-4FFA-BF17-73D673D35B6B",
@@ -18,7 +16,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer",
       },
     ],
     created_at: new Date().toISOString(),
@@ -39,7 +37,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -60,7 +58,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -81,7 +79,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -102,7 +100,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -123,7 +121,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -144,7 +142,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -165,7 +163,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -186,7 +184,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),
@@ -207,7 +205,7 @@ const books = [
     categories: [
       {
         title: "コンピューター",
-        icon: "computer" as IconKeyType,
+        icon: "computer" ,
       },
     ],
     created_at: new Date().toISOString(),

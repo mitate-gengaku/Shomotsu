@@ -36,7 +36,7 @@ import { cn } from "@/utils/cn";
 
 const font = Hachi_Maru_Pop({
   weight: ["400"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const generateContents = (content: string | null) => {
@@ -102,7 +102,8 @@ const colorData: { value: number; color?: string; label: string }[] = [
   },
   {
     value: 3,
-    color: "bg-gray-800 dark:text-gray-50 dark:bg-slate-950 dark:hover:[&:is(button)]:bg-slate-800",
+    color:
+      "bg-gray-800 dark:text-gray-50 dark:bg-slate-950 dark:hover:[&:is(button)]:bg-slate-800",
     label: "ダーク",
   },
   {

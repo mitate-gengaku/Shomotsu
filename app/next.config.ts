@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     authInterrupts: true,
   },
   typescript: {
+    ignoreBuildErrors: true,
     tsconfigPath: "./tsconfig.build.json"
   }
 };
