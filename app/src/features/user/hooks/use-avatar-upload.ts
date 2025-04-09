@@ -1,14 +1,10 @@
 import { useUser } from "@clerk/nextjs";
 import { useSetAtom } from "jotai";
-import { UserIcon } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { ZodError } from "zod";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { avatarSchema } from "@/features/user/schema/avatar-schema";
 import { cropperFileAtom } from "@/stores/cropper-file";
-import { cn } from "@/utils/cn";
 
 export const useAvatarUpload = () => {
   const { user } = useUser();
@@ -37,6 +33,6 @@ export const useAvatarUpload = () => {
   return {
     user,
     onChangeFile,
-    errors
-  }
-}
+    errors,
+  };
+};

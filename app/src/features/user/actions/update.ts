@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 import { userNameSchema } from "@/features/user/schema/username-schema";
 
-export async function updateUserName(prevState: unknown, formData: FormData) {
+export async function update(prevState: unknown, formData: FormData) {
   const { userId } = await auth();
 
   if (!userId) redirect("/signin");

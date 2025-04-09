@@ -1,22 +1,12 @@
-import { useUser } from "@clerk/nextjs";
-import { useSetAtom } from "jotai";
 import { UserIcon } from "lucide-react";
-import { ChangeEvent, useState } from "react";
-import { ZodError } from "zod";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { avatarSchema } from "@/features/user/schema/avatar-schema";
-import { cropperFileAtom } from "@/stores/cropper-file";
+import { useAvatarUpload } from "@/features/user/hooks/use-avatar-upload";
 import { cn } from "@/utils/cn";
-import { useAvatarUpload } from "@/features/user/hooks/use-avatarupload";
 
 export const AvatarUploadForm = () => {
-  const {
-    user,
-    onChangeFile,
-    errors
-  } = useAvatarUpload()
+  const { user, onChangeFile, errors } = useAvatarUpload();
 
   return (
     <div className="group w-fit space-y-1">
