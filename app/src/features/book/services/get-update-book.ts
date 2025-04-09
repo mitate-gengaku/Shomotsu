@@ -3,7 +3,7 @@
 import { and } from "drizzle-orm";
 import { forbidden } from "next/navigation";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 import { BookWithAllRelations } from "@/types/book";
 
 export const getUpdateBook = async (slug: string) => {

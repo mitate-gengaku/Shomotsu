@@ -1,4 +1,4 @@
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 
 export const getAllCategories = async () => {
   const categories = await db.query.categoriesTable.findMany();

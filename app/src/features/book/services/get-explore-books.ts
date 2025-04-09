@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 
 export const getExploreBooks = async (
   page: number = 1,

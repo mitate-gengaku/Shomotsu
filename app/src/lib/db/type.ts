@@ -1,4 +1,4 @@
-import * as schema from "@/lib/db/schema/schema";
+import * as schema from "@/lib/db/schema";
 
 export type UserType = typeof schema.usersTable.$inferInsert;
 export type CategoryType = typeof schema.categoriesTable.$inferInsert;

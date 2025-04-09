@@ -1,11 +1,15 @@
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
+import { UserType } from "@/lib/db/type";
+import { userService } from "@/services";
+
 // POSTリクエスト
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
+  const client = await clerkClient();
 
   if (!SIGNING_SECRET) {
     throw new Error(
@@ -52,19 +56,49 @@ export async function POST(req: Request) {
   // `user.created` イベントの処理
   try {
     if (evt.type === "user.created") {
-      const { id } = evt.data;
-      // const email = email_addresses?.[0]?.email_address || "";
+      const {
+        id,
+        first_name,
+        last_name,
+        email_addresses,
+        image_url,
+        created_at,
+        updated_at,
+      } = evt.data;
+      const email = email_addresses?.[0]?.email_address || "";
 
-      // DBにユーザーを登録
-      console.log(`User ${id} added to database.`);
+      const values: UserType = {
+        id,
+        username: (first_name + "_" + last_name).toLowerCase(),
+        email,
+        imageUrl: image_url,
+        createdAt: new Date(created_at),
+        updatedAt: new Date(updated_at),
+      };
+
+      // ユーザーを作成
+      await client.users.updateUser(id, {
+        ...values,
+        privateMetadata: {
+          role: "user",
+        },
+      });
+      await userService.create(values);
+
       return NextResponse.json(
         { message: "User saved to DB" },
         { status: 200 },
       );
     } else if (evt.type === "user.updated") {
-      const { id } = evt.data;
+      const { id, username, image_url } = evt.data;
 
-      console.log(`User ${id} added to database.`);
+      const values = {
+        username: username ?? "",
+        imageUrl: image_url,
+      };
+
+      await userService.update(id, values);
+
       return NextResponse.json(
         { message: "User update to DB" },
         { status: 200 },

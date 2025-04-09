@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 
 export const getBooks = async (page: number = 1, pageSize: number = 16) => {
   // const { userId } = await auth();

@@ -2,9 +2,9 @@
 
 import { and, eq } from "drizzle-orm";
 
-import { booksTable } from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
-import { BookType } from "@/lib/db/types/type";
+import { db } from "@/lib/db/drizzle";
+import { booksTable } from "@/lib/db/schema";
+import { BookType } from "@/lib/db/type";
 
 export const updateBook = async (bookId: string, obj: Partial<BookType>) => {
   // const { userId } = await auth();

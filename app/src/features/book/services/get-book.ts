@@ -3,7 +3,7 @@
 import { and, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 
 export const getBook = async (slug: string) => {
   const decodedSlug = decodeURI(slug);

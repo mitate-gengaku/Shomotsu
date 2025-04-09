@@ -2,10 +2,10 @@ import { fakerJA } from "@faker-js/faker";
 import { reset } from "drizzle-seed";
 import { ulid } from "ulid";
 
-import { categories as baseCategories } from "@/config/categories";
-import * as schema from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
-import { CategoryType, UserType } from "@/lib/db/types/type";
+import { categories as baseCategories } from "@/lib/db/categories";
+import { db } from "@/lib/db/drizzle";
+import * as schema from "@/lib/db/schema";
+import { CategoryType, UserType } from "@/lib/db/type";
 
 const fakerJa = fakerJA;
 // const fakerEn = fakerEN;
@@ -15,7 +15,7 @@ const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 
 const users: UserType[] = Array.from({ length: 3 }, (_, i) => ({
   id: i === 0 ? userId : ulid(),
-  name: fakerJa.person.fullName(),
+  username: fakerJa.person.fullName(),
   email: fakerJa.internet.email(),
   imageUrl: fakerJa.image.avatar(),
 }));

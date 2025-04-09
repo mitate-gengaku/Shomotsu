@@ -1,4 +1,4 @@
-import { BookType } from "@/lib/db/types/type";
+import { BookType } from "@/lib/db/type";
 import { Category } from "@/types/category";
 import { User } from "@/types/user";
 

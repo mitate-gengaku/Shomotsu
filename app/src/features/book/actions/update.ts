@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 import { DatabaseError } from "pg";
 
 import { updateContentSchema } from "@/features/book/schema/update-content";
-import { booksTable } from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
+import { booksTable } from "@/lib/db/schema";
 
 const generateToc = (content: string) => {
   const arrayOfParsedContent = content.split("\n");
