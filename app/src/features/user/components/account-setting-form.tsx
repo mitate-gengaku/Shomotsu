@@ -45,10 +45,6 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
             !fields.username.errors && "focus-visible:ring-teal-500",
           )}
           onChange={(e) => {
-            form.update({
-              name: "username",
-              value: e.target.value,
-            });
             setInput(e.target.value);
           }}
           defaultValue={input}

@@ -1,14 +1,23 @@
 "use server";
 
-export const deleteBook = async (bookId: string) => {
-  const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
-    method: "DELETE",
-  });
-  const response: { message: string } = await res.json();
+import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
-  if (!res.ok) {
-    throw new Error(res.statusText);
+import { booksTable } from "@/lib/db/schema/schema";
+import { db } from "@/lib/db/setup/drizzle";
+
+export const deleteBook = async (id: string) => {
+  // const { userId } = await auth();
+  const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
+
+  try {
+    await db
+      .delete(booksTable)
+      .where(and(eq(booksTable.id, id), eq(booksTable.userId, userId)));
+    revalidatePath("/home");
+
+    return "本を削除しました";
+  } catch (e) {
+    throw e;
   }
-
-  return response;
 };

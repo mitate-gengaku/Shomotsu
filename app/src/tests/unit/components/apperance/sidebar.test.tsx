@@ -12,6 +12,7 @@ import React, { cloneElement, useTransition } from "react";
 import { afterEach, beforeEach, describe, expect, test, vitest } from "vitest";
 
 import { Sidebar } from "@/components/apperance/sidebar";
+import { books } from "@/config/books";
 
 vitest.mock("framer-motion", () => ({
   motion: {
@@ -141,7 +142,7 @@ describe("Sidebarコンポーネントのテスト", () => {
   let renderer: RenderResult;
 
   beforeEach(() => {
-    renderer = render(<Sidebar />);
+    renderer = render(<Sidebar books={books} />);
   });
 
   afterEach(() => {

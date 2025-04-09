@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { SettingsIcon, UserIcon } from "lucide-react";
+import { LibraryBigIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -34,25 +34,37 @@ export const UserDropdown = () => {
         className="rounded-xl p-0 min-w-[15rem]"
         data-testid="dropdown-content"
       >
-        <DropdownMenuItem asChild>
-          <Link
-            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
-            href={"/setting/account"}
-          >
+        <DropdownMenuItem
+          className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer"
+          asChild
+        >
+          <Link href={"/setting/account"}>
             <UserIcon />
             アカウント
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link
-            className="w-full h-12 px-4 flex items-center gap-4 cursor-pointer"
-            href={"/setting"}
-          >
+        <DropdownMenuItem
+          className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer"
+          asChild
+        >
+          <Link href={"/library"}>
+            <LibraryBigIcon />
+            ライブラリー
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="w-full h-10 px-4 hidden md:flex items-center gap-4 cursor-pointer"
+          asChild
+        >
+          <Link href={"/setting"}>
             <SettingsIcon />
             設定
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem
+          className="w-full h-10 px-4 flex items-center gap-4 cursor-pointer hover:bg-slate-100 hover:dark:bg-slate-900"
+          asChild
+        >
           <SignOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>

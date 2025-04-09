@@ -1,20 +1,10 @@
-import { IconKeyType } from "@/features/book/config/icons";
+import { BookType } from "@/lib/db/types/type";
+import { Category } from "@/types/category";
+import { User } from "@/types/user";
 
-export interface IBook {
-  id: string;
-  title: string;
-  user_id: string;
-  user: {
-    name: string;
-    avatar: string;
-  };
-  cover: string;
-  content: string;
-  publish: boolean;
-  categories: {
-    title: string;
-    icon: IconKeyType;
-  }[];
-  created_at: string;
-  updated_at: string;
-}
+export type BookWithAllRelations = Required<BookType> & {
+  user: User;
+  category: Category | null;
+};
+
+export type Book = Required<BookType>;

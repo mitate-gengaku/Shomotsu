@@ -46,4 +46,11 @@ export const forbiddenUserName = [
   "resources",
   "docs",
   "blog",
+  "library",
+  "explore",
+  "forbidden",
+  "unauthorized",
+  "not-found",
+  "categories",
+  "new",
 ];
