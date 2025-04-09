@@ -1,4 +1,4 @@
-import { LibraryType } from "@/lib/db/types/type";
+import { LibraryType } from "@/lib/db/type";
 import { Book } from "@/types/book";
 
 export type LibraryWithOutUser = LibraryType & {

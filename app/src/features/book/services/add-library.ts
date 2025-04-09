@@ -3,8 +3,8 @@
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-import { librariesTable } from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
+import { librariesTable } from "@/lib/db/schema";
 
 export const addLibrary = async (
   bookId: string,

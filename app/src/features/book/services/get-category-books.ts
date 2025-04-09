@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 
 export const getCategoryBooks = async (
   page: number = 1,

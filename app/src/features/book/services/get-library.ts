@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
 import { LibraryWithOutUser } from "@/types/library";
 
 export const getLibraryBooks = async (

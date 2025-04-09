@@ -6,8 +6,8 @@ import { DatabaseError } from "pg";
 import { ulid } from "ulid";
 
 import { titleSchema } from "@/features/book/schema/title";
-import { booksTable } from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db//drizzle";
+import { booksTable } from "@/lib/db/schema";
 
 export async function create(prevState: unknown, formData: FormData) {
   const userId: string = "01JQH2NCNS83JKMSCCWE4TGK5T";

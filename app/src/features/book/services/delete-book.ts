@@ -3,8 +3,8 @@
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-import { booksTable } from "@/lib/db/schema/schema";
-import { db } from "@/lib/db/setup/drizzle";
+import { db } from "@/lib/db/drizzle";
+import { booksTable } from "@/lib/db/schema";
 
 export const deleteBook = async (id: string) => {
   // const { userId } = await auth();
