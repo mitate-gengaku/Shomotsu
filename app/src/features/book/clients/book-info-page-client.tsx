@@ -140,7 +140,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                   {book.title}
                 </h3>
                 <p className="font-medium text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-800 [writing-mode:vertical-rl]">
-                  {book.user.name}
+                  {book.user.username}
                 </p>
               </div>
             )}
@@ -164,7 +164,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             <Avatar className="size-10" data-testid="author-avatar">
               <AvatarImage
                 src={book.user.imageUrl}
-                alt={`${book.user.name}のプロフィール画像`}
+                alt={`${book.user.username}のプロフィール画像`}
                 className="w-full rounded-lg object-cover"
               />
               <AvatarFallback>
@@ -173,7 +173,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             </Avatar>
             <div>
               <p className="text-lg font-medium" data-testid="author">
-                {book.user.name}
+                {book.user.username}
               </p>
               <p className="text-sm text-gray-600">著者</p>
             </div>

@@ -15,7 +15,7 @@ const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 
 const users: UserType[] = Array.from({ length: 3 }, (_, i) => ({
   id: i === 0 ? userId : ulid(),
-  name: fakerJa.person.fullName(),
+  username: fakerJa.person.fullName(),
   email: fakerJa.internet.email(),
   imageUrl: fakerJa.image.avatar(),
 }));
