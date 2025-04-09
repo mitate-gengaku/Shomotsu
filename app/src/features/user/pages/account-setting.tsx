@@ -3,11 +3,12 @@
 import { useUser } from "@clerk/nextjs";
 
 import { SettingSidebar } from "@/components/apperance/setting-sidebar";
-import { Spinner } from "@/components/loading/spinner";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import { AccountSettingForm } from "@/features/user/components/account-setting-form";
 import { AvatarUploadForm } from "@/features/user/components/avatar-upload-form";
 import { CropperDialog } from "@/features/user/components/cropper-dialog";
+import { cn } from "@/utils/cn";
 
 export const AccountSettingPage = () => {
   const { user } = useUser();
@@ -25,7 +26,13 @@ export const AccountSettingPage = () => {
           {user ? (
             <AccountSettingForm username={user.username ?? ""} />
           ) : (
-            <Spinner className="text-teal-500 size-8" />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Skeleton className="w-16 h-3" />
+                <Skeleton className={cn("h-9")} />
+              </div>
+              <Skeleton className="w-32 h-9" />
+            </div>
           )}
         </div>
       </div>

@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 
 import { avatarSchema } from "@/features/user/schema/avatar-schema";
 
-export async function uploadAvatar(formData: FormData) {
+export async function upload(formData: FormData) {
   const { userId } = await auth();
 
   if (!userId) redirect("/signin");

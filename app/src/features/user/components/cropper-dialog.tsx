@@ -1,11 +1,6 @@
 "use client";
 import "cropperjs/dist/cropper.css";
-import { useUser } from "@clerk/nextjs";
-import imageCompression from "browser-image-compression";
-import { useAtom } from "jotai";
-import { useActionState, useRef } from "react";
-import Cropper, { ReactCropperElement } from "react-cropper";
-import { toast } from "sonner";
+import Cropper from "react-cropper";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -16,54 +11,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { uploadAvatar } from "@/features/user/actions/upload";
-import { convertDataUrlToFile } from "@/features/user/utils/convert-data-url-to-file";
-import { cropperFileAtom } from "@/stores/cropper-file";
+import { useCropper } from "@/features/user/hooks/use-cropper";
 
 export const CropperDialog = () => {
-  const { user } = useUser();
-  const cropperRef = useRef<ReactCropperElement>(null);
-  const [cropperFile, setCropperFile] = useAtom(cropperFileAtom);
-
-  const trimmingImage = async () => {
-    if (!cropperRef.current || !user) return;
-
-    const canvas = cropperRef.current.cropper.getCroppedCanvas();
-    const dataURL = canvas.toDataURL();
-    const file = await convertDataUrlToFile(
-      dataURL,
-      cropperFile?.name || "",
-      "image/png",
-    );
-
-    const resizedImage = await imageCompression(file, {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 512,
-      useWebWorker: true,
-      initialQuality: 0.2,
-    });
-
-    const formData = new FormData();
-
-    formData.append("avatar", resizedImage, file.name);
-
-    const result = await uploadAvatar(formData);
-
-    if (result.status === "success") {
-      toast.success(result.message);
-      setCropperFile(undefined);
-      await user.reload();
-    } else {
-      toast.error(result.message);
-    }
-  };
-
-  const [_, action, isPending] = useActionState(trimmingImage, undefined);
+  const { cropperFile, onOpenChange, action, cropperRef, isPending } =
+    useCropper();
 
   return (
     <Dialog
       open={typeof cropperFile !== "undefined"}
-      onOpenChange={() => setCropperFile(undefined)}
+      onOpenChange={() => onOpenChange()}
     >
       <DialogContent>
         <DialogHeader>

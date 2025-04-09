@@ -1,35 +1,17 @@
 "use client";
 
-import { getFormProps, getInputProps, useForm } from "@conform-to/react";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { useActionState, useState } from "react";
+import { getFormProps, getInputProps } from "@conform-to/react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { updateUserName } from "@/features/user/actions/update";
-import { userNameSchema } from "@/features/user/schema/username-schema";
-import { UserNameType } from "@/features/user/types/username";
+import { useAccountSetting } from "@/features/user/hooks/use-account-setting";
 import { cn } from "@/utils/cn";
 
 export const AccountSettingForm = ({ username }: { username: string }) => {
-  const [input, setInput] = useState<string>(username);
-  const [lastResult, action, isPending] = useActionState(
-    updateUserName,
-    undefined,
-  );
-
-  const [form, fields] = useForm<UserNameType>({
-    lastResult,
-    constraint: getZodConstraint(userNameSchema),
-    onValidate({ formData }) {
-      return parseWithZod(formData, { schema: userNameSchema });
-    },
-    defaultValue: {
-      username: input,
-    },
-  });
+  const { form, action, fields, onChangeInput, input, isPending } =
+    useAccountSetting(username);
 
   return (
     <form {...getFormProps(form)} action={action} className="space-y-4">
@@ -44,9 +26,7 @@ export const AccountSettingForm = ({ username }: { username: string }) => {
               "border-red-500 bg-red-50 focus-visible:ring-red-500",
             !fields.username.errors && "focus-visible:ring-teal-500",
           )}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
+          onChange={onChangeInput}
           defaultValue={input}
           disabled={isPending}
         />
