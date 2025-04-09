@@ -58,7 +58,7 @@ export default {
   			'geist-sans': 'var(--font-geist-sans)',
 				'manrope': 'var(--font-manrope)'
   		},
-      typography: (theme) => ({
+      typography: (theme: (path: string) => string | undefined) => ({
         pink: {
           css: {
             '--tw-prose-body': theme('colors.pink.700'),

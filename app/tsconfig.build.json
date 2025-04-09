@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipDefaultLibCheck": true
+  },
   "exclude": [
     "node_modules",
     "src/tests",
-    "**/msw/**/*"
+    "src/lib/msw/handlers/delete-book.ts"
   ]
 }

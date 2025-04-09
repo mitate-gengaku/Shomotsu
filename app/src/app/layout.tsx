@@ -10,11 +10,6 @@ import { ThemeProvider } from "@/components/provider/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { geistSans, manRope } from "@/config/font";
 import { rootMeta } from "@/config/root-meta";
-import { initMocks } from "@/lib/msw/setup/init";
-
-if (process.env.NODE_ENV === "development") {
-  initMocks();
-}
 
 export const metadata: Metadata = rootMeta;
 
