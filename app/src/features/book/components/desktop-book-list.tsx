@@ -12,7 +12,7 @@ export const DesktopBookList = ({ books }: Props) => {
     <div className="w-full hidden md:grid grid-cols-4 gap-4 pb-2 mb-8">
       {books.map((book) => (
         <div key={book.id} className="min-w-36 group" data-testid="book-card">
-          <Link href={`/book/${book.slug}`}>
+          <Link href={`/book/${book.slug}`} className="space-y-2">
             <div
               className="w-full lg:mx-0 rounded-lg shadow-lg relative"
               style={{
@@ -28,7 +28,7 @@ export const DesktopBookList = ({ books }: Props) => {
                   data-testid="book-cover"
                 />
               ) : (
-                <div className="w-full h-64 bg-gray-300 dark:bg-gray-400 rounded-lg flex flex-row-reverse justify-between p-3 md:p-4 select-none">
+                <div className="w-full h-64 bg-gray-300 dark:bg-gray-400 rounded-lg flex flex-row-reverse justify-between p-3 select-none">
                   <h3 className="font-bold dark:text-gray-800 text-2xl lg:text-3xl [writing-mode:vertical-rl]">
                     {book.title}
                   </h3>

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const titleSchema = z.object({
+export const newBookSchema = z.object({
   title: z.preprocess(
     (value) => (value === "" ? undefined : value),
     z

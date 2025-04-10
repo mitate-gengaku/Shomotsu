@@ -60,7 +60,6 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     },
     defaultValue: {
       bookId: book.id,
-      slug: book.slug,
       content: data.content,
       category: data.category,
       description: data.description,
@@ -144,11 +143,6 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                   defaultValue={book.id}
                 />
                 <input
-                  {...getInputProps(fields.slug, { type: "hidden" })}
-                  key={fields.slug.key}
-                  defaultValue={book.slug}
-                />
-                <input
                   {...getInputProps(fields.content, { type: "hidden" })}
                   key={fields.content.key}
                   defaultValue={data.content ? data.content : undefined}
@@ -166,13 +160,9 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                       key={fields.description.key}
                       placeholder="ジョバンニは、いつから乗っていながら、まるであんな女の子とばかり談しているのでした。すると耳に手をあげました。"
                       disabled={isPending}
-                      className={cn(
-                        "text-sm min-h-28 resize-none",
-                        fields.description.errors &&
-                          "border-red-500 bg-red-50 focus-visible:ring-red-500 focus-visible:border-red-500 focus-visible:ring-1",
-                        !fields.description.errors &&
-                          "focus-visible:border-teal-500 focus-visible:ring-teal-500",
-                      )}
+                      className={
+                        "border-none shadow-none text-sm min-h-28 resize-none !ring-transparent"
+                      }
                       defaultValue={data.description}
                     />
                     {fields.description.errors && (

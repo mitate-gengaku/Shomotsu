@@ -1,22 +1,23 @@
 "use server";
 
+import { auth } from "@clerk/nextjs/server";
+
 import { db } from "@/lib/db/drizzle";
 
 export const getBooks = async (page: number = 1, pageSize: number = 16) => {
-  // const { userId } = await auth();
-  const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
+  const { userId } = await auth();
 
   const offset = (page - 1) * pageSize;
 
   const books = await db.query.booksTable.findMany({
-    where: (booksTable, { eq }) => eq(booksTable.userId, userId),
+    where: (booksTable, { eq }) => eq(booksTable.userId, userId ?? ""),
     limit: pageSize,
     offset: offset,
     orderBy: (fields, { desc }) => [desc(fields.id)],
   });
 
   const isNextPageExists = await db.query.booksTable.findFirst({
-    where: (booksTable, { eq }) => eq(booksTable.userId, userId),
+    where: (booksTable, { eq }) => eq(booksTable.userId, userId ?? ""),
     offset: offset + pageSize,
   });
 

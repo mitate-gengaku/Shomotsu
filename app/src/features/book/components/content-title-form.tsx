@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  getFormProps,
-  getInputProps,
-  useForm,
-  useInputControl,
-} from "@conform-to/react";
+import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { useSetAtom } from "jotai";
 import { SendIcon } from "lucide-react";
 import { ChangeEvent, useActionState, useState } from "react";
-import { z } from "zod";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -18,24 +12,23 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { create } from "@/features/book/actions/create";
-import { titleSchema } from "@/features/book/schema/title";
+import { newBookSchema } from "@/features/book/schema/title";
+import { NewBookSchemaType } from "@/features/book/types/new-book-schema";
 import { confettiAtom } from "@/stores/confetti";
 import { cn } from "@/utils/cn";
 
-export type TitleType = z.infer<typeof titleSchema>;
-
 export const ContentTitleForm = () => {
-  const [data, setData] = useState<{ title?: string; slug?: string }>({
-    title: undefined,
-    slug: undefined,
+  const [data, setData] = useState<NewBookSchemaType>({
+    title: "",
+    slug: "",
   });
   const setConfetti = useSetAtom(confettiAtom);
   const [lastResult, action, isPending] = useActionState(create, undefined);
-  const [form, fields] = useForm<TitleType>({
+  const [form, fields] = useForm<NewBookSchemaType>({
     lastResult,
-    constraint: getZodConstraint(titleSchema),
+    constraint: getZodConstraint(newBookSchema),
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: titleSchema });
+      return parseWithZod(formData, { schema: newBookSchema });
     },
     onSubmit: () => {
       setConfetti(true);
@@ -45,27 +38,13 @@ export const ContentTitleForm = () => {
       slug: data.slug,
     },
   });
-  const titleControl = useInputControl(fields.title);
-  const slugControl = useInputControl(fields.slug);
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setData({
-      ...data,
-      title: value,
-    });
-    titleControl.change(value);
+    setData({ ...data, title: e.target.value });
   };
 
   const onChangeSlug = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setData({
-      ...data,
-      slug: value,
-    });
-    slugControl.change(value);
+    setData({ ...data, slug: e.target.value });
   };
 
   return (
