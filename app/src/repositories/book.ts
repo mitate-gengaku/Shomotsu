@@ -10,14 +10,17 @@ export class BookRepository {
     return await db.insert(booksTable).values(values).returning();
   }
 
-  async getBook(userId: string, slug: string) {
+  async getBook(userId: string, slug: string, offset?: number) {
     return await db.query.booksTable.findFirst({
       where: (booksTable, { eq }) => {
-        return and(
-          eq(booksTable.slug, slug),
-          or(eq(booksTable.publish, true), eq(booksTable.userId, userId)),
-        );
+        return offset
+          ? eq(booksTable.publish, true)
+          : and(
+              eq(booksTable.slug, slug),
+              or(eq(booksTable.publish, true), eq(booksTable.userId, userId)),
+            );
       },
+      offset: offset,
       with: {
         user: true,
         category: true,
@@ -25,10 +28,22 @@ export class BookRepository {
     });
   }
 
-  async getBooks(userId: string): Promise<Book[]> {
+  async getMyBooks(userId: string): Promise<Book[]> {
     return await db.query.booksTable.findMany({
       where: (booksTable, { eq }) => eq(booksTable.userId, userId),
       orderBy: (fields, { desc }) => [desc(fields.id)],
+    });
+  }
+
+  async getBooks(offset: number, pageSize: number = 16) {
+    return await db.query.booksTable.findMany({
+      where: (fields, { eq }) => eq(fields.publish, true),
+      offset: offset,
+      limit: pageSize,
+      orderBy: (fields, { desc }) => [desc(fields.id)],
+      with: {
+        category: true,
+      },
     });
   }
 

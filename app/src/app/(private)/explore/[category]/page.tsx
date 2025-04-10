@@ -11,7 +11,7 @@ const ExploreCategory = async ({ params, searchParams }: Props) => {
   const { page = "1" } = await searchParams;
   const { category } = await params;
 
-  return <ExploreCategoryPage page={parseInt(page)} category={category} />;
+  return <ExploreCategoryPage page={parseInt(page)} categoryName={category} />;
 };
 
 export default ExploreCategory;

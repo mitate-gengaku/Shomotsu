@@ -1,13 +1,20 @@
 import { BooksPageClient } from "@/features/book/clients/new-books-page-client";
-import { getCategoryBooks } from "@/features/book/services/get-category-books";
+import { categoryService } from "@/services";
 
 interface Props {
   page: number;
-  category: string;
+  categoryName: string;
 }
 
-export const ExploreCategoryPage = async ({ page, category }: Props) => {
-  const response = await getCategoryBooks(page, 16, category);
+export const ExploreCategoryPage = async ({ page, categoryName }: Props) => {
+  // const response = await getCategoryBooks(page, 16, category);
+  const { category } = await categoryService.getCategory(categoryName);
 
-  return <BooksPageClient {...response} />;
+  return (
+    <BooksPageClient
+      // {...response}
+      title={category?.label}
+      books={[]}
+    />
+  );
 };

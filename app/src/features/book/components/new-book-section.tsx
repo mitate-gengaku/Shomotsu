@@ -1,11 +1,9 @@
-import { isDesktop } from "react-device-detect";
-
 import { DesktopBookList } from "@/features/book/components/desktop-book-list";
 import { MobileBookList } from "@/features/book/components/mobile-book-list";
-import { getExploreBooks } from "@/features/book/services/get-explore-books";
+import { bookService } from "@/services";
 
 export const NewBookSection = async () => {
-  const { books } = await getExploreBooks(1, isDesktop ? 4 : 2);
+  const { books } = await bookService.getBooksWithPagination(1);
 
   return (
     <div className="space-y-8">

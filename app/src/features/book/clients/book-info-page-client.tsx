@@ -139,9 +139,6 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                 <h3 className="font-bold dark:text-gray-800 text-2xl sm:text-3xl lg:text-4xl [writing-mode:vertical-rl]">
                   {book.title}
                 </h3>
-                <p className="font-medium text-xs sm:text-sm lg:text-base text-gray-700 dark:text-gray-800 [writing-mode:vertical-rl]">
-                  {book.user.username}
-                </p>
               </div>
             )}
             <div

@@ -15,10 +15,6 @@ export class BookService {
     return this.bookRepository.create(values);
   }
 
-  async getMyBooks(userId: string | null): Promise<Book[]> {
-    return this.bookRepository.getBooks(userId ?? "");
-  }
-
   async getBook(
     userId: string | null,
     slug: string,
@@ -32,6 +28,24 @@ export class BookService {
     }
 
     return book;
+  }
+
+  async getMyBooks(userId: string | null): Promise<Book[]> {
+    return this.bookRepository.getMyBooks(userId ?? "");
+  }
+
+  async getBooksWithPagination(page: number) {
+    const pageSize = 16;
+    const offset = (page - 1) * pageSize;
+
+    const books = await this.bookRepository.getBooks(offset, pageSize);
+    const nextBook = await this.bookRepository.getBook("", "", offset);
+
+    return {
+      books,
+      nextPage: nextBook ? page + 1 : undefined,
+      prevPage: page === 1 ? undefined : page - 1,
+    };
   }
 
   async update(
