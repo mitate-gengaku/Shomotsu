@@ -1,12 +1,15 @@
+import { auth } from "@clerk/nextjs/server";
+
 import { ReadBookPageClient } from "@/features/book/clients/read-book-page-client";
-import { getBook } from "@/features/book/services/get-book";
+import { bookService } from "@/services";
 
 interface Props {
   slug: string;
 }
 
 export const ReadBookPage = async ({ slug }: Props) => {
-  const { book } = await getBook(slug);
+  const { userId } = await auth();
+  const book = await bookService.getBookDetail(userId, slug);
 
   return (
     <ReadBookPageClient

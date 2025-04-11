@@ -1,14 +1,15 @@
-import { LibraryPageClient } from "@/features/book/clients/library-page-client";
-import { getLibraryBooks } from "@/features/book/services/get-library";
+// import { LibraryPageClient } from "@/features/book/clients/library-page-client";
 
 interface Props {
   page: number;
 }
 
-export const LibraryPage = async ({ page }: Props) => {
-  const { books, nextPage, prevPage } = await getLibraryBooks(page);
+// { page }: Props
+export const LibraryPage = async ({}: Props) => {
+  // const { books, nextPage, prevPage } = await getLibraryBooks(page);
 
-  return (
+  return <></>;
+  /*eturn (
     <LibraryPageClient books={books} nextPage={nextPage} prevPage={prevPage} />
-  );
+  );*/
 };

@@ -1,12 +1,16 @@
-import { NewBookSection } from "@/features/book/components/new-book-section";
+import { BooksPageClient } from "@/features/book/clients/new-books-page-client";
+import { bookService } from "@/services";
 
-export const ExplorePage = async () => {
+interface Props {
+  page: number;
+}
+
+export const ExplorePage = async ({ page }: Props) => {
+  const result = await bookService.getBooksSortByCreatedAt(page);
+
   return (
-    <div
-      className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-8"
-      data-testid="explore-page"
-    >
-      <NewBookSection />
+    <div data-testid="explore-page">
+      <BooksPageClient {...result} />
     </div>
   );
 };

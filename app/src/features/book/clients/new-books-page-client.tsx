@@ -1,8 +1,6 @@
 "use client";
 
-import { ChevronLeftIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { DesktopBookList } from "@/features/book/components/desktop-book-list";
@@ -22,22 +20,9 @@ export const BooksPageClient = ({
   nextPage,
   title = "新作",
 }: Props) => {
-  const router = useRouter();
-  const onClick = () => {
-    router.push(`/explore`);
-  };
-
   return (
-    <div
-      className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-8"
-      data-testid="explore-new-page"
-    >
-      <div className="flex items-center gap-4">
-        <Button variant={"ghost"} size={"icon"} onClick={() => onClick()}>
-          <ChevronLeftIcon />
-        </Button>
-        <h2 className="text-xl lg:text-2xl font-semibold">{title}</h2>
-      </div>
+    <div className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-8">
+      <h2 className="text-xl lg:text-2xl font-semibold">{title}</h2>
       {!books.length && <p>本はまだありません</p>}
 
       <MobileBookList books={books} />

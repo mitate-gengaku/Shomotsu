@@ -3,7 +3,6 @@
 import { useUser } from "@clerk/nextjs";
 import {
   BookmarkIcon,
-  CpuIcon,
   EllipsisVerticalIcon,
   EyeIcon,
   EyeOffIcon,
@@ -42,6 +41,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { XShare } from "@/components/utils/x-share";
+import { categoryIcons } from "@/config/category-icons";
 import { addLibrary } from "@/features/book/services/add-library";
 import { BookWithAllRelations } from "@/types/book";
 import { cn } from "@/utils/cn";
@@ -191,7 +191,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                     asChild
                   >
                     <Link href={`/explore/${book.category.category}`}>
-                      <CpuIcon />
+                      {categoryIcons[book.category.category]}
                       {book.category.label}
                     </Link>
                   </Button>
@@ -303,7 +303,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                       asChild
                     >
                       <Link href={`/explore/${book.category.category}`}>
-                        <CpuIcon />
+                        {categoryIcons[book.category.category]}
                         {book.category.label}
                       </Link>
                     </Button>

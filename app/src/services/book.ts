@@ -1,7 +1,9 @@
+import { and, desc, eq, or } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DatabaseError } from "pg";
 
+import { booksTable } from "@/lib/db/schema";
 import { BookType } from "@/lib/db/type";
 import { BookRepository } from "@/repositories/book";
 import { Book, BookWithAllRelations } from "@/types/book";
@@ -15,13 +17,18 @@ export class BookService {
     return this.bookRepository.create(values);
   }
 
-  async getBook(
+  async getBookDetail(
     userId: string | null,
     slug: string,
   ): Promise<BookWithAllRelations> {
     const decodedSlug = decodeURI(slug);
 
-    const book = await this.bookRepository.getBook(userId ?? "", decodedSlug);
+    const where = and(
+      eq(booksTable.slug, decodedSlug),
+      or(eq(booksTable.publish, true), eq(booksTable.userId, userId ?? "")),
+    );
+
+    const book = await this.bookRepository.findBook(where);
 
     if (!book) {
       redirect("/not-found");
@@ -31,15 +38,64 @@ export class BookService {
   }
 
   async getMyBooks(userId: string | null): Promise<Book[]> {
-    return this.bookRepository.getMyBooks(userId ?? "");
+    const where = eq(booksTable.userId, userId ?? "");
+    const orderBy = desc(booksTable.createdAt);
+
+    return this.bookRepository.findBooks(where, orderBy);
   }
 
-  async getBooksWithPagination(page: number) {
+  async getBooksSortByCreatedAt(page: number) {
+    const where = eq(booksTable.publish, true);
+    const orderBy = desc(booksTable.createdAt);
     const pageSize = 16;
     const offset = (page - 1) * pageSize;
 
-    const books = await this.bookRepository.getBooks(offset, pageSize);
-    const nextBook = await this.bookRepository.getBook("", "", offset);
+    const books = await this.bookRepository.findBooks(
+      where,
+      orderBy,
+      offset,
+      pageSize,
+    );
+    const nextBook = await this.bookRepository.findBook(
+      where,
+      orderBy,
+      offset + pageSize,
+    );
+
+    return {
+      books,
+      nextPage: nextBook ? page + 1 : undefined,
+      prevPage: page === 1 ? undefined : page - 1,
+    };
+  }
+
+  async getBooksWithCategoryIdSortByCreatedAt(
+    page: number,
+    userId: string | null,
+    categoryId?: string,
+  ) {
+    const where = or(
+      eq(booksTable.userId, userId ?? ""),
+      and(
+        eq(booksTable.publish, true),
+        eq(booksTable.categoryId, categoryId ?? ""),
+      ),
+    );
+    const orderBy = desc(booksTable.createdAt);
+    const pageSize = 16;
+    const offset = (page - 1) * pageSize;
+
+    const books = await this.bookRepository.findBooks(
+      where,
+      orderBy,
+      offset,
+      pageSize,
+    );
+    const nextBook = await this.bookRepository.findBook(
+      where,
+      orderBy,
+      offset + pageSize,
+    );
 
     return {
       books,

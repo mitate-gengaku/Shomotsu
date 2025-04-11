@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider localization={jaJP}>
       <html lang="ja" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${manRope.variable} cursor-default antialiased`}
+          className={`${geistSans.className} ${manRope.variable} cursor-default antialiased`}
         >
           <Toaster richColors position="top-right" theme="light" />
           <Script

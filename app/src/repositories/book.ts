@@ -1,26 +1,24 @@
-import { and, eq, or } from "drizzle-orm";
+import { and, eq, SQL } from "drizzle-orm";
 
 import { db } from "@/lib/db/drizzle";
 import { booksTable } from "@/lib/db/schema";
 import { BookType } from "@/lib/db/type";
-import { Book } from "@/types/book";
+import { Book, BookWithAllRelations } from "@/types/book";
 
 export class BookRepository {
   async create(values: BookType): Promise<Book[]> {
     return await db.insert(booksTable).values(values).returning();
   }
 
-  async getBook(userId: string, slug: string, offset?: number) {
+  async findBook(
+    where?: SQL | undefined,
+    orderBy?: SQL | undefined,
+    offset?: number,
+  ): Promise<BookWithAllRelations | undefined> {
     return await db.query.booksTable.findFirst({
-      where: (booksTable, { eq }) => {
-        return offset
-          ? eq(booksTable.publish, true)
-          : and(
-              eq(booksTable.slug, slug),
-              or(eq(booksTable.publish, true), eq(booksTable.userId, userId)),
-            );
-      },
+      where: where,
       offset: offset,
+      orderBy: orderBy,
       with: {
         user: true,
         category: true,
@@ -28,10 +26,20 @@ export class BookRepository {
     });
   }
 
-  async getMyBooks(userId: string): Promise<Book[]> {
+  async findBooks(
+    where?: SQL | undefined,
+    orderBy?: SQL | undefined,
+    offset?: number,
+    limit?: number,
+  ) {
     return await db.query.booksTable.findMany({
-      where: (booksTable, { eq }) => eq(booksTable.userId, userId),
-      orderBy: (fields, { desc }) => [desc(fields.id)],
+      where: where,
+      offset: offset,
+      limit: limit,
+      orderBy: orderBy,
+      with: {
+        category: true,
+      },
     });
   }
 

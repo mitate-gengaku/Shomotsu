@@ -210,7 +210,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                               key={cat.category}
                               value={cat.id}
                               className={cn(
-                                "focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500",
+                                "focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500 dark:focus:bg-teal-800",
                                 // fields.category.errors && "focus:bg-red-50",
                               )}
                             >

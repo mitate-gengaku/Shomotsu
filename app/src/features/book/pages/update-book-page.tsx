@@ -12,7 +12,7 @@ interface Props {
 
 export const UpdateBookPage = async ({ slug }: Props) => {
   const { userId } = await auth();
-  const book = await bookService.getBook(userId, slug);
+  const book = await bookService.getBookDetail(userId, slug);
   const { categories } = await getAllCategories();
 
   if (book.userId !== userId) {
