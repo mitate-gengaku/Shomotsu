@@ -3,7 +3,7 @@ import { Category } from "@/types/category";
 import { User } from "@/types/user";
 
 export type BookWithAllRelations = Required<BookType> & {
-  user: User;
+  user: Omit<User, "email" | "createdAt" | "updatedAt">;
   category: Category | null;
 };
 

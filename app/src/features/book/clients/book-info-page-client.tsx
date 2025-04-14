@@ -35,7 +35,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { XShare } from "@/components/utils/x-share";
 import { categoryIcons } from "@/config/category-icons";
-import { addLibrary } from "@/features/book/services/add-library";
+import { add } from "@/features/book/actions/add";
 import { BookWithAllRelations } from "@/types/book";
 import { cn } from "@/utils/cn";
 
@@ -51,7 +51,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
 
   const onAddLibrary = async (bookId: string, bookMarked: boolean, slug: string) => {
     try {
-      await addLibrary(bookId, bookMarked, slug);
+      await add(bookId, bookMarked, slug);
     } catch (e) {
       if (e instanceof Error) {
         toast.error(e.message);

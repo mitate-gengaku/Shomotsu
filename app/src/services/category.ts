@@ -5,6 +5,10 @@ export class CategoryService {
     this.categoryRepository = categoryRepository;
   }
 
+  async getCategories() {
+    return await this.categoryRepository.getCategories();
+  }
+
   async getCategory(categoryName: string) {
     const category = await this.categoryRepository.getCategory(categoryName);
 

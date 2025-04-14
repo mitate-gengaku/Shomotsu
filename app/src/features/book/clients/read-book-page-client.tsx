@@ -127,10 +127,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
   };
 
   return (
-    <div
-      className={cn("w-full h-full", colorData[themeColor].color)}
-      data-testid="read-book-page"
-      >
+    <div className={cn("w-full h-full", colorData[themeColor].color)} data-testid="read-book-page">
       <div className={cn("w-full lg:w-1/2 mx-auto px-4 pt-16 pb-20 relative min-h-screen h-full")}>
         <div className="w-full absolute top-2 left-0 px-4 flex items-center">
           <Sheet>
@@ -301,7 +298,9 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                         className={cn("rounded-md hover:bg-gray-50", i === currentPageIndex && "text-teal-500")}
                         key={i}
                       >
-                        <button onClick={() => onChangePage(i)} className="w-full p-2 text-left">第{i + 1}章</button>
+                        <button onClick={() => onChangePage(i)} className="w-full p-2 text-left">
+                          第{i + 1}章
+                        </button>
                       </li>
                     ))}
                   </ul>

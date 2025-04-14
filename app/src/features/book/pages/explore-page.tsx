@@ -1,4 +1,4 @@
-import { BooksPageClient } from "@/features/book/clients/new-books-page-client";
+import { BooksPageClient } from "@/features/book/clients/books-page-client";
 import { bookService } from "@/services";
 
 interface Props {

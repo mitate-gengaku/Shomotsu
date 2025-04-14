@@ -1,4 +1,4 @@
-import { and, desc, eq, or } from "drizzle-orm";
+import { and, desc, eq, inArray, or } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { DatabaseError } from "pg";
@@ -62,6 +62,22 @@ export class BookService {
       eq(booksTable.userId, userId ?? ""),
       and(eq(booksTable.publish, true), eq(booksTable.categoryId, categoryId ?? "")),
     );
+    const orderBy = desc(booksTable.createdAt);
+    const pageSize = 16;
+    const offset = (page - 1) * pageSize;
+
+    const books = await this.bookRepository.findBooks(where, orderBy, offset, pageSize);
+    const nextBook = await this.bookRepository.findBook(where, orderBy, offset + pageSize);
+
+    return {
+      books,
+      nextPage: nextBook ? page + 1 : undefined,
+      prevPage: page === 1 ? undefined : page - 1,
+    };
+  }
+
+  async getMyLibrary(page: number, bookIds: string[]) {
+    const where = inArray(booksTable.id, bookIds);
     const orderBy = desc(booksTable.createdAt);
     const pageSize = 16;
     const offset = (page - 1) * pageSize;

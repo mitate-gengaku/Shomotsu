@@ -20,7 +20,13 @@ export class BookRepository {
       offset: offset,
       orderBy: orderBy,
       with: {
-        user: true,
+        user: {
+          columns: {
+            id: true,
+            username: true,
+            imageUrl: true,
+          },
+        },
         category: true,
       },
     });
@@ -33,6 +39,13 @@ export class BookRepository {
       limit: limit,
       orderBy: orderBy,
       with: {
+        user: {
+          columns: {
+            id: true,
+            username: true,
+            imageUrl: true,
+          },
+        },
         category: true,
       },
     });

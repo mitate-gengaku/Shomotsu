@@ -3,8 +3,7 @@ import { forbidden } from "next/navigation";
 import React from "react";
 
 import { UpdateBookPageClient } from "@/features/book/clients/update-book-client";
-import { getAllCategories } from "@/features/book/services/get-all-categories";
-import { bookService } from "@/services";
+import { bookService, categoryService } from "@/services";
 
 interface Props {
   slug: string;
@@ -13,7 +12,7 @@ interface Props {
 export const UpdateBookPage = async ({ slug }: Props) => {
   const { userId } = await auth();
   const book = await bookService.getBookDetail(userId, slug);
-  const { categories } = await getAllCategories();
+  const categories = await categoryService.getCategories();
 
   if (book.userId !== userId) {
     forbidden();
