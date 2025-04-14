@@ -22,19 +22,9 @@ vitest.mock("next/link", () => {
     href: string;
     "data-testid": string;
   }
-  const MockLink = ({
-    children,
-    href,
-    className,
-    "data-testid": dataTestid,
-  }: MockLinkProps) => {
+  const MockLink = ({ children, href, className, "data-testid": dataTestid }: MockLinkProps) => {
     return (
-      <a
-        href={href}
-        className={className}
-        onClick={() => mockRouter.push(href)}
-        data-testid={dataTestid}
-      >
+      <a href={href} className={className} onClick={() => mockRouter.push(href)} data-testid={dataTestid}>
         {children}
       </a>
     );
@@ -63,12 +53,8 @@ const mockSignOut = vitest.fn();
 vitest.mock("@clerk/nextjs", () => ({
   SignedIn: (props) => <div>{props.children}</div>,
   SignedOut: (props) => <div>{props.children}</div>,
-  SignInButton: (props) => (
-    <button className={props.className}>ログイン</button>
-  ),
-  SignUpButton: (props) => (
-    <button className={props.className}>今すぐ始める</button>
-  ),
+  SignInButton: (props) => <button className={props.className}>ログイン</button>,
+  SignUpButton: (props) => <button className={props.className}>今すぐ始める</button>,
   useUser: () => {
     return {
       user: {
@@ -97,20 +83,13 @@ const createTestProviders =
   // eslint-disable-next-line react/display-name
   ({ children }) => {
     return (
-      <ThemeProvider
-        defaultTheme={theme}
-        enableSystem={false}
-        attribute="class"
-      >
+      <ThemeProvider defaultTheme={theme} enableSystem={false} attribute="class">
         {children}
       </ThemeProvider>
     );
   };
 
-const themeRender = (
-  ui: ReactElement,
-  { theme, ...options }: CustomThemeOptions = {},
-): RenderResult =>
+const themeRender = (ui: ReactElement, { theme, ...options }: CustomThemeOptions = {}): RenderResult =>
   render(ui, { wrapper: createTestProviders({ theme }), ...options });
 
 const HydrateAtoms = ({ initialValues, children }) => {

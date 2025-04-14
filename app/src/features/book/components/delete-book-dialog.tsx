@@ -25,13 +25,7 @@ interface Props {
   handleSidebar: (open: React.SetStateAction<boolean>) => void;
 }
 
-export const DeleteBookDialog = ({
-  book_id,
-  book_title,
-  isDialogOpen,
-  setDialogOpen,
-  handleSidebar,
-}: Props) => {
+export const DeleteBookDialog = ({ book_id, book_title, isDialogOpen, setDialogOpen, handleSidebar }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const onDelete = (bookId: string) => {
@@ -54,10 +48,7 @@ export const DeleteBookDialog = ({
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
-      <DialogContent
-        onMouseEnter={() => handleSidebar(true)}
-        data-testid="alert-dialog-content"
-      >
+      <DialogContent onMouseEnter={() => handleSidebar(true)} data-testid="alert-dialog-content">
         <DialogHeader>
           <DialogTitle>本の削除</DialogTitle>
           <DialogDescription>
@@ -67,11 +58,7 @@ export const DeleteBookDialog = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose
-            disabled={isPending}
-            className={cn(buttonVariants({ variant: "outline" }))}
-            type="button"
-          >
+          <DialogClose disabled={isPending} className={cn(buttonVariants({ variant: "outline" }))} type="button">
             キャンセル
           </DialogClose>
           <Button

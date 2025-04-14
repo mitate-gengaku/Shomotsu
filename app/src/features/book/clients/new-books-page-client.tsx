@@ -14,12 +14,7 @@ interface Props {
   title?: string;
 }
 
-export const BooksPageClient = ({
-  books,
-  prevPage,
-  nextPage,
-  title = "新作",
-}: Props) => {
+export const BooksPageClient = ({ books, prevPage, nextPage, title = "新作" }: Props) => {
   return (
     <div className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-8">
       <h2 className="text-xl lg:text-2xl font-semibold">{title}</h2>
@@ -36,10 +31,7 @@ export const BooksPageClient = ({
           </Button>
         )}
         {typeof nextPage === "number" && (
-          <Button
-            className="bg-teal-500 hover:bg-teal-600 transition-all"
-            asChild
-          >
+          <Button className="bg-teal-500 hover:bg-teal-600 transition-all" asChild>
             <Link href={`/explore?page=${nextPage}`}>次のページ</Link>
           </Button>
         )}

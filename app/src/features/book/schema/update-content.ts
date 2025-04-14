@@ -22,10 +22,6 @@ export const updateContentSchema = z.object({
       })
       .optional(),
   ),
-  category: z
-    .optional(
-      z.preprocess((value) => (value === "" ? undefined : value), z.string()),
-    )
-    .default(undefined),
+  category: z.optional(z.preprocess((value) => (value === "" ? undefined : value), z.string())).default(undefined),
   publish: z.boolean().default(false),
 });

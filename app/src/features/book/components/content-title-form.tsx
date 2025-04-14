@@ -4,7 +4,7 @@ import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { useSetAtom } from "jotai";
 import { SendIcon } from "lucide-react";
-import { ChangeEvent, useActionState, useState } from "react";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
 import { Button } from "@/components/ui/button";
@@ -47,12 +47,15 @@ export const ContentTitleForm = () => {
     setData({ ...data, slug: e.target.value });
   };
 
+  useEffect(() => {
+    if (form.errors) {
+      setConfetti(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.errors]);
+
   return (
-    <form
-      {...getFormProps(form)}
-      action={action}
-      data-testid="content-title-form"
-    >
+    <form {...getFormProps(form)} action={action} data-testid="content-title-form">
       <Card>
         <CardContent className="flex flex-col gap-2">
           <div className="space-y-1">
@@ -67,8 +70,7 @@ export const ContentTitleForm = () => {
                 key={fields.title.key}
                 className={cn(
                   "h-11 pr-14 focus-visible:ring-teal-500",
-                  fields.title.errors &&
-                    "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
+                  fields.title.errors && "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
                 )}
                 defaultValue={data.title}
                 onChange={onChangeTitle}
@@ -106,8 +108,7 @@ export const ContentTitleForm = () => {
                 key={fields.slug.key}
                 className={cn(
                   "text-xs focus-visible:ring-teal-500",
-                  fields.slug.errors &&
-                    "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
+                  fields.slug.errors && "bg-red-50 text-red-500 focus-visible:ring-red-500 border-red-500",
                 )}
                 defaultValue={data.slug}
                 onChange={onChangeSlug}

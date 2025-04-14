@@ -11,9 +11,6 @@ export class UserRepository {
   }
 
   async update(userId: string, values: UpdateUserValues) {
-    return await db
-      .update(usersTable)
-      .set(values)
-      .where(eq(usersTable.id, userId));
+    return await db.update(usersTable).set(values).where(eq(usersTable.id, userId));
   }
 }

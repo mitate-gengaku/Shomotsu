@@ -9,9 +9,7 @@ vitest.mock("@/components/ui/label", () => ({
 }));
 
 vitest.mock("@/components/ui/switch", () => ({
-  Switch: ({ props, onCheckedChange }) => (
-    <div data-testid="switch" onClick={onCheckedChange} {...props} />
-  ),
+  Switch: ({ props, onCheckedChange }) => <div data-testid="switch" onClick={onCheckedChange} {...props} />,
 }));
 
 vitest.mock("@/components/ui/card", () => ({

@@ -7,9 +7,7 @@ describe("FormatDateコンポーネントのテスト", () => {
   let rendered: RenderResult;
 
   beforeEach(() => {
-    rendered = render(
-      <FormatDate date={new Date(2025, 2, 15, 22, 0).toISOString()} />,
-    );
+    rendered = render(<FormatDate date={new Date(2025, 2, 15, 22, 0).toISOString()} />);
   });
 
   test("FDC-001: FormatDateコンポーネントのUIが正常に表示されること", () => {

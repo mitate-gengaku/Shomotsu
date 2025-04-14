@@ -12,10 +12,7 @@ export const getUpdateBook = async (slug: string) => {
 
   const book = (await db.query.booksTable.findFirst({
     where: (booksTable, { eq }) => {
-      return and(
-        eq(booksTable.slug, decodedSlug),
-        eq(booksTable.userId, userId),
-      );
+      return and(eq(booksTable.slug, decodedSlug), eq(booksTable.userId, userId));
     },
     with: {
       user: true,

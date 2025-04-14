@@ -11,10 +11,7 @@ export const getBook = async (slug: string) => {
 
   const book = await db.query.booksTable.findFirst({
     where: (booksTable, { eq }) => {
-      return and(
-        eq(booksTable.slug, decodedSlug),
-        or(eq(booksTable.publish, true), eq(booksTable.userId, userId)),
-      );
+      return and(eq(booksTable.slug, decodedSlug), or(eq(booksTable.publish, true), eq(booksTable.userId, userId)));
     },
     with: {
       user: true,

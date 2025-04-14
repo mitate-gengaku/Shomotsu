@@ -71,9 +71,7 @@ describe("SettingSidebarコンポーネントのテスト", () => {
 
     const accountSettingLink = screen.getByRole("link", { name: "アカウント" });
 
-    const accountSettingLinkClassNames = Object.values(
-      accountSettingLink.classList,
-    );
+    const accountSettingLinkClassNames = Object.values(accountSettingLink.classList);
 
     expect(accountSettingLinkClassNames).toContain("font-semibold");
     expect(accountSettingLinkClassNames).toContain("text-primary");
@@ -96,9 +94,7 @@ describe("SettingSidebarコンポーネントのテスト", () => {
     render(<SettingSidebar />);
 
     const appearanceSettingLink = screen.getByRole("link", { name: "テーマ" });
-    const appearanceSettingLinkClassNames = Object.values(
-      appearanceSettingLink.classList,
-    );
+    const appearanceSettingLinkClassNames = Object.values(appearanceSettingLink.classList);
 
     expect(appearanceSettingLinkClassNames).toContain("font-semibold");
     expect(appearanceSettingLinkClassNames).toContain("text-primary");

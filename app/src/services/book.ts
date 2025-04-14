@@ -17,10 +17,7 @@ export class BookService {
     return this.bookRepository.create(values);
   }
 
-  async getBookDetail(
-    userId: string | null,
-    slug: string,
-  ): Promise<BookWithAllRelations> {
+  async getBookDetail(userId: string | null, slug: string): Promise<BookWithAllRelations> {
     const decodedSlug = decodeURI(slug);
 
     const where = and(
@@ -50,17 +47,8 @@ export class BookService {
     const pageSize = 16;
     const offset = (page - 1) * pageSize;
 
-    const books = await this.bookRepository.findBooks(
-      where,
-      orderBy,
-      offset,
-      pageSize,
-    );
-    const nextBook = await this.bookRepository.findBook(
-      where,
-      orderBy,
-      offset + pageSize,
-    );
+    const books = await this.bookRepository.findBooks(where, orderBy, offset, pageSize);
+    const nextBook = await this.bookRepository.findBook(where, orderBy, offset + pageSize);
 
     return {
       books,
@@ -69,33 +57,17 @@ export class BookService {
     };
   }
 
-  async getBooksWithCategoryIdSortByCreatedAt(
-    page: number,
-    userId: string | null,
-    categoryId?: string,
-  ) {
+  async getBooksWithCategoryIdSortByCreatedAt(page: number, userId: string | null, categoryId?: string) {
     const where = or(
       eq(booksTable.userId, userId ?? ""),
-      and(
-        eq(booksTable.publish, true),
-        eq(booksTable.categoryId, categoryId ?? ""),
-      ),
+      and(eq(booksTable.publish, true), eq(booksTable.categoryId, categoryId ?? "")),
     );
     const orderBy = desc(booksTable.createdAt);
     const pageSize = 16;
     const offset = (page - 1) * pageSize;
 
-    const books = await this.bookRepository.findBooks(
-      where,
-      orderBy,
-      offset,
-      pageSize,
-    );
-    const nextBook = await this.bookRepository.findBook(
-      where,
-      orderBy,
-      offset + pageSize,
-    );
+    const books = await this.bookRepository.findBooks(where, orderBy, offset, pageSize);
+    const nextBook = await this.bookRepository.findBook(where, orderBy, offset + pageSize);
 
     return {
       books,
@@ -104,17 +76,9 @@ export class BookService {
     };
   }
 
-  async update(
-    userId: string | null,
-    bookId: string | null,
-    values: Partial<BookType>,
-  ) {
+  async update(userId: string | null, bookId: string | null, values: Partial<BookType>) {
     try {
-      const book = await this.bookRepository.update(
-        userId ?? "",
-        bookId ?? "",
-        values,
-      );
+      const book = await this.bookRepository.update(userId ?? "", bookId ?? "", values);
 
       const redirectTo = `/book/${book[0].slug}`;
 

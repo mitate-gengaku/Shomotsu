@@ -21,9 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={jaJP}>
       <html lang="ja" suppressHydrationWarning>
-        <body
-          className={`${geistSans.className} ${manRope.variable} cursor-default antialiased`}
-        >
+        <body className={`${geistSans.className} ${manRope.variable} cursor-default antialiased`}>
           <Toaster richColors position="top-right" theme="light" />
           <Script
             async
@@ -31,12 +29,7 @@ export default function RootLayout({
             data-website-id={process.env.NEXT_PUBLIC_UMAMI_DATA_WEBSITE_ID}
           />
           <SpeedInsights />
-          <ThemeProvider
-            attribute={"class"}
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem disableTransitionOnChange>
             {children}
           </ThemeProvider>
         </body>

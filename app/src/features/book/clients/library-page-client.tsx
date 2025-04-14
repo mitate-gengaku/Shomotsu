@@ -12,13 +12,8 @@ interface Props {
 
 export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
   return (
-    <div
-      className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-4"
-      data-testid="library-page"
-    >
-      <h2 className="text-xl lg:text-2xl font-semibold">
-        ブックマークした本一覧
-      </h2>
+    <div className="w-full lg:w-1/2 mx-auto md:pb-12 relative space-y-4" data-testid="library-page">
+      <h2 className="text-xl lg:text-2xl font-semibold">ブックマークした本一覧</h2>
       <div className="w-full grid grid-cols-2 gap-4 md:hidden">
         {books.map((book) => (
           <div key={book.id} className="group" data-testid="book-card">
@@ -26,8 +21,7 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
               <div
                 className="w-full lg:mx-0 rounded-lg shadow-lg relative"
                 style={{
-                  boxShadow:
-                    "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
+                  boxShadow: "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
                 }}
               >
                 {book.cover ? (
@@ -52,13 +46,8 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
                   }}
                 />
               </div>
-              <h4 className="font-medium text-sm leading-tight">
-                {book.title}
-              </h4>
-              <FormatDate
-                date={book.createdAt}
-                className="text-xs text-muted-foreground"
-              />
+              <h4 className="font-medium text-sm leading-tight">{book.title}</h4>
+              <FormatDate date={book.createdAt} className="text-xs text-muted-foreground" />
             </Link>
           </div>
         ))}
@@ -72,8 +61,7 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
               <div
                 className="w-full lg:mx-0 rounded-lg shadow-lg relative"
                 style={{
-                  boxShadow:
-                    "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
+                  boxShadow: "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
                 }}
               >
                 {book.cover ? (
@@ -98,13 +86,8 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
                   }}
                 />
               </div>
-              <h4 className="font-medium text-sm md:text-base leading-tight">
-                {book.title}
-              </h4>
-              <FormatDate
-                date={book.createdAt}
-                className="text-xs text-muted-foreground"
-              />
+              <h4 className="font-medium text-sm md:text-base leading-tight">{book.title}</h4>
+              <FormatDate date={book.createdAt} className="text-xs text-muted-foreground" />
             </Link>
           </div>
         ))}
@@ -117,10 +100,7 @@ export const LibraryPageClient = ({ books, nextPage, prevPage }: Props) => {
           </Button>
         )}
         {typeof nextPage === "number" && (
-          <Button
-            className="bg-teal-500 hover:bg-teal-600 transition-all"
-            asChild
-          >
+          <Button className="bg-teal-500 hover:bg-teal-600 transition-all" asChild>
             <Link href={`/library?page=${nextPage}`}>次のページ</Link>
           </Button>
         )}

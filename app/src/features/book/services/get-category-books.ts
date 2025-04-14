@@ -4,11 +4,7 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db/drizzle";
 
-export const getCategoryBooks = async (
-  page: number = 1,
-  pageSize: number = 16,
-  categoryName: string,
-) => {
+export const getCategoryBooks = async (page: number = 1, pageSize: number = 16, categoryName: string) => {
   // const { userId } = await auth();
   // const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 
@@ -20,10 +16,7 @@ export const getCategoryBooks = async (
 
   const books = await db.query.booksTable.findMany({
     where: (fields, { eq, and }) => {
-      return and(
-        eq(fields.publish, true),
-        eq(fields.categoryId, category?.id || ""),
-      );
+      return and(eq(fields.publish, true), eq(fields.categoryId, category?.id || ""));
     },
     limit: pageSize,
     offset: offset,
@@ -36,10 +29,7 @@ export const getCategoryBooks = async (
 
   const isNextPageExists = await db.query.booksTable.findFirst({
     where: (fields, { eq, and }) => {
-      return and(
-        eq(fields.publish, true),
-        eq(fields.categoryId, category?.id || ""),
-      );
+      return and(eq(fields.publish, true), eq(fields.categoryId, category?.id || ""));
     },
     offset: offset + pageSize,
   });

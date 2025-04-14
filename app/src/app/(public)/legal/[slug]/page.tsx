@@ -16,17 +16,12 @@ const legalSlug = [
   },
 ];
 
-export const generateMetadata = async (
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> => {
   const { slug } = await params;
 
   // タイトルの生成
   const findMatchSlugItem = legalSlug.find((value) => value.slug === slug);
-  const title = findMatchSlugItem
-    ? `${findMatchSlugItem.ja} | Shomotsu`
-    : (await parent).title || "Shomotsu";
+  const title = findMatchSlugItem ? `${findMatchSlugItem.ja} | Shomotsu` : (await parent).title || "Shomotsu";
 
   return {
     title: title,

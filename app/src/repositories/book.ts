@@ -26,12 +26,7 @@ export class BookRepository {
     });
   }
 
-  async findBooks(
-    where?: SQL | undefined,
-    orderBy?: SQL | undefined,
-    offset?: number,
-    limit?: number,
-  ) {
+  async findBooks(where?: SQL | undefined, orderBy?: SQL | undefined, offset?: number, limit?: number) {
     return await db.query.booksTable.findMany({
       where: where,
       offset: offset,
@@ -64,8 +59,6 @@ export class BookRepository {
   }
 
   async delete(userId: string, bookId: string) {
-    return await db
-      .delete(booksTable)
-      .where(and(eq(booksTable.userId, userId), eq(booksTable.id, bookId)));
+    return await db.delete(booksTable).where(and(eq(booksTable.userId, userId), eq(booksTable.id, bookId)));
   }
 }

@@ -11,25 +11,14 @@ interface Props {
   bookCreatedAt: Date;
 }
 
-export const BookCardLink = ({
-  bookId,
-  bookTitle,
-  bookSlug,
-  bookCover,
-  bookCreatedAt,
-}: Props) => {
+export const BookCardLink = ({ bookId, bookTitle, bookSlug, bookCover, bookCreatedAt }: Props) => {
   return (
-    <div
-      key={bookId}
-      className={cn("group lg:min-w-36")}
-      data-testid="book-card"
-    >
+    <div key={bookId} className={cn("group lg:min-w-36")} data-testid="book-card">
       <Link href={`/book/${bookSlug}`} className={"space-y-4"}>
         <div
           className="w-full lg:mx-0 rounded-lg shadow-lg relative"
           style={{
-            boxShadow:
-              "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
+            boxShadow: "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
           }}
         >
           {bookCover ? (
@@ -41,13 +30,7 @@ export const BookCardLink = ({
             />
           ) : (
             <div className="w-full h-64 bg-gray-300 dark:bg-gray-400 rounded-lg flex flex-row-reverse justify-between p-3 select-none">
-              <h3
-                className={cn(
-                  "font-bold dark:text-gray-800 text-3xl [writing-mode:vertical-rl]",
-                )}
-              >
-                {bookTitle}
-              </h3>
+              <h3 className={cn("font-bold dark:text-gray-800 text-3xl [writing-mode:vertical-rl]")}>{bookTitle}</h3>
             </div>
           )}
           <div
@@ -58,13 +41,8 @@ export const BookCardLink = ({
             }}
           />
         </div>
-        <h4 className={cn("font-medium text-sm leading-tight md:text-base")}>
-          {bookTitle}
-        </h4>
-        <FormatDate
-          date={bookCreatedAt}
-          className="text-xs text-muted-foreground"
-        />
+        <h4 className={cn("font-medium text-sm leading-tight md:text-base")}>{bookTitle}</h4>
+        <FormatDate date={bookCreatedAt} className="text-xs text-muted-foreground" />
       </Link>
     </div>
   );

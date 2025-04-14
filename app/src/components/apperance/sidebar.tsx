@@ -19,12 +19,9 @@ export const Sidebar = ({ books }: { books: Book[] }) => {
   });
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const handleSidebar = useDebouncedCallback(
-    (open: React.SetStateAction<boolean>) => {
-      setIsOpen(open);
-    },
-    500,
-  );
+  const handleSidebar = useDebouncedCallback((open: React.SetStateAction<boolean>) => {
+    setIsOpen(open);
+  }, 500);
 
   const sidebarVariants = {
     open: {
@@ -72,13 +69,7 @@ export const Sidebar = ({ books }: { books: Book[] }) => {
 
   return (
     <>
-      <Button
-        size={"icon"}
-        variant={"ghost"}
-        className="z-[9999]"
-        data-testid="sidebar-trigger"
-        asChild
-      >
+      <Button size={"icon"} variant={"ghost"} className="z-[9999]" data-testid="sidebar-trigger" asChild>
         <motion.button
           onClick={() => setIsOpen((open) => !open)}
           onMouseEnter={() => handleSidebar(true)}

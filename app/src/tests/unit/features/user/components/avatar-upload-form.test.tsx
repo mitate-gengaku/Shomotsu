@@ -55,19 +55,14 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
     });
 
     const avatarImage = screen.getByTestId("avatar-image");
-    expect(avatarImage).toHaveAttribute(
-      "src",
-      "https://example.com/avatar.jpg",
-    );
+    expect(avatarImage).toHaveAttribute("src", "https://example.com/avatar.jpg");
     expect(avatarImage).toHaveAttribute("alt", "プロフィール画像");
 
     expect(screen.getByText("アップロード")).toBeInTheDocument();
@@ -84,9 +79,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -112,9 +105,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -138,9 +129,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -165,11 +154,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
     fireEvent.change(fileInput, { target: { files: [mockFile] } });
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          "アップロード可能なファイル形式は.jpgまたは.pngのみです",
-        ),
-      ).toBeInTheDocument();
+      expect(screen.getByText("アップロード可能なファイル形式は.jpgまたは.pngのみです")).toBeInTheDocument();
     });
   });
 
@@ -186,9 +171,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -213,9 +196,7 @@ describe("AvatarUploadFormコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },

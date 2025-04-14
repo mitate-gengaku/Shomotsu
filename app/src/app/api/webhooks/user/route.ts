@@ -12,9 +12,7 @@ export async function POST(req: Request) {
   const client = await clerkClient();
 
   if (!SIGNING_SECRET) {
-    throw new Error(
-      "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local",
-    );
+    throw new Error("Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local");
   }
 
   // Create new Svix instance with secret
@@ -56,15 +54,7 @@ export async function POST(req: Request) {
   // `user.created` イベントの処理
   try {
     if (evt.type === "user.created") {
-      const {
-        id,
-        first_name,
-        last_name,
-        email_addresses,
-        image_url,
-        created_at,
-        updated_at,
-      } = evt.data;
+      const { id, first_name, last_name, email_addresses, image_url, created_at, updated_at } = evt.data;
       const email = email_addresses?.[0]?.email_address || "";
 
       const values: UserType = {
@@ -85,10 +75,7 @@ export async function POST(req: Request) {
       });
       await userService.create(values);
 
-      return NextResponse.json(
-        { message: "User saved to DB" },
-        { status: 200 },
-      );
+      return NextResponse.json({ message: "User saved to DB" }, { status: 200 });
     } else if (evt.type === "user.updated") {
       const { id, username, image_url } = evt.data;
 
@@ -99,18 +86,12 @@ export async function POST(req: Request) {
 
       await userService.update(id, values);
 
-      return NextResponse.json(
-        { message: "User update to DB" },
-        { status: 200 },
-      );
+      return NextResponse.json({ message: "User update to DB" }, { status: 200 });
     }
 
     return NextResponse.json({ message: "Unhandled event" }, { status: 200 });
   } catch (error) {
     console.error("Webhook Error:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

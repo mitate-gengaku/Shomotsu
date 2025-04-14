@@ -26,9 +26,7 @@ describe("Confettiコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[confettiAtom, false]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[confettiAtom, false]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -44,9 +42,7 @@ describe("Confettiコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[confettiAtom, true]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[confettiAtom, true]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -61,9 +57,7 @@ describe("Confettiコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[confettiAtom, true]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[confettiAtom, true]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },

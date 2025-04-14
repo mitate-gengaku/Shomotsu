@@ -7,11 +7,7 @@ import { Sidebar } from "@/components/apperance/sidebar";
 import { Button } from "@/components/ui/button";
 import { bookService } from "@/services";
 
-export const AuthHeader = async ({
-  children,
-}: {
-  children?: Readonly<ReactNode>;
-}) => {
+export const AuthHeader = async ({ children }: { children?: Readonly<ReactNode> }) => {
   const { userId } = await auth();
   const books = await bookService.getMyBooks(userId);
 
@@ -35,9 +31,7 @@ export const AuthHeader = async ({
             <CompassIcon />
           </Link>
         </Button>
-        <div className={"flex items-center gap-2 ml-auto md:ml-0"}>
-          {children}
-        </div>
+        <div className={"flex items-center gap-2 ml-auto md:ml-0"}>{children}</div>
       </div>
     </header>
   );

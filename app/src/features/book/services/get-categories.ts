@@ -11,9 +11,7 @@ export const getCategories = async (size: number = 8) => {
     },
   });
 
-  const hasBookCategories = categories.filter(
-    (category) => category.books.length,
-  );
+  const hasBookCategories = categories.filter((category) => category.books.length);
 
   return {
     categories: hasBookCategories,

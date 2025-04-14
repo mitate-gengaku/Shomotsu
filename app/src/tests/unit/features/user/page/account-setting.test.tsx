@@ -17,9 +17,7 @@ vitest.mock("@/components/apperance/setting-sidebar", () => ({
 }));
 
 vitest.mock("@/features/user/components/account-setting-form", () => ({
-  AccountSettingForm: ({ username }) => (
-    <div data-testid="mock-account-form" data-username={username}></div>
-  ),
+  AccountSettingForm: ({ username }) => <div data-testid="mock-account-form" data-username={username}></div>,
 }));
 
 vitest.mock("@/features/user/components/avatar-upload-form", () => ({

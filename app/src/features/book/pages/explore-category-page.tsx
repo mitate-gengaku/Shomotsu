@@ -11,11 +11,7 @@ interface Props {
 export const ExploreCategoryPage = async ({ page, categoryName }: Props) => {
   const { userId } = await auth();
   const { category } = await categoryService.getCategory(categoryName);
-  const result = await bookService.getBooksWithCategoryIdSortByCreatedAt(
-    page,
-    userId,
-    category?.id,
-  );
+  const result = await bookService.getBooksWithCategoryIdSortByCreatedAt(page, userId, category?.id);
 
   return (
     <div data-testid="explore-category-page">

@@ -42,6 +42,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/typography": "^0.5.16",
     "@types/mdx": "^2.0.13",
+    "@vercel/kv": "^3.0.0",
     "@vercel/speed-insights": "^1.2.0",
     "browser-image-compression": "^2.0.2",
     "canvas-confetti": "^1.9.3",

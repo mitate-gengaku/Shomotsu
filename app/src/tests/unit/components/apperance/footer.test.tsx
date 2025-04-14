@@ -28,9 +28,7 @@ describe("Footerコンポーネントのテスト", () => {
     expect(supportTitle).toBeInTheDocument();
     expect(xAccountLink).toBeInTheDocument();
     expect(copyWright).toBeInTheDocument();
-    expect(copyWright.textContent).toBe(
-      "© 2025 Shomotsu. All rights reserved.",
-    );
+    expect(copyWright.textContent).toBe("© 2025 Shomotsu. All rights reserved.");
     expect(termsLink).toBeInTheDocument();
     expect(privacyPolicyLink).toBeInTheDocument();
   });

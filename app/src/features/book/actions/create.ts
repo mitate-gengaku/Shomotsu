@@ -38,8 +38,12 @@ export async function create(prevState: unknown, formData: FormData) {
     redirectTo = `/book/${book[0].slug}`;
   } catch (e) {
     if (e instanceof DatabaseError) {
+      const regex = /Key \((title|slug)\)=\((.*?)\) already exists\./;
+
+      const matchKey = e.detail?.match(regex);
+
       return submission.reply({
-        formErrors: [e.detail ?? ""],
+        formErrors: [`「${matchKey ? matchKey[1] : ""}」はすでに使用されています`],
       });
     }
     return submission.reply();

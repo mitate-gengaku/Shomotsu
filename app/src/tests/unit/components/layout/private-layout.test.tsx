@@ -1,13 +1,6 @@
 import { render, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test,
-} from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, test } from "vitest";
 
 import PrivateLayout from "@/app/(private)/layout";
 

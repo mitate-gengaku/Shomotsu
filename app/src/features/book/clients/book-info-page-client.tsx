@@ -1,14 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import {
-  BookmarkIcon,
-  EllipsisVerticalIcon,
-  EyeIcon,
-  EyeOffIcon,
-  PencilIcon,
-  UserIcon,
-} from "lucide-react";
+import { BookmarkIcon, EllipsisVerticalIcon, EyeIcon, EyeOffIcon, PencilIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -56,11 +49,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
   const path = usePathname();
   const { user } = useUser();
 
-  const onAddLibrary = async (
-    bookId: string,
-    bookMarked: boolean,
-    slug: string,
-  ) => {
+  const onAddLibrary = async (bookId: string, bookMarked: boolean, slug: string) => {
     try {
       await addLibrary(bookId, bookMarked, slug);
     } catch (e) {
@@ -76,10 +65,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
   const handleLibrary = useDebouncedCallback(onAddLibrary, 500);
 
   return (
-    <div
-      className="w-full lg:w-1/2 mx-auto md:pb-12 relative"
-      data-testid="book-detail-page"
-    >
+    <div className="w-full lg:w-1/2 mx-auto md:pb-12 relative" data-testid="book-detail-page">
       <div className="mb-8 flex items-center justify-between">
         {book.category && (
           <Breadcrumb>
@@ -120,8 +106,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           <div
             className="w-2/5 mx-auto lg:w-4/5 lg:mx-0 rounded-lg shadow-lg relative"
             style={{
-              boxShadow:
-                "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
+              boxShadow: "10px 15px 22px -5px rgba(0, 0, 0, 0.2), 2px 4px 6px rgba(0, 0, 0, 0.15)",
             }}
           >
             {bookMarked && (
@@ -151,10 +136,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
           </div>
         </div>
         <div className="lg:w-2/3 flex flex-1 gap-4 flex-col items-center lg:items-start">
-          <h2
-            className="text-3xl font-semibold text-center lg:text-left flex items-center gap-2"
-            data-testid="title"
-          >
+          <h2 className="text-3xl font-semibold text-center lg:text-left flex items-center gap-2" data-testid="title">
             {book.title}
           </h2>
           <div className="flex items-center gap-4">
@@ -185,11 +167,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                   className="flex items-center gap-2 flex-wrap justify-center lg:justify-start"
                   data-testid="categories"
                 >
-                  <Button
-                    size={"sm"}
-                    className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
-                    asChild
-                  >
+                  <Button size={"sm"} className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all" asChild>
                     <Link href={`/explore/${book.category.category}`}>
                       {categoryIcons[book.category.category]}
                       {book.category.label}
@@ -203,10 +181,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                 発行年
               </h3>
               <div className="flex items-center gap-2 flex-wrap justify-center lg:justify-start">
-                <FormatDate
-                  date={new Date(book.createdAt)}
-                  className="text-gray-500 text-sm"
-                />
+                <FormatDate date={new Date(book.createdAt)} className="text-gray-500 text-sm" />
               </div>
             </div>
             <div className="w-full flex items-center gap-2">
@@ -217,14 +192,8 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
               >
                 <Link href={`/book/${book.slug}/read`}>本を読む</Link>
               </Button>
-              <Button
-                size={"icon"}
-                variant={"outline"}
-                onClick={() => handleLibrary(book.id, bookMarked, path)}
-              >
-                <BookmarkIcon
-                  className={cn(bookMarked && "fill-yellow-500 stroke-none")}
-                />
+              <Button size={"icon"} variant={"outline"} onClick={() => handleLibrary(book.id, bookMarked, path)}>
+                <BookmarkIcon className={cn(bookMarked && "fill-yellow-500 stroke-none")} />
               </Button>
               {user && user.id === book.userId && (
                 <DropdownMenu>
@@ -233,21 +202,11 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                       <EllipsisVerticalIcon />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    align="end"
-                    className="min-w-56 p-0"
-                    sideOffset={16}
-                  >
+                  <DropdownMenuContent align="end" className="min-w-56 p-0" sideOffset={16}>
                     <DropdownMenuLabel className="px-4">本</DropdownMenuLabel>
                     <DropdownMenuSeparator className="m-0" />
-                    <DropdownMenuItem
-                      className="w-full px-4 h-10 cursor-pointer"
-                      asChild
-                    >
-                      <Link
-                        href={`${url + path}/update`}
-                        className="items-center flex"
-                      >
+                    <DropdownMenuItem className="w-full px-4 h-10 cursor-pointer" asChild>
+                      <Link href={`${url + path}/update`} className="items-center flex">
                         <PencilIcon />
                         編集
                       </Link>
@@ -272,36 +231,20 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             <TabsTrigger value="summary" data-testid="summary-trigger">
               あらすじ
             </TabsTrigger>
-            <TabsTrigger
-              disabled={!book.toc.length && true}
-              value="toc"
-              data-testid="toc-trigger"
-            >
+            <TabsTrigger disabled={!book.toc.length && true} value="toc" data-testid="toc-trigger">
               目次
             </TabsTrigger>
           </TabsList>
           <TabsContent value="summary">
-            <p
-              className="mb-8 text-gray-700 dark:text-gray-50 leading-relaxed"
-              data-testid="summary"
-            >
+            <p className="mb-8 text-gray-700 dark:text-gray-50 leading-relaxed" data-testid="summary">
               {book.description}
             </p>
             <div className="flex flex-col gap-4 md:hidden">
               {book.category && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
-                    カテゴリ
-                  </h3>
-                  <div
-                    className="flex items-center gap-2 flex-wrap"
-                    data-testid="categories"
-                  >
-                    <Button
-                      size={"sm"}
-                      className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all"
-                      asChild
-                    >
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">カテゴリ</h3>
+                  <div className="flex items-center gap-2 flex-wrap" data-testid="categories">
+                    <Button size={"sm"} className="rounded-full bg-teal-500 hover:bg-teal-600 transition-all" asChild>
                       <Link href={`/explore/${book.category.category}`}>
                         {categoryIcons[book.category.category]}
                         {book.category.label}
@@ -311,13 +254,8 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                 </div>
               )}
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
-                  発行年
-                </h3>
-                <FormatDate
-                  date={new Date(book.createdAt)}
-                  className="text-gray-500 text-sm"
-                />
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">発行年</h3>
+                <FormatDate date={new Date(book.createdAt)} className="text-gray-500 text-sm" />
               </div>
             </div>
           </TabsContent>

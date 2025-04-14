@@ -2,10 +2,7 @@
 
 import { db } from "@/lib/db/drizzle";
 
-export const getExploreBooks = async (
-  page: number = 1,
-  pageSize: number = 16,
-) => {
+export const getExploreBooks = async (page: number = 1, pageSize: number = 16) => {
   // const { userId } = await auth();
   // const userId = "01JQH2NCNS83JKMSCCWE4TGK5T";
 

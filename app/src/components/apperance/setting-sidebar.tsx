@@ -21,10 +21,8 @@ export const SettingSidebar = () => {
               className={cn(
                 buttonVariants({ variant: "ghost" }),
                 "w-full justify-start text-muted-foreground hover:text-foreground",
-                pathname === "/setting" &&
-                  "font-semibold text-primary bg-slate-300/20",
-                pathname === "/setting/account" &&
-                  "font-semibold text-primary bg-slate-300/20",
+                pathname === "/setting" && "font-semibold text-primary bg-slate-300/20",
+                pathname === "/setting/account" && "font-semibold text-primary bg-slate-300/20",
               )}
             >
               <UserIcon />
@@ -37,8 +35,7 @@ export const SettingSidebar = () => {
               className={cn(
                 buttonVariants({ variant: "ghost" }),
                 "w-full justify-start text-muted-foreground hover:text-foreground",
-                pathname === "/setting/appearance" &&
-                  "font-semibold text-primary bg-slate-300/20",
+                pathname === "/setting/appearance" && "font-semibold text-primary bg-slate-300/20",
               )}
             >
               <BrushIcon />

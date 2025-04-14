@@ -13,8 +13,7 @@ export const userNameSchema = z.object({
       .min(6, { message: "ユーザーネームは6文字以上必要です" })
       .max(32, { message: "ユーザーネームは32文字以下にしてください " })
       .regex(/^[a-zA-Z0-9_-]+$/, {
-        message:
-          "ユーザーネームには英数字、アンダースコア(_)、ハイフン(-)のみ使用できます",
+        message: "ユーザーネームには英数字、アンダースコア(_)、ハイフン(-)のみ使用できます",
       })
       .refine((name) => !forbiddenUserName.includes(name.toLowerCase()), {
         message: "このユーザーネームは使用できません",

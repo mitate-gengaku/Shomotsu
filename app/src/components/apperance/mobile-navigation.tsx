@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  CompassIcon,
-  HomeIcon,
-  LibraryBigIcon,
-  SettingsIcon,
-} from "lucide-react";
+import { CompassIcon, HomeIcon, LibraryBigIcon, SettingsIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -28,12 +23,7 @@ export const MobileNav = () => {
           <HomeIcon size={18} />
         </Link>
       </Button>
-      <Button
-        variant={"ghost"}
-        size={"icon"}
-        className="text-slate-400"
-        asChild
-      >
+      <Button variant={"ghost"} size={"icon"} className="text-slate-400" asChild>
         <Link
           href={"/explore"}
           className={cn(
