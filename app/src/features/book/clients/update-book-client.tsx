@@ -1,11 +1,12 @@
 "use client";
 
+import "cropperjs/dist/cropper.css";
 import { getFormProps, getInputProps, getTextareaProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import React, { ChangeEvent, useActionState, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useActionState, useEffect, useRef, useState } from "react";
 
 import { Spinner } from "@/components/loading/spinner";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -18,13 +19,19 @@ import { UpdateContentType } from "@/features/book/types/content";
 import { BookWithAllRelations } from "@/types/book";
 import { Category } from "@/types/category";
 import { cn } from "@/utils/cn";
-
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { UploadIcon } from "lucide-react";
+import { Cropper, ReactCropperElement } from "@/components/lib/cropper";
+import imageCompression from "browser-image-compression";
+import { avatarSchema } from "@/features/user/schema/avatar-schema";
+1
 interface Props {
   book: BookWithAllRelations;
   categories: Category[];
 }
 
 export const UpdateBookPageClient = ({ book, categories }: Props) => {
+  const [isLoading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState({
     description: book.description,
     category: book.categoryId,
@@ -32,7 +39,10 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     publish: book.publish,
   });
   const [contentHeight, setContentHeight] = useState<number>(500);
+  const [file, setFile] = useState<File | null>(null)
+  const [errors, setErrors] = useState<string | string[]>("")
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const cropperRef = useRef<ReactCropperElement>(null)
   const [lastResult, action, isPending] = useActionState(update, undefined);
 
   const [form, fields] = useForm<UpdateContentType>({
@@ -64,6 +74,51 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
       setContentHeight(60);
     }
   };
+
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || !files.length) return;
+    
+    const result = avatarSchema.safeParse(files[0])
+    if (result.success) {
+      setFile(result.data.avatar)
+    } else {
+      setErrors(result.error.message)
+    }
+  }
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true)
+    if (!cropperRef.current) return;
+
+    const canvas = cropperRef.current.cropper.getCroppedCanvas();
+    const dataURL = canvas.toDataURL();
+    const blob = await (await fetch(dataURL)).blob();
+    const croppedFile = new File([blob], file?.name ?? "", { type: file?.type });
+
+    const resizedImage = await imageCompression(croppedFile, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 512,
+      useWebWorker: true,
+      initialQuality: 0.2,
+    });
+
+    try {
+      const formData = new FormData();
+      formData.set("file", resizedImage)
+      
+      setLoading(false)
+    } catch (e) {
+      setLoading(false)
+
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
+      console.log("something went wrong")
+    }
+  }
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -135,6 +190,31 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                     />
                     {fields.description.errors && <p className="text-red-500 text-xs">{fields.description.errors}</p>}
                   </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-xs text-muted-foreground font-medium">
+                      表紙
+                    </p>
+                    <Label
+                      htmlFor="file"
+                      className={cn(
+                        buttonVariants(),
+                        "w-fit bg-teal-500 hover:bg-teal-600 cursor-pointer",
+                        isPending && "disabled:pointer-events-none disabled:opacity-50"
+                      )}
+                      >
+                      画像を選択
+                      <input 
+                        id="file"
+                        name="file"
+                        type="file"
+                        className="sr-only"
+                        accept=".png,.jpg"
+                        onChange={onChangeFile}
+                        disabled={isPending}
+                        />
+                    </Label>
+                    {errors && <p className="text-red-500 text-xs">{errors}</p>}
+                  </div>
                   <div className="space-y-1">
                     <Label htmlFor="category" className="text-xs text-muted-foreground">
                       カテゴリ
@@ -170,7 +250,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                             value={cat.id}
                             className={cn(
                               "focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500 dark:focus:bg-teal-800",
-                              // fields.category.errors && "focus:bg-red-50",
+                              fields.category.errors && "focus:bg-red-50",
                             )}
                           >
                             {cat.label}
@@ -218,6 +298,51 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
           </TabsContent>
         </Tabs>
       </form>
+
+      <Dialog 
+        open={file !== null}
+        onOpenChange={() => setFile(null)}
+        >
+        <DialogContent asChild>
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>表紙の画像</DialogTitle>
+              <DialogDescription>表紙にしたい画像を選択してください</DialogDescription>
+            </DialogHeader>
+              {file ? (
+                <Cropper
+                  src={URL.createObjectURL(file)}
+                  style={{ height: 300, width: "100%" }}
+                  initialAspectRatio={1 / 1.4}
+                  aspectRatio={1 / 1.4}
+                  autoCropArea={1}
+                  dragMode="none"
+                  viewMode={1}
+                  guides={false}
+                  ref={cropperRef}
+                  />
+              ) : (
+                <div className="h-56 border-dashed border-2 rounded-md flex items-center justify-center hover:bg-slate-50 group">
+                  <div className="flex flex-col items-center justify-center gap-3">
+                    <div className={cn(
+                      buttonVariants({ variant: "outline", size: "icon" }),
+                      "group-hover:bg-slate-50 dark:hover:bg-slate-950"
+                    )}>
+                      <UploadIcon />
+                    </div>
+                    <h3 className="text-xs text-muted-foreground font-semibold">ファイルをドロップ</h3>
+                  </div>
+                </div>
+              )}
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant={"outline"}>キャンセル</Button>
+              </DialogClose>
+              <Button className="bg-teal-500 hover:bg-teal-600">アップロード</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
