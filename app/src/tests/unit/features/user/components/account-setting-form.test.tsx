@@ -54,8 +54,8 @@ vitest.mock("@/components/ui/label", () => ({
 }));
 
 vitest.mock("@/features/user/actions/update", () => ({
-  update: vitest.fn()
-}))
+  update: vitest.fn(),
+}));
 
 describe("AccountSettingFormコンポーネントのテスト", () => {
   beforeEach(() => {

@@ -114,7 +114,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             )}
             {book.cover ? (
               <img
-                src={"https://placehold.co/100x150"}
+                src={book.cover}
                 alt={`${book.title}の表紙`}
                 className="w-full rounded-lg"
                 data-testid="book-cover"
