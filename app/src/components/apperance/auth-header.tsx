@@ -1,17 +1,15 @@
+import { auth } from "@clerk/nextjs/server";
 import { CompassIcon } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 import { Sidebar } from "@/components/apperance/sidebar";
 import { Button } from "@/components/ui/button";
-import { getBooks } from "@/features/book/services/get-books";
+import { bookService } from "@/services";
 
-export const AuthHeader = async ({
-  children,
-}: {
-  children?: Readonly<ReactNode>;
-}) => {
-  const { books } = await getBooks();
+export const AuthHeader = async ({ children }: { children?: Readonly<ReactNode> }) => {
+  const { userId } = await auth();
+  const books = await bookService.getMyBooks(userId);
 
   return (
     <header
@@ -33,9 +31,7 @@ export const AuthHeader = async ({
             <CompassIcon />
           </Link>
         </Button>
-        <div className={"flex items-center gap-2 ml-auto md:ml-0"}>
-          {children}
-        </div>
+        <div className={"flex items-center gap-2 ml-auto md:ml-0"}>{children}</div>
       </div>
     </header>
   );

@@ -2,7 +2,7 @@ import { useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { ChangeEvent, useActionState, useState } from "react";
 
-import { update } from "@/features/book/actions/update";
+import { update } from "@/features/user/actions/update";
 import { userNameSchema } from "@/features/user/schema/username-schema";
 import { UserNameType } from "@/features/user/types/username";
 

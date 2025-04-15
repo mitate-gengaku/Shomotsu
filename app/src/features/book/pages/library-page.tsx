@@ -1,14 +1,19 @@
-import { LibraryPageClient } from "@/features/book/clients/library-page-client";
-import { getLibraryBooks } from "@/features/book/services/get-library";
+import { auth } from "@clerk/nextjs/server";
+
+import { BooksPageClient } from "@/features/book/clients/books-page-client";
+import { redis } from "@/lib/redis";
+import { bookService } from "@/services";
 
 interface Props {
   page: number;
 }
 
 export const LibraryPage = async ({ page }: Props) => {
-  const { books, nextPage, prevPage } = await getLibraryBooks(page);
+  const { userId } = await auth();
+  const key = `user:${userId}:bookmarks`;
+  const bookIds = await redis.smembers(key);
 
-  return (
-    <LibraryPageClient books={books} nextPage={nextPage} prevPage={prevPage} />
-  );
+  const { books, nextPage, prevPage } = await bookService.getMyLibrary(page, bookIds);
+
+  return <BooksPageClient books={books} nextPage={nextPage} prevPage={prevPage} title="ブックマークした本一覧" />;
 };

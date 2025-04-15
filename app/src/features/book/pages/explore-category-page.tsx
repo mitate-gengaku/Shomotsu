@@ -1,13 +1,21 @@
-import { BooksPageClient } from "@/features/book/clients/new-books-page-client";
-import { getCategoryBooks } from "@/features/book/services/get-category-books";
+import { auth } from "@clerk/nextjs/server";
+
+import { BooksPageClient } from "@/features/book/clients/books-page-client";
+import { bookService, categoryService } from "@/services";
 
 interface Props {
   page: number;
-  category: string;
+  categoryName: string;
 }
 
-export const ExploreCategoryPage = async ({ page, category }: Props) => {
-  const response = await getCategoryBooks(page, 16, category);
+export const ExploreCategoryPage = async ({ page, categoryName }: Props) => {
+  const { userId } = await auth();
+  const { category } = await categoryService.getCategory(categoryName);
+  const result = await bookService.getBooksWithCategoryIdSortByCreatedAt(page, userId, category?.id);
 
-  return <BooksPageClient {...response} />;
+  return (
+    <div data-testid="explore-category-page">
+      <BooksPageClient {...result} title={category?.label} />
+    </div>
+  );
 };

@@ -5,10 +5,7 @@ import mockRouter from "next-router-mock";
 import { describe, expect, test } from "vitest";
 
 import PublicLayout from "@/app/(public)/layout";
-import Legal, {
-  generateMetadata,
-  generateStaticParams,
-} from "@/app/(public)/legal/[slug]/page";
+import Legal, { generateMetadata, generateStaticParams } from "@/app/(public)/legal/[slug]/page";
 
 type Props = {
   params: {
@@ -52,9 +49,7 @@ describe("法的画面のテスト", () => {
     expect(supportTitle).toBeInTheDocument();
     expect(xAccountLink).toBeInTheDocument();
     expect(copyWright).toBeInTheDocument();
-    expect(copyWright.textContent).toBe(
-      "© 2025 Shomotsu. All rights reserved.",
-    );
+    expect(copyWright.textContent).toBe("© 2025 Shomotsu. All rights reserved.");
     expect(termsLink).toBeInTheDocument();
     expect(privacyPolicyLink).toBeInTheDocument();
   });

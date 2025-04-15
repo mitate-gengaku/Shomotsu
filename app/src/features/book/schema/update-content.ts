@@ -2,7 +2,6 @@ import { z } from "zod";
 
 export const updateContentSchema = z.object({
   bookId: z.string().default(""),
-  slug: z.string().default(""),
   description: z
     .preprocess(
       (value) => (value === "" ? undefined : value),
@@ -23,10 +22,6 @@ export const updateContentSchema = z.object({
       })
       .optional(),
   ),
-  category: z
-    .optional(
-      z.preprocess((value) => (value === "" ? undefined : value), z.string()),
-    )
-    .default(undefined),
+  category: z.optional(z.preprocess((value) => (value === "" ? undefined : value), z.string())).default(undefined),
   publish: z.boolean().default(false),
 });

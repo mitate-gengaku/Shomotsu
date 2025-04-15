@@ -20,11 +20,7 @@ export const useCropper = () => {
 
     const canvas = cropperRef.current.cropper.getCroppedCanvas();
     const dataURL = canvas.toDataURL();
-    const file = await convertDataUrlToFile(
-      dataURL,
-      cropperFile?.name || "",
-      "image/png",
-    );
+    const file = await convertDataUrlToFile(dataURL, cropperFile?.name || "", "image/png");
 
     const resizedImage = await imageCompression(file, {
       maxSizeMB: 1,

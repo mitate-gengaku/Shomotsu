@@ -17,14 +17,7 @@ export const Confetti = () => {
       angle: 60,
       startVelocity: 60,
       gravity: 0.8,
-      colors: [
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ffff00",
-        "#ff00ff",
-        "#00ffff",
-      ],
+      colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"],
     });
   };
 
@@ -36,14 +29,7 @@ export const Confetti = () => {
       angle: 120,
       startVelocity: 60,
       gravity: 0.8,
-      colors: [
-        "#ff0000",
-        "#00ff00",
-        "#0000ff",
-        "#ffff00",
-        "#ff00ff",
-        "#00ffff",
-      ],
+      colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"],
     });
   };
 

@@ -10,7 +10,7 @@ export class UserRepository {
     return await db.insert(usersTable).values(values);
   }
 
-  async update(id: string, values: UpdateUserValues) {
-    return await db.update(usersTable).set(values).where(eq(usersTable.id, id));
+  async update(userId: string, values: UpdateUserValues) {
+    return await db.update(usersTable).set(values).where(eq(usersTable.id, userId));
   }
 }

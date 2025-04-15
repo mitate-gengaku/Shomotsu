@@ -8,12 +8,7 @@ interface Props {
 
 export const SignedOutMenu = ({ isMobile = false }: Props) => (
   <SignedOut>
-    <Button
-      variant={"outline"}
-      className="transition-all"
-      size={isMobile ? "sm" : "default"}
-      asChild
-    >
+    <Button variant={"outline"} className="transition-all" size={isMobile ? "sm" : "default"} asChild>
       <SignInButton>ログイン</SignInButton>
     </Button>
     <Button

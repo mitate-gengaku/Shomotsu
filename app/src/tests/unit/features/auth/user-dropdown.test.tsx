@@ -1,13 +1,6 @@
 import { render, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test,
-} from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, test } from "vitest";
 
 import { UserDropdown } from "@/features/auth/components/user-dropdown";
 import { mockSignOut } from "@/tests/setup/mock";

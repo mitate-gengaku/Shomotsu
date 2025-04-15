@@ -1,10 +1,5 @@
 "use client";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ListIcon,
-  SettingsIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, ListIcon, SettingsIcon } from "lucide-react";
 import { Hachi_Maru_Pop } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
@@ -24,44 +19,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { generateContents } from "@/features/book/utils/generate-contents";
 import { cn } from "@/utils/cn";
 
 const font = Hachi_Maru_Pop({
   weight: ["400"],
   subsets: ["latin"],
 });
-
-const generateContents = (content: string | null) => {
-  if (!content) return [];
-  const arrayOfParsedContent = content.split("\n");
-  const chapters: string[] = [];
-  let tmp: string[] = [];
-
-  for (let i = 0; i < arrayOfParsedContent.length; i++) {
-    const parsedItem = arrayOfParsedContent[i];
-    const next = arrayOfParsedContent[i + 1];
-
-    tmp.push(parsedItem);
-
-    if (next && next.startsWith("## ")) {
-      chapters.push(tmp.join("\n"));
-
-      tmp = [];
-    } else if (i === arrayOfParsedContent.length - 1) {
-      chapters.push(tmp.join("\n"));
-    }
-  }
-
-  return chapters;
-};
 
 interface Props {
   title: string;
@@ -102,8 +67,7 @@ const colorData: { value: number; color?: string; label: string }[] = [
   },
   {
     value: 3,
-    color:
-      "bg-gray-800 dark:text-gray-50 dark:bg-slate-950 dark:hover:[&:is(button)]:bg-slate-800",
+    color: "bg-gray-800 dark:text-gray-50 dark:bg-slate-950 dark:hover:[&:is(button)]:bg-slate-800",
     label: "ダーク",
   },
   {
@@ -163,11 +127,8 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
   };
 
   return (
-    <div className={cn("w-full", colorData[themeColor].color)}>
-      <div
-        className={cn("w-full lg:w-1/2 mx-auto px-4 pt-16 pb-20 relative")}
-        data-testid="read-book-page"
-      >
+    <div className={cn("w-full h-full", colorData[themeColor].color)} data-testid="read-book-page">
+      <div className={cn("w-full lg:w-1/2 mx-auto px-4 pt-16 pb-20 relative min-h-screen h-full")}>
         <div className="w-full absolute top-2 left-0 px-4 flex items-center">
           <Sheet>
             <SheetTrigger asChild>
@@ -234,9 +195,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80 py-4">
-              <DropdownMenuLabel className="text-muted-foreground">
-                フォントサイズ
-              </DropdownMenuLabel>
+              <DropdownMenuLabel className="text-muted-foreground">フォントサイズ</DropdownMenuLabel>
               <DropdownMenuGroup>
                 {fontSizeData.map((font) => (
                   <DropdownMenuCheckboxItem
@@ -253,9 +212,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                 ))}
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuLabel className="text-muted-foreground">
-                テーマ
-              </DropdownMenuLabel>
+              <DropdownMenuLabel className="text-muted-foreground">テーマ</DropdownMenuLabel>
               <DropdownMenuGroup className="p-2 grid grid-cols-4 gap-3.5">
                 {colorData.map((color) => (
                   <Button
@@ -284,27 +241,17 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
               "prose-pink prose-a:text-pink-600 hover:prose-a:text-pink-700 transition-all prose-a:font-bold",
           )}
         >
-          <p className="text-3xl lg:text-4xl font-bold">
-            第{currentPageIndex + 1}章
-          </p>
+          <p className="text-3xl lg:text-4xl font-bold">第{currentPageIndex + 1}章</p>
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
             components={{
               // eslint-disable-next-line unused-imports/no-unused-vars
               a: ({ className, node, ...props }) => (
-                <a
-                  {...props}
-                  className={cn("text-teal-600 hover:text-teal-500")}
-                />
+                <a {...props} className={cn("text-teal-600 hover:text-teal-500")} />
               ),
               // eslint-disable-next-line unused-imports/no-unused-vars
               img: ({ className, node, src, alt, ...props }) => (
-                <img
-                  {...props}
-                  src={src}
-                  alt={alt}
-                  className={cn(className, "w-full h-80 object-cover")}
-                />
+                <img {...props} src={src} alt={alt} className={cn(className, "w-full h-80 object-cover")} />
               ),
             }}
             rehypePlugins={[rehypeSanitize]}
@@ -312,12 +259,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
             {contents[currentPageIndex]}
           </ReactMarkdown>
         </div>
-        <div
-          className={cn(
-            "fixed left-0 bottom-0 w-full flex flex-col",
-            colorData[themeColor].color,
-          )}
-        >
+        <div className={cn("fixed left-0 bottom-0 w-full flex flex-col", colorData[themeColor].color)}>
           <Progress
             value={((currentPageIndex + 1) / contents.length) * 100}
             className="[&>div]:bg-teal-500 rounded-none"
@@ -336,7 +278,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                 <Button
                   variant={"ghost"}
                   size={"icon"}
-                  className="hover:bg-transparent text-muted-foreground focus-visible:ring-transparent hover:text-gray-400"
+                  className="flex xl:hidden hover:bg-transparent text-muted-foreground focus-visible:ring-transparent hover:text-gray-400"
                 >
                   <ListIcon />
                 </Button>
@@ -347,22 +289,16 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                   <SheetDescription>目次</SheetDescription>
                 </SheetHeader>
                 <div className="py-8 space-y-4">
-                  <Link
-                    href={`/book/${slug}`}
-                    className="hover:text-teal-500 transition-all"
-                  >
+                  <Link href={`/book/${slug}`} className="hover:text-teal-500 transition-all">
                     詳細ページに戻る
                   </Link>
                   <ul>
                     {contents.map((_, i) => (
                       <li
-                        className={cn(
-                          "p-2 rounded-md hover:bg-gray-50",
-                          i === currentPageIndex && "text-teal-500",
-                        )}
+                        className={cn("rounded-md hover:bg-gray-50", i === currentPageIndex && "text-teal-500")}
                         key={i}
                       >
-                        <button onClick={() => onChangePage(i)}>
+                        <button onClick={() => onChangePage(i)} className="w-full p-2 text-left">
                           第{i + 1}章
                         </button>
                       </li>
@@ -385,3 +321,13 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
     </div>
   );
 };
+
+/**
+ * <div className="w-auto h-full px-12 flex flex-row-reverse items-center overflow-x-scroll">
+      <div 
+        className="min-w-[calc(100vw*3)] h-4/5 border shadow-xl p-4 bg-green-800 hidden"
+        >
+        <div className="w-full h-full bg-white dark:bg-slate-950"></div>
+      </div>
+    </div>
+ */

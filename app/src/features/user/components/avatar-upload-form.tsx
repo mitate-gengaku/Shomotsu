@@ -13,17 +13,13 @@ export const AvatarUploadForm = () => {
       <label
         htmlFor="avatar"
         className={cn(
-          "w-16 md:w-20 sizw-full cursor-pointer flex flex-col justify-center items-center text-sm gap-1 font-semibold text-muted-foreground",
+          "w-24 sizw-full cursor-pointer flex flex-col justify-center items-center text-sm gap-1 font-semibold text-muted-foreground",
         )}
       >
         {user ? (
           <>
             <Avatar className="size-16 md:size-20">
-              <AvatarImage
-                src={user?.imageUrl}
-                alt="プロフィール画像"
-                className="block"
-              />
+              <AvatarImage src={user?.imageUrl} alt="プロフィール画像" className="block" />
               <AvatarFallback>
                 <UserIcon />
               </AvatarFallback>
@@ -38,9 +34,7 @@ export const AvatarUploadForm = () => {
               data-testid="avatar-file-input"
               disabled={!user}
             />
-            <span className="group-hover:text-gray-900 transition-all">
-              アップロード
-            </span>
+            <span className="group-hover:text-gray-900 transition-all">アップロード</span>
           </>
         ) : (
           <>

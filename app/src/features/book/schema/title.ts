@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const titleSchema = z.object({
+export const newBookSchema = z.object({
   title: z.preprocess(
     (value) => (value === "" ? undefined : value),
     z
@@ -22,7 +22,7 @@ export const titleSchema = z.object({
       .max(192, { message: "スラグは192文字以下にしてください " })
       .regex(
         /^[a-z]+(?:-[a-z]+)*$/,
-        "スラグは小文字のアルファベット、数字、ハイフンのみを使用でき、ハイフンは連続したり、先頭や末尾に来てはいけません",
+        "スラグは小文字のアルファベット、ハイフンのみを使用でき、ハイフンは連続したり、先頭や末尾に来てはいけません",
       )
       .refine(
         (val) => /[a-z]-[a-z]/.test(val),

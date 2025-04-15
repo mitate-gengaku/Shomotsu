@@ -25,14 +25,10 @@ describe("ThemeProviderコンポーネントのテスト", () => {
       dispatchEvent: vitest.fn(),
     }));
 
-    global.Storage.prototype.getItem = vitest.fn(
-      (key: string) => localStorageMock[key],
-    );
-    global.Storage.prototype.setItem = vitest.fn(
-      (key: string, value: string) => {
-        localStorageMock[key] = value;
-      },
-    );
+    global.Storage.prototype.getItem = vitest.fn((key: string) => localStorageMock[key]);
+    global.Storage.prototype.setItem = vitest.fn((key: string, value: string) => {
+      localStorageMock[key] = value;
+    });
 
     localStorageMock = {};
   });

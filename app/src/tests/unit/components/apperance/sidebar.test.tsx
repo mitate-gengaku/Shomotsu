@@ -1,13 +1,5 @@
-import {
-  act,
-  fireEvent,
-  render,
-  RenderResult,
-  waitFor,
-} from "@testing-library/react";
-import userEvent, {
-  PointerEventsCheckLevel,
-} from "@testing-library/user-event";
+import { act, fireEvent, render, RenderResult, waitFor } from "@testing-library/react";
+import userEvent, { PointerEventsCheckLevel } from "@testing-library/user-event";
 import React, { cloneElement, useTransition } from "react";
 import { afterEach, beforeEach, describe, expect, test, vitest } from "vitest";
 
@@ -16,14 +8,7 @@ import { books } from "@/config/books";
 
 vitest.mock("framer-motion", () => ({
   motion: {
-    div: ({
-      children,
-      className,
-      onMouseEnter,
-      onMouseLeave,
-      animate,
-      ...props
-    }) => (
+    div: ({ children, className, onMouseEnter, onMouseLeave, animate, ...props }) => (
       <div
         className={className}
         onMouseEnter={onMouseEnter}
@@ -34,14 +19,7 @@ vitest.mock("framer-motion", () => ({
         {children}
       </div>
     ),
-    button: ({
-      children,
-      onClick,
-      onMouseEnter,
-      onMouseLeave,
-      "aria-label": ariaLabel,
-      "data-testid": dataTestId,
-    }) => (
+    button: ({ children, onClick, onMouseEnter, onMouseLeave, "aria-label": ariaLabel, "data-testid": dataTestId }) => (
       <button
         onClick={onClick}
         onMouseEnter={onMouseEnter}
@@ -66,17 +44,7 @@ vitest.mock("use-debounce", () => ({
 
 // UIコンポーネントのモック
 vitest.mock("@/components/ui/button", () => ({
-  Button: ({
-    children,
-    size,
-    variant,
-    className,
-    onClick,
-    disabled,
-    "data-testid": dataTestId,
-    asChild,
-    ...props
-  }) => {
+  Button: ({ children, size, variant, className, onClick, disabled, "data-testid": dataTestId, asChild, ...props }) => {
     if (asChild && children) {
       const cloned = cloneElement(children, {
         ...children.props,
@@ -131,10 +99,7 @@ vitest.mock(import("react"), async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
-    useTransition: vitest.fn(() => [
-      false,
-      vitest.fn((callback) => callback()),
-    ]),
+    useTransition: vitest.fn(() => [false, vitest.fn((callback) => callback())]),
   };
 });
 
@@ -225,9 +190,7 @@ describe("Sidebarコンポーネントのテスト", () => {
 
     const sidebarTriggerButton = renderer.getByTestId("sidebar-trigger");
     const sidebar = renderer.getByTestId("sidebar");
-    const alertDialogTrigger = renderer.queryAllByTestId(
-      "alert-dialog-trigger",
-    )[0];
+    const alertDialogTrigger = renderer.queryAllByTestId("alert-dialog-trigger")[0];
 
     await act(async () => {
       user.click(sidebarTriggerButton);
@@ -239,9 +202,7 @@ describe("Sidebarコンポーネントのテスト", () => {
 
     await user.click(alertDialogTrigger);
 
-    const alertDialogContent = renderer.getAllByTestId(
-      "alert-dialog-content",
-    )[0];
+    const alertDialogContent = renderer.getAllByTestId("alert-dialog-content")[0];
     const alertDialogTitle = renderer.getAllByText("本の削除")[0];
     const alertDialogBookTitle = renderer.getByText("銀河鉄道の夜", {
       selector: "span",
@@ -266,9 +227,7 @@ describe("Sidebarコンポーネントのテスト", () => {
     });
 
     const sidebarTriggerButton = renderer.getByTestId("sidebar-trigger");
-    const alertDialogTrigger = renderer.queryAllByTestId(
-      "alert-dialog-trigger",
-    )[0];
+    const alertDialogTrigger = renderer.queryAllByTestId("alert-dialog-trigger")[0];
 
     await user.click(sidebarTriggerButton);
     await user.click(alertDialogTrigger);
@@ -285,9 +244,7 @@ describe("Sidebarコンポーネントのテスト", () => {
     });
 
     const sidebarTriggerButton = renderer.getByTestId("sidebar-trigger");
-    const alertDialogTrigger = renderer.queryAllByTestId(
-      "alert-dialog-trigger",
-    )[0];
+    const alertDialogTrigger = renderer.queryAllByTestId("alert-dialog-trigger")[0];
 
     await user.click(sidebarTriggerButton);
     await user.click(alertDialogTrigger);

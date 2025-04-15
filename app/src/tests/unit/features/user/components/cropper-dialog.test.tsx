@@ -51,19 +51,12 @@ vitest.mock("@/features/user/actions/upload", () => ({
 }));
 
 vitest.mock("@/components/loading/spinner", () => ({
-  Spinner: ({ className }) => (
-    <div data-testid="spinner" className={className} />
-  ),
+  Spinner: ({ className }) => <div data-testid="spinner" className={className} />,
 }));
 
 vitest.mock("@/components/ui/button", () => ({
   Button: ({ children, className, disabled, onClick }) => (
-    <button
-      data-testid="button"
-      className={className}
-      disabled={disabled}
-      onClick={onClick}
-    >
+    <button data-testid="button" className={className} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   ),
@@ -71,32 +64,18 @@ vitest.mock("@/components/ui/button", () => ({
 
 vitest.mock("@/components/ui/dialog", () => ({
   Dialog: ({ open, onOpenChange, children }) => (
-    <div
-      data-testid="dialog"
-      data-open={open}
-      onClick={() => onOpenChange && onOpenChange()}
-    >
+    <div data-testid="dialog" data-open={open} onClick={() => onOpenChange && onOpenChange()}>
       {children}
     </div>
   ),
-  DialogContent: ({ children }) => (
-    <div data-testid="dialog-content">{children}</div>
-  ),
-  DialogHeader: ({ children }) => (
-    <div data-testid="dialog-header">{children}</div>
-  ),
-  DialogTitle: ({ children }) => (
-    <div data-testid="dialog-title">{children}</div>
-  ),
-  DialogDescription: ({ children }) => (
-    <div data-testid="dialog-description">{children}</div>
-  ),
+  DialogContent: ({ children }) => <div data-testid="dialog-content">{children}</div>,
+  DialogHeader: ({ children }) => <div data-testid="dialog-header">{children}</div>,
+  DialogTitle: ({ children }) => <div data-testid="dialog-title">{children}</div>,
+  DialogDescription: ({ children }) => <div data-testid="dialog-description">{children}</div>,
 }));
 
 vitest.mock("@/features/user/utils/convert-data-url-to-file", () => ({
-  convertDataUrlToFile: vitest
-    .fn()
-    .mockResolvedValue(new File([], "test-file.png")),
+  convertDataUrlToFile: vitest.fn().mockResolvedValue(new File([], "test-file.png")),
 }));
 
 global.URL.createObjectURL = vitest.fn(() => "mocked-url");
@@ -120,18 +99,14 @@ describe("CropperDialogコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, undefined]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
     });
 
     const dialogTitle = screen.getByText("アバター画像のトリミング");
-    const dialogDescription = screen.getByText(
-      "枠線に合わせて画像をトリミングしてください",
-    );
+    const dialogDescription = screen.getByText("枠線に合わせて画像をトリミングしてください");
     const submitButton = screen.getByTestId("button");
 
     expect(dialogTitle).toBeInTheDocument();
@@ -147,9 +122,7 @@ describe("CropperDialogコンポーネントのテスト", () => {
       wrapper: ({ children }) => {
         return (
           <Provider>
-            <HydrateAtoms initialValues={[[cropperFileAtom, mockFile]]}>
-              {children}
-            </HydrateAtoms>
+            <HydrateAtoms initialValues={[[cropperFileAtom, mockFile]]}>{children}</HydrateAtoms>
           </Provider>
         );
       },
@@ -172,9 +145,7 @@ describe("CropperDialogコンポーネントのテスト", () => {
     expect(button).toBeDisabled();
 
     expect(screen.getByTestId("spinner")).toBeInTheDocument();
-    expect(
-      screen.queryByText("新しいアバター画像を設定する"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("新しいアバター画像を設定する")).not.toBeInTheDocument();
   });
 
   test("CDC-004: 送信中でない場合はボタンテキストが表示されること", () => {
@@ -187,9 +158,7 @@ describe("CropperDialogコンポーネントのテスト", () => {
     const button = screen.getByTestId("button");
     expect(button).not.toBeDisabled();
 
-    expect(
-      screen.getByText("新しいアバター画像を設定する"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("新しいアバター画像を設定する")).toBeInTheDocument();
     expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
   });
 });

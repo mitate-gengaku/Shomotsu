@@ -30,19 +30,12 @@ vitest.mock("@/features/user/actions/update", () => ({
 }));
 
 vitest.mock("@/components/loading/spinner", () => ({
-  Spinner: ({ className }) => (
-    <div data-testid="spinner" className={className} />
-  ),
+  Spinner: ({ className }) => <div data-testid="spinner" className={className} />,
 }));
 
 vitest.mock("@/components/ui/button", () => ({
   Button: ({ children, className, disabled, type }) => (
-    <button
-      data-testid="submit-button"
-      className={className}
-      disabled={disabled}
-      type={type}
-    >
+    <button data-testid="submit-button" className={className} disabled={disabled} type={type}>
       {children}
     </button>
   ),
@@ -59,6 +52,10 @@ vitest.mock("@/components/ui/label", () => ({
     </label>
   ),
 }));
+
+vitest.mock("@/features/user/actions/update", () => ({
+  update: vitest.fn()
+}))
 
 describe("AccountSettingFormコンポーネントのテスト", () => {
   beforeEach(() => {
@@ -82,9 +79,7 @@ describe("AccountSettingFormコンポーネントのテスト", () => {
 
     render(<AccountSettingForm username="testuser" />);
 
-    expect(screen.getByTestId("username-label")).toHaveTextContent(
-      "ユーザー名",
-    );
+    expect(screen.getByTestId("username-label")).toHaveTextContent("ユーザー名");
 
     const inputElement = screen.getByTestId("username-input");
     expect(inputElement).toBeInTheDocument();
@@ -115,9 +110,7 @@ describe("AccountSettingFormコンポーネントのテスト", () => {
 
     render(<AccountSettingForm username="test" />);
 
-    const errorText = screen.getByText(
-      "ユーザー名は3文字以上である必要があります",
-    );
+    const errorText = screen.getByText("ユーザー名は3文字以上である必要があります");
     expect(errorText).toBeInTheDocument();
     expect(errorText).toHaveClass("text-red-500");
 
