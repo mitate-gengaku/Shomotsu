@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Suspense } from "react";
 
+import { BookInfoPageSkeleton } from "@/components/loading/book-info-skeleton";
 import { BookInfoPage } from "@/features/book/pages/book-info-page";
 
 interface Props {
@@ -9,7 +10,11 @@ interface Props {
 const BookInfo = async ({ params }: Props) => {
   const { slug } = await params;
 
-  return <BookInfoPage slug={slug} />;
+  return (
+    <Suspense fallback={<BookInfoPageSkeleton />}>
+      <BookInfoPage slug={slug} />
+    </Suspense>
+  );
 };
 
 export default BookInfo;

@@ -2,18 +2,12 @@ import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 import { BookInfoPageClient } from "@/features/book/clients/book-info-page-client";
-import { redis } from "@/lib/redis";
+import { checkBookMarked } from "@/features/book/utils/check-bookmarked";
 import { bookService } from "@/services";
 
 interface Props {
   slug: string;
 }
-
-const checkBookMarked = async (userId: string | null, bookId: string) => {
-  const key = `user:${userId}:bookmarks`;
-
-  return await redis.sismember(key, bookId);
-};
 
 export const BookInfoPage = async ({ slug }: Props) => {
   const { userId } = await auth();
