@@ -360,14 +360,17 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                 viewMode={1}
                 guides={false}
                 ref={cropperRef}
+                disabled={isLoading}
               />
             )}
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant={"outline"}>キャンセル</Button>
+                <Button variant={"outline"} disabled={isLoading}>
+                  キャンセル
+                </Button>
               </DialogClose>
-              <Button type="submit" className="bg-teal-500 hover:bg-teal-600">
-                アップロード
+              <Button type="submit" className="bg-teal-500 hover:bg-teal-600" disabled={isLoading}>
+                {isLoading ? <Spinner className="text-gray-50" /> : "アップロード"}
               </Button>
             </DialogFooter>
           </form>

@@ -23,7 +23,7 @@ export const BookCardLink = ({ bookId, bookTitle, bookSlug, bookCover, bookCreat
         >
           {bookCover ? (
             <img
-              src={"https://placehold.co/100x150"}
+              src={bookCover}
               alt={`${bookTitle}の表紙`}
               className="w-full rounded-lg"
               data-testid="book-cover"
