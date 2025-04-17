@@ -25,7 +25,7 @@ export const BookCardLink = ({ bookId, bookTitle, bookSlug, bookCover, bookCreat
             <img
               src={bookCover}
               alt={`${bookTitle}の表紙`}
-              className="w-full rounded-lg"
+              className="w-full rounded-lg h-64"
               data-testid="book-cover"
             />
           ) : (

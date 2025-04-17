@@ -220,7 +220,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
         <div className="hidden md:flex flex-col gap-2 absolute -left-16">
           <Button variant={"outline"} size={"icon"} asChild>
             <XShare text={book.title} url={url + path} hashtags={["Shomotsu"]}>
-              <XLogoIcon />
+              <XLogoIcon className="dark:fill-gray-50" />
             </XShare>
           </Button>
         </div>
@@ -275,7 +275,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
       <div className="flex md:hidden items-center gap-2">
         <Button variant={"outline"} size={"icon"} asChild>
           <XShare text={book.title} url={url + path} hashtags={["Shomotsu"]}>
-            <XLogoIcon />
+            <XLogoIcon className="dark:fill-gray-50" />
           </XShare>
         </Button>
       </div>
