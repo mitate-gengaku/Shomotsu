@@ -23,7 +23,7 @@ export async function update(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
-  const { category, bookId, description, content, publish } = submission.value;
+  const { category, bookId, description, content, cover, publish } = submission.value;
 
   const toc = generateToc(content ?? "");
 
@@ -31,6 +31,7 @@ export async function update(prevState: unknown, formData: FormData) {
     categoryId: category,
     description: description ? description : "",
     content: content ? content : "",
+    cover: cover ? cover : undefined,
     toc,
     publish,
   };

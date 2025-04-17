@@ -114,7 +114,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
             )}
             {book.cover ? (
               <img
-                src={"https://placehold.co/100x150"}
+                src={book.cover}
                 alt={`${book.title}の表紙`}
                 className="w-full rounded-lg"
                 data-testid="book-cover"
@@ -203,7 +203,7 @@ export const BookInfoPageClient = ({ book, bookMarked, url }: Props) => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="min-w-56 p-0" sideOffset={16}>
-                    <DropdownMenuLabel className="px-4">本</DropdownMenuLabel>
+                    <DropdownMenuLabel className="px-4">操作</DropdownMenuLabel>
                     <DropdownMenuSeparator className="m-0" />
                     <DropdownMenuItem className="w-full px-4 h-10 cursor-pointer" asChild>
                       <Link href={`${url + path}/update`} className="items-center flex">

@@ -1,18 +1,32 @@
 "use client";
 
+import "cropperjs/dist/cropper.css";
 import { getFormProps, getInputProps, getTextareaProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import React, { ChangeEvent, useActionState, useEffect, useRef, useState } from "react";
+import imageCompression from "browser-image-compression";
+import React, { ChangeEvent, FormEvent, useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
+import { Cropper, ReactCropperElement } from "@/components/lib/cropper";
 import { Spinner } from "@/components/loading/spinner";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { update } from "@/features/book/actions/update";
+import { coverSchema } from "@/features/book/schema/cover";
 import { updateContentSchema } from "@/features/book/schema/update-content";
 import { UpdateContentType } from "@/features/book/types/content";
 import { BookWithAllRelations } from "@/types/book";
@@ -25,14 +39,19 @@ interface Props {
 }
 
 export const UpdateBookPageClient = ({ book, categories }: Props) => {
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState({
     description: book.description,
     category: book.categoryId,
+    cover: book.cover,
     content: book.content,
     publish: book.publish,
   });
   const [contentHeight, setContentHeight] = useState<number>(500);
+  const [file, setFile] = useState<File | null>(null);
+  const [errors, setErrors] = useState<string | string[]>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const cropperRef = useRef<ReactCropperElement>(null);
   const [lastResult, action, isPending] = useActionState(update, undefined);
 
   const [form, fields] = useForm<UpdateContentType>({
@@ -44,6 +63,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     defaultValue: {
       bookId: book.id,
       content: data.content,
+      cover: data.cover,
       category: data.category,
       description: data.description,
       publish: data.publish,
@@ -63,6 +83,87 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
     if (!e.target.value.length) {
       setContentHeight(60);
     }
+  };
+
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    if (!files || !files.length) return;
+
+    const result = coverSchema.safeParse({ cover: files[0] });
+
+    if (result.success) {
+      setFile(result.data.cover!);
+      setErrors("");
+    } else {
+      setErrors(result.error.errors[0].message);
+    }
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    if (!cropperRef.current) return;
+
+    const canvas = cropperRef.current.cropper.getCroppedCanvas();
+    const dataURL = canvas.toDataURL();
+    const blob = await (await fetch(dataURL)).blob();
+    const croppedFile = new File([blob], file?.name ?? "", { type: file?.type });
+
+    const resizedImage = await imageCompression(croppedFile, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 512,
+      useWebWorker: true,
+      initialQuality: 0.2,
+    });
+
+    try {
+      const formData = new FormData();
+      formData.set("file", resizedImage, resizedImage.name);
+
+      const uploadRequest: Response = await fetch("/api/files", {
+        method: "POST",
+        body: formData,
+      });
+
+      const { url }: { url: string } = await uploadRequest.json();
+
+      setData({
+        ...data,
+        cover: url,
+      });
+
+      form.update({
+        name: "cover",
+        value: url,
+      });
+
+      setLoading(false);
+      setFile(null);
+
+      toast.success("表紙の画像を設定しました");
+    } catch (e) {
+      setLoading(false);
+      setFile(null);
+
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
+
+      console.log("something went wrong");
+    }
+  };
+
+  const onSwitch = (checked: boolean) => {
+    form.update({
+      name: fields.publish.name,
+      value: checked,
+    });
+    setData({
+      ...data,
+      publish: checked,
+    });
   };
 
   useEffect(() => {
@@ -120,6 +221,11 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                   key={fields.content.key}
                   defaultValue={data.content ? data.content : undefined}
                 />
+                <input
+                  {...getInputProps(fields.cover, { type: "hidden" })}
+                  key={fields.cover.key}
+                  defaultValue={data.cover ? data.cover : undefined}
+                />
                 <div className="space-y-4">
                   <div className="flex flex-col gap-1">
                     <Label htmlFor="description" className="text-xs text-muted-foreground">
@@ -134,6 +240,32 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                       defaultValue={data.description}
                     />
                     {fields.description.errors && <p className="text-red-500 text-xs">{fields.description.errors}</p>}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs text-muted-foreground font-medium">表紙</p>
+                    {data.cover && (
+                      <img src={data.cover} alt="表紙の画像" className="w-fit h-44 rounded border shadow" />
+                    )}
+                    <Label
+                      htmlFor="file"
+                      className={cn(
+                        buttonVariants(),
+                        "w-fit bg-teal-500 hover:bg-teal-600 cursor-pointer",
+                        isPending && "disabled:pointer-events-none disabled:opacity-50",
+                      )}
+                    >
+                      画像を選択
+                      <input
+                        id="file"
+                        name="file"
+                        type="file"
+                        className="sr-only"
+                        accept=".png,.jpg"
+                        onChange={onChangeFile}
+                        disabled={isPending}
+                      />
+                    </Label>
+                    {errors && <p className="text-red-500 text-xs">{errors}</p>}
                   </div>
                   <div className="space-y-1">
                     <Label htmlFor="category" className="text-xs text-muted-foreground">
@@ -170,7 +302,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                             value={cat.id}
                             className={cn(
                               "focus:bg-teal-50 [&_svg:not([class*='text-'])]:text-teal-500 dark:focus:bg-teal-800",
-                              // fields.category.errors && "focus:bg-red-50",
+                              fields.category.errors && "focus:bg-red-50",
                             )}
                           >
                             {cat.label}
@@ -191,16 +323,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
                       aria-describedby={!fields.publish.valid ? fields.publish.errorId : undefined}
                       className="data-[state=checked]:bg-teal-500"
                       checked={data.publish}
-                      onCheckedChange={(checked) => {
-                        form.update({
-                          name: fields.publish.name,
-                          value: checked,
-                        });
-                        setData({
-                          ...data,
-                          publish: checked,
-                        });
-                      }}
+                      onCheckedChange={onSwitch}
                       disabled={isPending || !data.content?.length}
                     />
                     {fields.publish.errors && <p className="text-red-500 text-xs">{fields.publish.errors}</p>}
@@ -218,6 +341,41 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
           </TabsContent>
         </Tabs>
       </form>
+
+      <Dialog open={file !== null} onOpenChange={() => setFile(null)}>
+        <DialogContent asChild>
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>表紙の画像</DialogTitle>
+              <DialogDescription>表紙にしたい画像を選択してください</DialogDescription>
+            </DialogHeader>
+            {file && (
+              <Cropper
+                src={URL.createObjectURL(file)}
+                style={{ height: 300, width: "100%" }}
+                initialAspectRatio={1 / 1.4}
+                aspectRatio={1 / 1.4}
+                autoCropArea={1}
+                dragMode="none"
+                viewMode={1}
+                guides={false}
+                ref={cropperRef}
+                disabled={isLoading}
+              />
+            )}
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant={"outline"} disabled={isLoading}>
+                  キャンセル
+                </Button>
+              </DialogClose>
+              <Button type="submit" className="bg-teal-500 hover:bg-teal-600" disabled={isLoading}>
+                {isLoading ? <Spinner className="text-gray-50" /> : "アップロード"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
