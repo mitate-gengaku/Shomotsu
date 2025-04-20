@@ -1,0 +1,380 @@
+@keyframes animate-svg-stroke-1 {
+  0% {
+    stroke-dashoffset: 77.99069213867188px;
+    stroke-dasharray: 77.99069213867188px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 77.99069213867188px;
+  }
+  100% {
+    stroke-dashoffset: 77.99069213867188px;
+    stroke-dasharray: 77.99069213867188px;
+  }
+}
+
+@keyframes animate-svg-fill-1 {
+  0% {
+    fill: transparent;
+  }
+  25%, 75% {
+    fill: rgb(0, 164, 141);
+  }
+  100% {
+    fill: transparent;
+  }
+}
+
+.svgElem1 {
+  animation: 
+    animate-svg-stroke-1 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0s infinite,
+    animate-svg-fill-1 6s ease-in-out 0s infinite;
+}
+
+@keyframes animate-svg-stroke-2 {
+  0% {
+    stroke-dashoffset: 106.16580200195312px;
+    stroke-dasharray: 106.16580200195312px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 106.16580200195312px;
+  }
+  100% {
+    stroke-dashoffset: 106.16580200195312px;
+    stroke-dasharray: 106.16580200195312px;
+  }
+}
+
+@keyframes animate-svg-fill-2 {
+  0% {
+    fill: transparent;
+  }
+  25%, 75% {
+    fill: rgb(0, 164, 141);
+  }
+  100% {
+    fill: transparent;
+  }
+}
+
+.svgElem2 {
+  animation: 
+    animate-svg-stroke-2 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.12s infinite,
+    animate-svg-fill-2 6s ease-in-out 0.12s infinite;
+}
+
+@keyframes animate-svg-stroke-3 {
+  0% {
+    stroke-dashoffset: 184.14891052246094px;
+    stroke-dasharray: 184.14891052246094px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 184.14891052246094px;
+  }
+  100% {
+    stroke-dashoffset: 184.14891052246094px;
+    stroke-dasharray: 184.14891052246094px;
+  }
+}
+
+.svgElem3 {
+  animation: animate-svg-stroke-3 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.24s infinite;
+}
+
+@keyframes animate-svg-stroke-4 {
+  0% {
+    stroke-dashoffset: 59.58218002319336px;
+    stroke-dasharray: 59.58218002319336px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 59.58218002319336px;
+  }
+  100% {
+    stroke-dashoffset: 59.58218002319336px;
+    stroke-dasharray: 59.58218002319336px;
+  }
+}
+
+.svgElem4 {
+  animation: animate-svg-stroke-4 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.36s infinite;
+}
+
+@keyframes animate-svg-stroke-5 {
+  0% {
+    stroke-dashoffset: 59.582176208496094px;
+    stroke-dasharray: 59.582176208496094px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 59.582176208496094px;
+  }
+  100% {
+    stroke-dashoffset: 59.582176208496094px;
+    stroke-dasharray: 59.582176208496094px;
+  }
+}
+
+.svgElem5 {
+  animation: animate-svg-stroke-5 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.46s infinite;
+}
+
+@keyframes animate-svg-stroke-6 {
+  0% {
+    stroke-dashoffset: 86.59634399414062px;
+    stroke-dasharray: 86.59634399414062px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 86.59634399414062px;
+  }
+  100% {
+    stroke-dashoffset: 86.59634399414062px;
+    stroke-dasharray: 86.59634399414062px;
+  }
+}
+
+.svgElem6 {
+  animation: animate-svg-stroke-6 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s infinite;
+}
+
+@keyframes animate-svg-stroke-7 {
+  0% {
+    stroke-dashoffset: 8.547682285308838px;
+    stroke-dasharray: 8.547682285308838px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 8.547682285308838px;
+  }
+  100% {
+    stroke-dashoffset: 8.547682285308838px;
+    stroke-dasharray: 8.547682285308838px;
+  }
+}
+
+.svgElem7 {
+  animation: animate-svg-stroke-7 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.72s infinite;
+}
+
+@keyframes animate-svg-stroke-8 {
+  0% {
+    stroke-dashoffset: 5.99247145652771px;
+    stroke-dasharray: 5.99247145652771px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 5.99247145652771px;
+  }
+  100% {
+    stroke-dashoffset: 5.99247145652771px;
+    stroke-dasharray: 5.99247145652771px;
+  }
+}
+
+.svgElem8 {
+  animation: animate-svg-stroke-8 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.84s infinite;
+}
+
+@keyframes animate-svg-stroke-9 {
+  0% {
+    stroke-dashoffset: 5.99247145652771px;
+    stroke-dasharray: 5.99247145652771px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 5.99247145652771px;
+  }
+  100% {
+    stroke-dashoffset: 5.99247145652771px;
+    stroke-dasharray: 5.99247145652771px;
+  }
+}
+
+.svgElem9 {
+  animation: animate-svg-stroke-9 6s cubic-bezier(0.47, 0, 0.745, 0.715) 0.96s infinite;
+}
+
+@keyframes animate-svg-stroke-10 {
+  0% {
+    stroke-dashoffset: 101.07965087890625px;
+    stroke-dasharray: 101.07965087890625px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 101.07965087890625px;
+  }
+  100% {
+    stroke-dashoffset: 101.07965087890625px;
+    stroke-dasharray: 101.07965087890625px;
+  }
+}
+
+@keyframes animate-svg-fill-10 {
+  0% {
+    fill: transparent;
+  }
+  25%, 75% {
+    fill: rgb(0, 164, 141);
+  }
+  100% {
+    fill: transparent;
+  }
+}
+
+.svgElem10 {
+  animation: 
+    animate-svg-stroke-10 6s cubic-bezier(0.47, 0, 0.745, 0.715) 1.06s infinite,
+    animate-svg-fill-10 6s ease-in-out 1.06s infinite;
+}
+
+@keyframes animate-svg-stroke-11 {
+  0% {
+    stroke-dashoffset: 102.59346008300781px;
+    stroke-dasharray: 102.59346008300781px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 102.59346008300781px;
+  }
+  100% {
+    stroke-dashoffset: 102.59346008300781px;
+    stroke-dasharray: 102.59346008300781px;
+  }
+}
+
+.svgElem11 {
+  animation: animate-svg-stroke-11 6s cubic-bezier(0.47, 0, 0.745, 0.715) 1.2s infinite;
+}
+
+/* Text animation for Shomotsu - handwriting effect */
+@keyframes text-stroke-animation {
+  0% {
+    stroke-dashoffset: 1512.6239013671875px;
+    stroke-dasharray: 1512.6239013671875px;
+    fill: transparent;
+    stroke-width: 1px;
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+    stroke-width: 1.5px;
+    fill: rgba(0, 0, 0, 0.01);
+  }
+  5% {
+    fill: rgba(0, 0, 0, 0.02);
+  }
+  10% {
+    stroke-dashoffset: 1210px;
+    stroke-dasharray: 1512.6239013671875px;
+    stroke-width: 1.2px;
+    fill: rgba(0, 0, 0, 0.04);
+  }
+  15% {
+    fill: rgba(0, 0, 0, 0.08);
+  }
+  20% {
+    stroke-dashoffset: 908px;
+    stroke-width: 1.8px;
+    fill: rgba(0, 0, 0, 0.12);
+  }
+  25% {
+    fill: rgba(0, 0, 0, 0.18);
+  }
+  30% {
+    stroke-dashoffset: 605px;
+    stroke-width: 1.3px;
+    fill: rgba(0, 0, 0, 0.25);
+  }
+  35% {
+    fill: rgba(0, 0, 0, 0.35);
+  }
+  40% {
+    stroke-dashoffset: 302px;
+    stroke-width: 1.7px;
+    fill: rgba(0, 0, 0, 0.5);
+  }
+  42% {
+    fill: rgba(0, 0, 0, 0.6);
+  }
+  45% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1512.6239013671875px;
+    stroke-width: 1px;
+    fill: rgba(0, 0, 0, 0.8);
+  }
+  50%, 75% {
+    fill: rgb(0, 0, 0);
+    stroke-dashoffset: 0;
+    stroke-width: 1px;
+  }
+  80% {
+    fill: rgba(0, 0, 0, 0.6);
+    stroke-dashoffset: 302px;
+  }
+  85% {
+    fill: rgba(0, 0, 0, 0.4);
+    stroke-dashoffset: 605px;
+  }
+  90% {
+    fill: rgba(0, 0, 0, 0.2);
+    stroke-dashoffset: 908px;
+  }
+  95% {
+    fill: transparent;
+    stroke-dashoffset: 1210px;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 1512.6239013671875px;
+    fill: transparent;
+    opacity: 0;
+  }
+}
+
+.svgElem12 {
+  stroke: #000;
+  stroke-width: 1px;
+  fill: transparent;
+  animation: text-stroke-animation 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  transform-origin: center;
+}
+
+.svgElem12:hover {
+  animation-play-state: paused;
+}
+
+@keyframes animate-svg-stroke-13 {
+  0% {
+    stroke-dashoffset: 880px;
+    stroke-dasharray: 880px;
+  }
+  25%, 75% {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 880px;
+  }
+  100% {
+    stroke-dashoffset: 880px;
+    stroke-dasharray: 880px;
+  }
+}
+
+@keyframes animate-svg-fill-13 {
+  0% {
+    fill: transparent;
+  }
+  25%, 75% {
+    fill: rgb(255, 255, 255);
+  }
+  100% {
+    fill: transparent;
+  }
+}
+
+.svgElem13 {
+  animation: 
+    animate-svg-stroke-13 6s cubic-bezier(0.47, 0, 0.745, 0.715) 1.44s infinite,
+    animate-svg-fill-13 6s ease-in-out 1.44s infinite;
+}

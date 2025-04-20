@@ -16,7 +16,7 @@ const ExploreCategory = async ({ params, searchParams }: Props) => {
 
   return (
     <Suspense fallback={<BooksListSkeleton />}>
-      <ExploreCategoryPage page={parseInt(page)} categoryName={category} />;
+      <ExploreCategoryPage page={parseInt(page)} categoryName={category} />
     </Suspense>
   );
 };
