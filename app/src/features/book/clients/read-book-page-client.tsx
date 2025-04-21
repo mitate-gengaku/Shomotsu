@@ -128,7 +128,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
 
   return (
     <div className={cn("w-full h-full", colorData[themeColor].color)} data-testid="read-book-page">
-      <div className={cn("w-full lg:w-1/2 mx-auto px-4 pt-16 pb-20 relative min-h-screen h-full")}>
+      <div className={cn("w-full xl:w-1/2 mx-auto px-4 pt-16 pb-20 relative min-h-screen h-full")}>
         <div className="w-full absolute top-2 left-0 px-4 flex items-center">
           <Sheet>
             <SheetTrigger asChild>
@@ -261,10 +261,10 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
         </div>
         <div className={cn("fixed left-0 bottom-0 w-full flex flex-col", colorData[themeColor].color)}>
           <Progress
-            value={((currentPageIndex + 1) / contents.length) * 100}
+            value={currentPageIndex === contents.length - 1 ? 100 : (currentPageIndex / contents.length) * 100}
             className="[&>div]:bg-teal-500 rounded-none"
           />
-          <div className="w-full lg:w-1/2 mx-auto px-4 h-12 flex justify-around items-center gap-8">
+          <div className="w-[full] xl:w-1/2 mx-auto px-4 h-12 flex justify-around items-center gap-8">
             <Button
               className="px-0 !bg-transparent border-transparent shadow-none text-teal-600 hover:text-teal-700 items-center"
               disabled={currentPageIndex === 0}
@@ -278,13 +278,13 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                 <Button
                   variant={"ghost"}
                   size={"icon"}
-                  className="flex xl:hidden hover:bg-transparent text-muted-foreground focus-visible:ring-transparent hover:text-gray-400"
+                  className="flex hover:bg-transparent text-muted-foreground focus-visible:ring-transparent hover:text-gray-400"
                 >
                   <ListIcon />
                 </Button>
               </SheetTrigger>
               <SheetContent>
-                <SheetHeader>
+                <SheetHeader className="text-left">
                   <SheetTitle>{title}</SheetTitle>
                   <SheetDescription>目次</SheetDescription>
                 </SheetHeader>
