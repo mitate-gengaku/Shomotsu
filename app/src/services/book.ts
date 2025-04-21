@@ -18,6 +18,7 @@ export class BookService {
   }
 
   async getBookDetail(userId: string | null, slug: string): Promise<BookWithAllRelations> {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const decodedSlug = decodeURI(slug);
 
     const where = and(
