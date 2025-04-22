@@ -10,6 +10,7 @@ interface Props {
 export const ReadBookPage = async ({ slug }: Props) => {
   const { userId } = await auth();
   const book = await bookService.getBookDetail(userId, slug);
+  const content = book.chapters.map(({ content }) => (content ? content : "")).join("\n");
 
-  return <ReadBookPageClient title={book.title} content={book.content} slug={book.slug} />;
+  return <ReadBookPageClient title={book.title} content={content} slug={book.slug} />;
 };

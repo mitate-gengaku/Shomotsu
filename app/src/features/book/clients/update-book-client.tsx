@@ -36,17 +36,19 @@ import { cn } from "@/utils/cn";
 interface Props {
   book: BookWithAllRelations;
   categories: Category[];
+  content: string;
 }
 
-export const UpdateBookPageClient = ({ book, categories }: Props) => {
+export const UpdateBookPageClient = ({ book, categories, content }: Props) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState({
     description: book.description,
     category: book.categoryId,
     cover: book.cover,
-    content: book.content,
+    content: content,
     publish: book.publish,
   });
+
   const [contentHeight, setContentHeight] = useState<number>(500);
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<string | string[]>("");
@@ -151,7 +153,7 @@ export const UpdateBookPageClient = ({ book, categories }: Props) => {
         console.error(e.message);
       }
 
-      console.log("something went wrong");
+      console.error("something went wrong");
     }
   };
 

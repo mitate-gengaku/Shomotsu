@@ -28,6 +28,7 @@ export class BookRepository {
           },
         },
         category: true,
+        chapters: true,
       },
     });
   }
@@ -46,18 +47,6 @@ export class BookRepository {
             imageUrl: true,
           },
         },
-        category: true,
-      },
-    });
-  }
-
-  async getBooks(offset: number, pageSize: number = 16) {
-    return await db.query.booksTable.findMany({
-      where: (fields, { eq }) => eq(fields.publish, true),
-      offset: offset,
-      limit: pageSize,
-      orderBy: (fields, { desc }) => [desc(fields.id)],
-      with: {
         category: true,
       },
     });

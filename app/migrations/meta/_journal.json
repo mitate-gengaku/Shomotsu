@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1743248748065,
-      "tag": "0000_flowery_skin",
+      "when": 1745246848393,
+      "tag": "0000_pretty_captain_midlands",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1743305715778,
-      "tag": "0001_powerful_penance",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1743306991882,
-      "tag": "0002_pale_the_call",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1743308731501,
-      "tag": "0003_swift_silvermane",
+      "when": 1745246989737,
+      "tag": "0001_happy_wiccan",
       "breakpoints": true
     }
   ]

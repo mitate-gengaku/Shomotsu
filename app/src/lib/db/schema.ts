@@ -38,7 +38,7 @@ export const booksTable = pgTable("books_table", {
   slug: varchar({ length: 192 }).notNull().unique(),
   toc: text("toc").array().notNull().default([]),
   cover: text("cover"),
-  content: text("content"),
+  // content: text("content"),
   publish: boolean("publish").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
@@ -47,21 +47,8 @@ export const booksTable = pgTable("books_table", {
     .$onUpdate(() => new Date()),
 });
 
-export const chaptersTable = pgTable("chapters_table", {
-  id: text("id").notNull().primaryKey(),
-  bookId: text("bookId").references(() => booksTable.id),
-  title: varchar({ length: 28 }).notNull(),
-  content: text("content").notNull(),
-  publish: boolean("publish").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .defaultNow()
-    .$onUpdate(() => new Date()),
-});
-
 export const librariesTable = pgTable(
-  "libraries",
+  "libraries_table",
   {
     userId: text("userId")
       .notNull()
@@ -76,6 +63,27 @@ export const librariesTable = pgTable(
   (t) => [primaryKey({ columns: [t.userId, t.bookId] })],
 );
 
+export const chaptersTable = pgTable("chapters_table", {
+  id: text("id").notNull().primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => usersTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  bookId: text("bookId")
+    .notNull()
+    .references(() => booksTable.id),
+  title: text("title"),
+  content: text("content").default(""),
+  publish: boolean("publish").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+});
+
 /**
  * relation
  */
@@ -83,7 +91,7 @@ export const userRelations = relations(usersTable, ({ many }) => ({
   books: many(booksTable),
 }));
 
-export const bookRelations = relations(booksTable, ({ one }) => ({
+export const bookRelations = relations(booksTable, ({ one, many }) => ({
   user: one(usersTable, {
     fields: [booksTable.userId],
     references: [usersTable.id],
@@ -92,6 +100,7 @@ export const bookRelations = relations(booksTable, ({ one }) => ({
     fields: [booksTable.categoryId],
     references: [categoriesTable.id],
   }),
+  chapters: many(chaptersTable),
 }));
 
 export const categoryRelations = relations(categoriesTable, ({ many }) => ({
@@ -105,6 +114,17 @@ export const librariesRelations = relations(librariesTable, ({ one }) => ({
   }),
   user: one(usersTable, {
     fields: [librariesTable.userId],
+    references: [usersTable.id],
+  }),
+}));
+
+export const chaptersRelations = relations(chaptersTable, ({ one }) => ({
+  book: one(booksTable, {
+    fields: [chaptersTable.bookId],
+    references: [booksTable.id],
+  }),
+  user: one(usersTable, {
+    fields: [chaptersTable.userId],
     references: [usersTable.id],
   }),
 }));

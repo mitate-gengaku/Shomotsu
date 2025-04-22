@@ -9,7 +9,6 @@ export const books: Book[] = [
     categoryId: "categoryId",
     toc: [],
     cover: "",
-    content: "こんにちは",
     publish: false,
     slug: "test-book",
     createdAt: new Date(),

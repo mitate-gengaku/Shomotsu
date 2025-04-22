@@ -36,6 +36,7 @@ export class BookService {
   }
 
   async getMyBooks(userId: string | null): Promise<Book[]> {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const where = eq(booksTable.userId, userId ?? "");
     const orderBy = desc(booksTable.createdAt);
 

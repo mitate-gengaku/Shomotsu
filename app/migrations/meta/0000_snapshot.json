@@ -1,5 +1,5 @@
 {
-  "id": "7b67ef91-e968-43ec-9701-1892b720032d",
+  "id": "860bc895-a1b9-4cb0-9bcc-50b3c83fa032",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14,47 +14,55 @@
           "primaryKey": true,
           "notNull": true
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "category_id": {
-          "name": "category_id",
+        "categoryId": {
+          "name": "categoryId",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "title": {
           "name": "title",
           "type": "varchar(28)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "description": {
           "name": "description",
-          "type": "varchar(256)",
+          "type": "varchar(192)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "''"
         },
-        "content": {
-          "name": "content",
-          "type": "text",
+        "slug": {
+          "name": "slug",
+          "type": "varchar(192)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "toc": {
+          "name": "toc",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'"
         },
         "cover": {
           "name": "cover",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "publish": {
           "name": "publish",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": false
         },
         "created_at": {
@@ -74,12 +82,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "books_table_user_id_users_table_id_fk": {
-          "name": "books_table_user_id_users_table_id_fk",
+        "books_table_userId_users_table_id_fk": {
+          "name": "books_table_userId_users_table_id_fk",
           "tableFrom": "books_table",
           "tableTo": "users_table",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -87,22 +95,37 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "books_table_category_id_categories_table_id_fk": {
-          "name": "books_table_category_id_categories_table_id_fk",
+        "books_table_categoryId_categories_table_id_fk": {
+          "name": "books_table_categoryId_categories_table_id_fk",
           "tableFrom": "books_table",
           "tableTo": "categories_table",
           "columnsFrom": [
-            "category_id"
+            "categoryId"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "restrict",
-          "onUpdate": "cascade"
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "books_table_title_unique": {
+          "name": "books_table_title_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "title"
+          ]
+        },
+        "books_table_slug_unique": {
+          "name": "books_table_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -167,6 +190,166 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.chapters_table": {
+      "name": "chapters_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bookId": {
+          "name": "bookId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
+        },
+        "publish": {
+          "name": "publish",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "chapters_table_userId_users_table_id_fk": {
+          "name": "chapters_table_userId_users_table_id_fk",
+          "tableFrom": "chapters_table",
+          "tableTo": "users_table",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "chapters_table_bookId_books_table_id_fk": {
+          "name": "chapters_table_bookId_books_table_id_fk",
+          "tableFrom": "chapters_table",
+          "tableTo": "books_table",
+          "columnsFrom": [
+            "bookId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "chapters_table_userId_bookId_pk": {
+          "name": "chapters_table_userId_bookId_pk",
+          "columns": [
+            "userId",
+            "bookId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.libraries_table": {
+      "name": "libraries_table",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bookId": {
+          "name": "bookId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "libraries_table_userId_users_table_id_fk": {
+          "name": "libraries_table_userId_users_table_id_fk",
+          "tableFrom": "libraries_table",
+          "tableTo": "users_table",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "libraries_table_bookId_books_table_id_fk": {
+          "name": "libraries_table_bookId_books_table_id_fk",
+          "tableFrom": "libraries_table",
+          "tableTo": "books_table",
+          "columnsFrom": [
+            "bookId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "libraries_table_userId_bookId_pk": {
+          "name": "libraries_table_userId_bookId_pk",
+          "columns": [
+            "userId",
+            "bookId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.users_table": {
       "name": "users_table",
       "schema": "",
@@ -177,8 +360,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "username": {
+          "name": "username",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -193,7 +376,7 @@
           "name": "image_url",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -214,6 +397,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_table_username_unique": {
+          "name": "users_table_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
         "users_table_email_unique": {
           "name": "users_table_email_unique",
           "nullsNotDistinct": false,
