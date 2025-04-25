@@ -13,10 +13,11 @@ export const UpdateBookPage = async ({ slug }: Props) => {
   const { userId } = await auth();
   const book = await bookService.getBookDetail(userId, slug);
   const categories = await categoryService.getCategories();
+  const chapterContent = book.chapters.map(({ content }) => (content ? content : "")).join("\n");
 
   if (book.userId !== userId) {
     forbidden();
   }
 
-  return <UpdateBookPageClient book={book} categories={categories} />;
+  return <UpdateBookPageClient book={book} categories={categories} content={chapterContent} />;
 };

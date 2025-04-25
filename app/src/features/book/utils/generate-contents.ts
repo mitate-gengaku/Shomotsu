@@ -1,4 +1,4 @@
-export const generateContents = (content: string | null) => {
+export const generateContents = (content?: string | null) => {
   if (!content) return [];
   const arrayOfParsedContent = content.split("\n");
   const chapters: string[] = [];
