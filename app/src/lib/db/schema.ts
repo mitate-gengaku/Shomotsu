@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, varchar, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, varchar, primaryKey, integer } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users_table", {
   id: text("id").primaryKey(),
@@ -38,7 +38,6 @@ export const booksTable = pgTable("books_table", {
   slug: varchar({ length: 192 }).notNull().unique(),
   toc: text("toc").array().notNull().default([]),
   cover: text("cover"),
-  // content: text("content"),
   publish: boolean("publish").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
@@ -77,6 +76,7 @@ export const chaptersTable = pgTable("chapters_table", {
   title: text("title"),
   content: text("content").default(""),
   publish: boolean("publish").notNull().default(true),
+  price: integer("price").default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
