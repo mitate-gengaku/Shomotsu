@@ -1,8 +1,9 @@
 "use client";
+import { useAtom } from "jotai";
 import { ChevronLeftIcon, ChevronRightIcon, ListIcon, SettingsIcon } from "lucide-react";
 import { Hachi_Maru_Pop } from "next/font/google";
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useRef, useState, WheelEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
 import remarkBreaks from "remark-breaks";
@@ -20,7 +21,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Switch } from "@/components/ui/switch";
 import { generateContents } from "@/features/book/utils/generate-contents";
+import { makimonoAtom } from "@/stores/makimono";
 import { cn } from "@/utils/cn";
 
 const font = Hachi_Maru_Pop({
@@ -82,6 +85,15 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
   const [fontSize, setFontSize] = useState<number>(1);
   const [themeColor, setThemeColor] = useState<number>(0);
 
+  const [wheel, setWheel] = useState<number>(0);
+  const [width, setWidth] = useState<number>(0);
+
+  const readRef = useRef<HTMLDivElement>(null);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const [isMakinomoView, setMakimonoView] = useAtom(makimonoAtom);
+
   const contents = generateContents(content);
 
   const onChangeFontSize = (size: number) => {
@@ -104,10 +116,7 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
   const onClickPrevPage = () => {
     setCurrentPageIndex((index) => {
       if (index > 0) {
-        window.scrollTo({
-          top: 0,
-        });
-
+        readRef.current?.scrollIntoView();
         return index - 1;
       }
       return 0;
@@ -117,17 +126,132 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
   const onClickNextPage = () => {
     setCurrentPageIndex((index) => {
       if (index < contents.length - 1) {
-        window.scrollTo({
-          top: 0,
-        });
+        readRef.current?.scrollIntoView();
         return index + 1;
       }
       return index;
     });
   };
 
+  const onWheel = (e: WheelEvent<HTMLDivElement>) => {
+    const container = contentRef.current;
+    if (!container) return;
+
+    setWheel((prev) => {
+      const prevValue = Math.floor(prev);
+      const deltaY = Math.floor(e.deltaY);
+      const result = prevValue + deltaY;
+
+      if (result > container.clientWidth) {
+        return prevValue + (container.clientWidth - prevValue);
+      }
+
+      if (result < 0) {
+        return 0;
+      }
+
+      setWidth((result / container.clientWidth) * 100);
+
+      return result;
+    });
+  };
+
+  const setMakimonoViewCheck = (checked: boolean) => {
+    setMakimonoView(checked);
+  };
+
+  if (isMakinomoView) {
+    return (
+      <div
+        className="w-screen h-screen px-12 flex justify-start items-center overflow-x-hidden relative"
+        onWheel={onWheel}
+      >
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              className="flex absolute top-2 right-8 lg:right-[calc(25%+28px)] hover:bg-transparent text-muted-foreground focus-visible:ring-transparent hover:text-gray-400"
+            >
+              <SettingsIcon />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80 py-4">
+            <DropdownMenuLabel className="text-muted-foreground">巻物</DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <div className="px-2">
+                <Switch
+                  checked={isMakinomoView}
+                  onCheckedChange={setMakimonoViewCheck}
+                  className="data-[state=checked]:bg-teal-500"
+                />
+              </div>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Suspense>
+          <div className="z-10 fixed left-8 flex items-center justify-center">
+            <div
+              className="[transform-style:preserve-3d] [transition-duration:800ms;]"
+              style={{
+                transform: `perspective(1000px) rotateY(-${wheel / 10}deg)`,
+              }}
+            >
+              {[...new Array(32)].map((_, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "w-8 h-[600px] absolute block px-[10px] [transform-style:preserve-3d]",
+                    // "[background:url('https://images.unsplash.com/photo-1742845918430-c6093f93f740?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')_no-repeat;]",
+                  )}
+                  style={{
+                    transform: `translate(-50%, -50%) rotateY(${i * 11.25}deg) translateZ(152px)`,
+                    background: `url(${new URL("http://localhost:3000/view.png")}) no-repeat`,
+                    backgroundPositionX: `${i * -31}px`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          <div
+            className="absolute left-[9rem] w-8 h-[87%] z-[9] shadow-2xl"
+            style={{
+              boxShadow: `48px 0 64px -2px #000000`,
+            }}
+          />
+        </Suspense>
+        <div
+          className="absolute right-full h-[81%] border shadow-xl p-4 bg-green-800 [transition-duration:800ms;]"
+          style={{
+            transform: `translateX(${wheel - 200}px)`,
+          }}
+        >
+          <div className="w-full h-full bg-white dark:bg-slate-950 flex flex-row-reverse">
+            <div
+              className={cn(
+                "w-full py-3.5 prose dark:prose-invert max-w-none pl-[456px] pr-4 font-medium flex flex-row-reverse [&>*]:[writing-mode:vertical-rl]",
+                "text-base",
+                "[&>*]:my-0 [&>*]:mx-2 [&>*]:indent-4 prose-li:indent-0 prose-ol:pt-1 prose-ol:indent-0 prose-ul:indent-0 prose-img:my-0",
+                // img
+                "prose-img:h-full",
+                // ol
+                "prose-ol:list-none prose-ol:ml-0 prose-li:[counter-increment:custom] [&_ol>li:before]:text-gray-400 [&_ol>li:before]:[content:counter(custom)_'_'] [&_ol>li:before]:mb-2 [&_ol>li:before]:[text-combine-upright:all] [&_ol>li:first-child]:[counter-reset:custom]",
+              )}
+              ref={contentRef}
+            >
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} rehypePlugins={[rehypeSanitize]}>
+                {content}
+              </ReactMarkdown>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={cn("w-full h-full", colorData[themeColor].color)} data-testid="read-book-page">
+      <div className="sr-only" ref={readRef} />
       <div className={cn("w-full xl:w-1/2 mx-auto px-4 pt-16 pb-20 relative min-h-screen h-full")}>
         <div className="w-full absolute top-2 left-0 px-4 flex items-center">
           <Sheet>
@@ -181,6 +305,14 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                     ))}
                   </div>
                 </div>
+                <div className="px-2">
+                  <h3>巻物形式</h3>
+                  <Switch
+                    checked={isMakinomoView}
+                    onCheckedChange={setMakimonoViewCheck}
+                    className="data-[state=checked]:bg-teal-500"
+                  />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -228,6 +360,17 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
                   </Button>
                 ))}
               </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-muted-foreground">巻物形式</DropdownMenuLabel>
+              <DropdownMenuGroup>
+                <div className="px-2">
+                  <Switch
+                    checked={isMakinomoView}
+                    onCheckedChange={setMakimonoViewCheck}
+                    className="data-[state=checked]:bg-teal-500"
+                  />
+                </div>
+              </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -259,12 +402,17 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
             {contents[currentPageIndex]}
           </ReactMarkdown>
         </div>
-        <div className={cn("fixed left-0 bottom-0 w-full flex flex-col", colorData[themeColor].color)}>
+        <div
+          className={cn(
+            "fixed left-0 bottom-0 w-[calc(100%-4px)] xl:w-[calc(100%-12px)] flex flex-col",
+            colorData[themeColor].color,
+          )}
+        >
           <Progress
             value={currentPageIndex === contents.length - 1 ? 100 : (currentPageIndex / contents.length) * 100}
             className="[&>div]:bg-teal-500 rounded-none"
           />
-          <div className="w-[full] xl:w-1/2 mx-auto px-4 h-12 flex justify-around items-center gap-8">
+          <div className="w-full xl:w-1/2 mx-auto px-4 h-12 flex justify-around items-center gap-8">
             <Button
               className="px-0 !bg-transparent border-transparent shadow-none text-teal-600 hover:text-teal-700 items-center"
               disabled={currentPageIndex === 0}
@@ -321,13 +469,3 @@ export const ReadBookPageClient = ({ title, slug, content }: Props) => {
     </div>
   );
 };
-
-/**
- * <div className="w-auto h-full px-12 flex flex-row-reverse items-center overflow-x-scroll">
-      <div 
-        className="min-w-[calc(100vw*3)] h-4/5 border shadow-xl p-4 bg-green-800 hidden"
-        >
-        <div className="w-full h-full bg-white dark:bg-slate-950"></div>
-      </div>
-    </div>
- */
