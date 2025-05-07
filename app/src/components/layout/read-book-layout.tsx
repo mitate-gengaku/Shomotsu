@@ -12,7 +12,7 @@ export const ReadBookLayoutUI = ({ children }: Readonly<{ children: React.ReactN
     <div
       className={cn(
         "w-full flex flex-col min-h-screen max-h-screen bg-white relative",
-        isMakimonoView ? "overflow-y-hidden" : "overflow-y-scroll"
+        isMakimonoView ? "overflow-y-hidden" : "overflow-y-scroll",
       )}
       data-testid="read-book-layout"
     >
