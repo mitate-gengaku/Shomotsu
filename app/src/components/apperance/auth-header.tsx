@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@clerk/nextjs/server";
 import { CompassIcon } from "lucide-react";
 import Link from "next/link";
